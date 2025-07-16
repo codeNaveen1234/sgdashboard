@@ -1,0 +1,50 @@
+.district-view-container {
+  padding: 2rem;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#district-map-container {
+  width: 100%;
+  height: auto;
+}
+
+#district-map-container svg {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.indicator-container {
+  display: flex;
+  flex-direction: column; /* Ensure vertical stacking */
+  gap: 1rem;
+}
+
+/* Mobile layout: 1 card per row */
+.indicator-container > app-mini-indicator-card {
+  flex-basis: 100%;
+}
+
+/* Medium and Large screens: Map 3:1 ratio, 1 card per row */
+@media (min-width: 768px) {
+  .main-container {
+    flex-direction: row;
+    align-items: center; /* Vertically center items */
+  }
+
+  #district-map-container {
+    flex: 3;
+  }
+
+  .indicator-container {
+    flex: 1;
+  }
+
+  .indicator-container > app-mini-indicator-card {
+    flex-basis: 100%; /* 1 card per row */
+  }
+}

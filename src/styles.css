@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+html {
+  --background-color-light: #fbf8ff;
+  --text-color-light: #343a40;
+  --primary-color-light: #572e91;
+  --primary-color-rgb-light: 87, 46, 145;
+  --primary-hover-color-light: #42236b;
+  --hero-background-color-light: #ffffff;
+
+  --background-color-dark: #121212;
+  --text-color-dark: #ffffff;
+  --primary-color-dark: #572e91;
+  --primary-color-rgb-dark: 87, 46, 145;
+  --primary-hover-color-dark: #42236b;
+  --hero-background-color-dark: #1a1a2e;
+}
+
+html.light-theme {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --primary-color: var(--primary-color-light);
+  --primary-hover-color: var(--primary-hover-color-light);
+  --hero-background-color: var(--hero-background-color-light);
+}
+
+html.dark-theme {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --primary-color: var(--primary-color-dark);
+  --primary-hover-color: var(--primary-hover-color-dark);
+  --hero-background-color: var(--hero-background-color-dark);
+}
+
+body {
+  font-family: 'Roboto', sans-serif; /* Using Roboto as a common Google font */
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Basic Link Styling */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-hover-color);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Global Map Styles */
+.ocean {
+  fill: #97c1da;
+}
+
+.country {
+  fill: #CCCCCC; /* New background color for land */
+  stroke: #fff;
+  stroke-width: 0.5px;
+}
+
+.india {
+  fill: #572e91; /* Keep India's highlight color */
+}

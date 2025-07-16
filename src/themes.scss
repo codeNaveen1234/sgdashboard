@@ -1,0 +1,29 @@
+:root {
+  --background-color-light: #f8f9fa;
+  --text-color-light: #343a40;
+  --primary-color-light: #572e91;
+  --primary-hover-color-light: #42236b;
+  --hero-background-color-light: #ffffff;
+
+  --background-color-dark: #121212;
+  --text-color-dark: #ffffff;
+  --primary-color-dark: #572e91;
+  --primary-hover-color-dark: #42236b;
+  --hero-background-color-dark: #1a1a2e;
+}
+
+body.light-theme {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --primary-color: var(--primary-color-light);
+  --primary-hover-color: var(--primary-hover-color-light);
+  --hero-background-color: var(--hero-background-color-light);
+}
+
+body.dark-theme {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --primary-color: var(--primary-color-dark);
+  --primary-hover-color: var(--primary-hover-color-dark);
+  --hero-background-color: var(--hero-background-color-dark);
+}
