@@ -1,0 +1,8 @@
+#map-container {
+  border: 1px solid #ccc;
+}
+
+.countries path {
+  stroke: #fff;
+  stroke-width: 0.5px;
+}
