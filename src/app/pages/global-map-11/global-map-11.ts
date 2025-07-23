@@ -4,20 +4,20 @@ import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
 
 interface NetworkDataItem {
-  source: [number, number];
-  target: [number, number];
+  source: string;
+  target: string;
   color: string;
-  dasharray: string;
+  lineStyle: 'dotted' | 'straight' | 'dashed' | 'flow';
 }
 
 @Component({
-  selector: 'app-global-map-2',
+  selector: 'app-global-map-11',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './global-map-2.html',
-  styleUrls: ['./global-map-2.css']
+  templateUrl: './global-map-11.html',
+  styleUrls: ['./global-map-11.css']
 })
-export class GlobalMap2 implements OnInit, AfterViewInit {
+export class GlobalMap11 implements OnInit, AfterViewInit {
   @ViewChild('mapContainer') private mapContainer!: ElementRef;
   
     constructor() { }
@@ -98,8 +98,8 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
             if (d.properties.name === 'India') {
               return 'brown'; // Highlight color for India
             }
-            // const continent = continentMap.get(d.properties.name);
-            // return continent ? colorScale(continent) : '#ccc'; 
+            const continent = continentMap.get(d.properties.name); 
+            return continent ? colorScale(continent) : '#ccc'; 
             return '#e6e3e3ff'; // Grey color for all other countries
           })
           .on('mouseover', (event, d: any) => {
@@ -115,78 +115,30 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
             tooltip.transition().style('opacity', 0);
           });
   
+        // Find coordinates for Brazil and India
         const india = countries.find((d: any) => d.properties.name === 'India');
-
-        const networkData: NetworkDataItem[] = [
-          { source: [-118.2437, 34.0522], target: [76.2711, 10.8505], color: 'blue', dasharray: '4 4' }, // Los Angeles to Kerala
-          { source: [55.2962, 25.2770], target: [72.1362, 22.3094], color: 'red', dasharray: '8 2' }, // Dubai to Gujarat
-          { source: [8.2275, 46.8182], target: [72.8774, 19.0761], color: 'green', dasharray: '2 2' }, // Switzerland to Mumbai
-          { source: [0, -90], target: [75.0856, 30.7353], color: 'purple', dasharray: '10 5' }, // Antarctica to Punjab
-          { source: [0, 90], target: [94.5624, 26.1584], color: 'orange', dasharray: '5 5' }, // Arctic to Nagaland
-          { source: [24.6727, -28.4793], target: [77.5712, 32.0842], color: 'teal', dasharray: '3 3' }, // South Africa to Himachal Pradesh
-        ];
-
-        networkData.forEach(connection => {
+        const brazil = countries.find((d: any) => d.properties.name === 'Brazil');
+  
+        if (india && brazil) {
+          const indiaCoords = d3.geoCentroid(india as any);
+          const brazilCoords = d3.geoCentroid(brazil as any);
+  
           const lineData = [{
             type: "LineString",
-            coordinates: [connection.source, connection.target]
+            coordinates: [brazilCoords, indiaCoords]
           }];
-
-          const line = svg.append('g')
+  
+          svg.append('g')
             .selectAll('path.communication-line')
             .data(lineData)
             .enter().append('path')
             .attr('class', 'communication-line')
             .attr('d', path as any)
             .attr('fill', 'none')
-            .attr('stroke', connection.color)
-            .attr('stroke-width', 2)
-            .attr('stroke-dasharray', connection.dasharray);
-
-          const totalLength = line.node()?.getTotalLength();
-          if (totalLength) {
-            line
-              .attr("stroke-dasharray", totalLength + " " + totalLength)
-              .attr("stroke-dashoffset", totalLength)
-              .transition()
-              .duration(5000)
-              .ease(d3.easeLinear)
-              .attr("stroke-dashoffset", 0)
-              .on("end", () => {
-                line.transition()
-                  .duration(5000)
-                  .ease(d3.easeLinear)
-                  .attr("stroke-dashoffset", -totalLength)
-                  .on("end", () => {
-                    // Loop the animation
-                    line.transition()
-                      .duration(0)
-                      .attr("stroke-dashoffset", totalLength)
-                      .transition()
-                      .duration(5000)
-                      .ease(d3.easeLinear)
-                      .attr("stroke-dashoffset", 0)
-                      .on("end", () => {
-                        // Loop the animation
-                        line.transition()
-                          .duration(5000)
-                          .ease(d3.easeLinear)
-                          .attr("stroke-dashoffset", -totalLength)
-                          .on("end", () => {
-                            // Loop the animation
-                            line.transition()
-                              .duration(0)
-                              .attr("stroke-dashoffset", totalLength)
-                              .transition()
-                              .duration(5000)
-                              .ease(d3.easeLinear)
-                              .attr("stroke-dashoffset", 0);
-                          });
-                      });
-                  });
-              });
-          }
-        });
+            .attr('stroke', '#000')
+            .attr('stroke-width', 1.5)
+            .attr('stroke-dasharray', '4, 4');
+        }
   
       }).catch(err => console.error('Error loading data:', err));
     }

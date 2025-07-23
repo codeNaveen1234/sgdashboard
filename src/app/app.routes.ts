@@ -17,6 +17,8 @@ import { GlobalMap8 } from './pages/global-map-8/global-map-8';
 import { GlobalMap9Component } from './pages/global-map-9/global-map-9';
 import { GlobalMap10 } from './pages/global-map-10/global-map-10';
 import { CatalysingNetwork1 } from './pages/catalysing-network-1/catalysing-network-1';
+import { GlobalMap11 } from './pages/global-map-11/global-map-11';
+
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -36,6 +38,7 @@ export const routes: Routes = [
     { path: 'global-map-8', component: GlobalMap8 },
     { path: 'global-map-9', component: GlobalMap9Component },
     { path: 'global-map-10', component:  GlobalMap10 },
+    { path: 'global-map-11', component:  GlobalMap11 },
     { path: 'catalysing-network-1', component: CatalysingNetwork1 },
    
 ];
