@@ -1,0 +1,16 @@
+<mat-card class="chart-card">
+  <mat-card-title>Energy Sources Distribution</mat-card-title>
+  <mat-card-content>
+    <ngx-charts-pie-chart
+      [view]="view"
+      [results]="pieData"
+      [legend]="showLegend"
+      [labels]="showLabels"
+      [doughnut]="false"
+      [explodeSlices]="false"
+      [gradient]="true"
+      [animations]="true"
+    >
+    </ngx-charts-pie-chart>
+  </mat-card-content>
+</mat-card>

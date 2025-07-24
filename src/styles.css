@@ -6,6 +6,7 @@ html {
   --primary-color-rgb-light: 87, 46, 145;
   --primary-hover-color-light: #42236b;
   --hero-background-color-light: #ffffff;
+  --secondary-color-light: #ed2489;
 
   --background-color-dark: #121212;
   --text-color-dark: #ffffff;
@@ -16,7 +17,7 @@ html {
 }
 
 html.light-theme {
-  --background-color: var(--background-color-light);
+  /* --background-color: var(--background-color-light); */
   --text-color: var(--text-color-light);
   --primary-color: var(--primary-color-light);
   --primary-hover-color: var(--primary-hover-color-light);

@@ -11,4 +11,5 @@ import { CommonModule } from '@angular/common';
 export class IndicatorCardComponent {
   @Input() value: string | number = '';
   @Input() label: string = '';
+  @Input() icon: string = '';
 }

@@ -1,0 +1,61 @@
+<div class="landing-container">
+  <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
+    <!-- Hero Section -->
+    <ng-container *ngIf="section.type === 'hero'">
+      <section [ngClass]="section.styles.section">
+        <div class="container">
+          <h3 class="">{{ section.header }}</h3>
+          <h4 class="">{{ section.subHeader }}</h4>
+          <p class="">{{ section.description }}</p>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- CTA Section -->
+    <ng-container *ngIf="section.type === 'cta'">
+      <section [ngClass]="section.styles.section">
+        <div *ngFor="let card of section.cards" [ngClass]="section.styles.card">
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.text }}</p>
+          <a [routerLink]="card.button.link" [ngClass]="section.styles.button">{{ card.button.text }}</a>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- Data Indicators Section -->
+    <ng-container *ngIf="section.type === 'data-indicators'">
+      <section [ngClass]="section.styles.section">
+        <div class="container">
+          <h2 [ngClass]="section.styles.title">{{ section.title }}</h2>
+          <div [ngClass]="section.styles.grid">
+            <app-indicator-card
+              *ngFor="let indicator of section.indicators; let i = index"
+              [value]="indicator.value"
+              [label]="indicator.label"
+              [icon]="indicator.icon"
+              [style.--animation-delay.s]="i * 0.1"
+            ></app-indicator-card>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- Partner Logos Section -->
+    <ng-container *ngIf="section.type === 'partner-logos'">
+      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title"></app-partner-logos>
+    </ng-container>
+
+    <!-- Carousel Section -->
+    <ng-container *ngIf="section.type === 'carousel'">
+      <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
+    </ng-container>
+
+    <ng-container *ngIf="section.type === 'line-chart'">
+      <app-line-chart></app-line-chart>
+    </ng-container>
+
+    <ng-container *ngIf="section.type === 'pie-chart'">
+      <app-pie-chart></app-pie-chart>
+    </ng-container>
+  </div>
+</div>

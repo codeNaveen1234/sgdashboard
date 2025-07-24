@@ -1,74 +1,60 @@
 <div class="landing-container">
-  <section class="hero-section">
-    <div class="container">
-      <h1 class="hero-title">Shikshagraha: A People-Powered Movement</h1>
-      <p class="hero-tagline">Transforming Public Education in India</p>
-      <div class="hero-summary">
-        <p>Shikshagraha is a movement dedicated to transforming <strong>1 million public schools</strong> by 2030. Inspired by Satyagraha, it focuses on:</p>
-        <ul>
-          <li><strong>Enabling Leadership:</strong> Empowering leaders within systems and communities.</li>
-          <li><strong>Catalysing Networks:</strong> Fostering collaboration and amplifying change through collective action.</li>
-          <li><strong>Micro-improvements:</strong> Driving local action in regions with low learning outcomes.</li>
-        </ul>
-        <p>Our goal is to reach <strong>30% of India’s states and districts</strong>, driven by strong partnerships and local initiatives.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-section container">
-    <div class="cta-card">
-      <h3>Enabling Leadership</h3>
-      <p>Discover how we empower individuals and systems to drive educational change from within.</p>
-      <a routerLink="/country-view" class="cta-button">Explore Leadership</a>
-    </div>
-    <div class="cta-card">
-      <h3>Catalysing Networks</h3>
-      <p>Learn about the collaborative networks that amplify our impact across India.</p>
-      <a routerLink="/catalysing-networks" class="cta-button">View Networks</a>
-    </div>
-  </section>
-
-  <section class="data-indicators-section">
-    <div class="container">
-      <h2 class="section-title">Key Progress Indicators</h2>
-      <div class="data-indicators-grid">
-        <app-indicator-card
-          *ngFor="let indicator of indicatorData; let i = index"
-          [value]="indicator.value"
-          [label]="indicator.label"
-          [style.--animation-delay.s]="i * 0.1"
-        ></app-indicator-card>
-      </div>
-    </div>
-  </section>
-
-  <section class="partner-logos-section">
-    <div class="container">
-      <h2 class="section-title">Our Valued Partners</h2>
-      <div class="partner-category">
-        <h3>Strategic Partners</h3>
-        <div class="logos-container">
-          <img src="/assets/partners/strategic-partner-1.png" alt="Strategic Partner 1" class="partner-logo">
-          <img src="/assets/partners/strategic-partner-2.png" alt="Strategic Partner 2" class="partner-logo">
-          <img src="/assets/partners/strategic-partner-3.png" alt="Strategic Partner 3" class="partner-logo">
+  <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
+    <!-- Hero Section -->
+    <ng-container *ngIf="section.type === 'hero'">
+      <section [ngClass]="section.styles.section">
+        <div class="container">
+          <h1 [ngClass]="section.styles.title">{{ section.title }}</h1>
+          <p [ngClass]="section.styles.tagline">{{ section.tagline }}</p>
+          <div [ngClass]="section.styles.summary">
+            <p [innerHTML]="section.summary.text"></p>
+            <ul>
+              <li *ngFor="let point of section.summary.points" [innerHTML]="point"></li>
+            </ul>
+            <p [innerHTML]="section.summary.goal"></p>
+          </div>
         </div>
-      </div>
-      <div class="partner-category">
-        <h3>Collaborators</h3>
-        <div class="logos-container">
-          <img src="/assets/partners/collaborator-1.png" alt="Collaborator 1" class="partner-logo">
-          <img src="/assets/partners/collaborator-2.png" alt="Collaborator 2" class="partner-logo">
+      </section>
+    </ng-container>
+
+    <!-- CTA Section -->
+    <ng-container *ngIf="section.type === 'cta'">
+      <section [ngClass]="section.styles.section">
+        <div *ngFor="let card of section.cards" [ngClass]="section.styles.card">
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.text }}</p>
+          <a [routerLink]="card.button.link" [ngClass]="section.styles.button">{{ card.button.text }}</a>
         </div>
-      </div>
-      <div class="partner-category">
-        <h3>Momentum Partners</h3>
-        <div class="logos-container">
-          <img src="/assets/partners/momentum-partner-1.png" alt="Momentum Partner 1" class="partner-logo">
-          <img src="/assets/partners/momentum-partner-2.png" alt="Momentum Partner 2" class="partner-logo">
-          <img src="/assets/partners/momentum-partner-3.png" alt="Momentum Partner 3" class="partner-logo">
-          <img src="/assets/partners/momentum-partner-4.png" alt="Momentum Partner 4" class="partner-logo">
+      </section>
+    </ng-container>
+
+    <!-- Data Indicators Section -->
+    <ng-container *ngIf="section.type === 'data-indicators'">
+      <section [ngClass]="section.styles.section">
+        <div class="container">
+          <h2 [ngClass]="section.styles.title">{{ section.title }}</h2>
+          <div [ngClass]="section.styles.grid">
+            <app-indicator-card
+              *ngFor="let indicator of section.indicators; let i = index"
+              [value]="indicator.value"
+              [label]="indicator.label"
+              [icon]="indicator.icon"
+              [style.--animation-delay.s]="i * 0.1"
+            ></app-indicator-card>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
+    </ng-container>
+
+    <!-- Partner Logos Section -->
+    <ng-container *ngIf="section.type === 'partner-logos'">
+      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title"></app-partner-logos>
+    </ng-container>
+
+    <!-- Carousel Section -->
+    <ng-container *ngIf="section.type === 'carousel'">
+      <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
+    </ng-container>
+  </div>
 </div>
+

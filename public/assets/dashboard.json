@@ -1,0 +1,66 @@
+{
+  "sections": [
+    {
+      "type": "hero",
+      "width": "50%",
+      "position": "left",
+      "header": "Shikshagraha: A People-Powered Movement",
+      "subHeader": "Transforming Public Education in India",
+      "description":"Sample description",
+      "styles": {
+        "section": "hero-section",
+        "title": "hero-title",
+        "tagline": "hero-tagline",
+        "summary": "hero-summary"
+      }
+    },
+    {
+      "type": "line-chart",
+      "width": "50%",
+      "position": "center",
+      "title": "Monthly Progress",
+      "data": [
+        {"month": "Jan", "percentage": 10},
+        {"month": "Feb", "percentage": 20},
+        {"month": "Mar", "percentage": 15},
+        {"month": "Apr", "percentage": 30},
+        {"month": "May", "percentage": 25},
+        {"month": "Jun", "percentage": 40},
+        {"month": "Jul", "percentage": 35},
+        {"month": "Aug", "percentage": 50},
+        {"month": "Sep", "percentage": 45},
+        {"month": "Oct", "percentage": 60},
+        {"month": "Nov", "percentage": 55},
+        {"month": "Dec", "percentage": 70}
+      ],
+      "styles": {
+        "section": "line-chart-section",
+        "title": "section-title"
+      }
+    },
+    {
+      "type": "pie-chart",
+      "width": "50%",
+      "position": "center",
+      "title": "Monthly Progress",
+      "data": [
+        {"month": "Jan", "percentage": 10},
+        {"month": "Feb", "percentage": 20},
+        {"month": "Mar", "percentage": 15},
+        {"month": "Apr", "percentage": 30},
+        {"month": "May", "percentage": 25},
+        {"month": "Jun", "percentage": 40},
+        {"month": "Jul", "percentage": 35},
+        {"month": "Aug", "percentage": 50},
+        {"month": "Sep", "percentage": 45},
+        {"month": "Oct", "percentage": 60},
+        {"month": "Nov", "percentage": 55},
+        {"month": "Dec", "percentage": 70}
+      ],
+      "styles": {
+        "section": "line-chart-section",
+        "title": "section-title"
+      }
+    }
+  ]
+}

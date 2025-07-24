@@ -6,9 +6,11 @@ import { DistrictView } from './pages/district-view/district-view';
 import { CatalysingNetworks } from './pages/catalysing-networks/catalysing-networks';
 import { CountryView } from './pages/country-view/country-view';
 import { GlobalMap } from './pages/global-map/global-map';
+import { DashboardComponent } from './pages/dashboard/dashboard';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
+    { path: 'dashboard', component: DashboardComponent },
     { path: 'country-view', component: CountryView },
     { path: 'national-view', component: NationalView },
     { path: 'state-view/:state', component: StateView },
