@@ -28,12 +28,9 @@
     "@angular/material": "^20.1.3",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
-<<<<<<< HEAD
     "@swimlane/ngx-charts": "^23.0.0-alpha.0",
-=======
     "@types/leaflet": "^1.9.20",
     "@types/three": "^0.178.1",
->>>>>>> kiran/main
     "d3": "^7.9.0",
     "d3-geo-projection": "^4.0.0",
     "import": "^0.0.6",
