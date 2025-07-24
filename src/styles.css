@@ -72,15 +72,20 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Global Map Styles */
 .ocean {
-  fill: #97c1da;
+  fill: #ffffff;
 }
 
 .country {
-  fill: #CCCCCC; /* New background color for land */
+  /* fill: #CCCCCC; New background color for land */
   stroke: #fff;
   stroke-width: 0.5px;
 }
 
 .india {
+<<<<<<< HEAD
   fill: #572e91; /* Keep India's highlight color */
 }
+=======
+  /* fill: #572e91; Keep India's highlight color */
+}
+>>>>>>> kiran/main
