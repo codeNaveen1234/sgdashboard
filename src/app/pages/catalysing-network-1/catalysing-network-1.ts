@@ -18,7 +18,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
     // Existing Data
     {
       source: [77.2090, 28.6139], target: [72.8777, 19.0760],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner A', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner B', icon: '/assets/icons/target-icon.jpg' }],
@@ -36,7 +36,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
 
     {
       source: [90.4336, 27.5142], target: [77.5946, 12.9716],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner E', icon: '/assets/icons/target-icon.jpg' }],
@@ -45,7 +45,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
 
     {
       source: [45.3182, 2.0469], target: [75.7873, 26.9124],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner F', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner G', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner H', icon: '/assets/icons/target-icon.jpg' }],
@@ -54,7 +54,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
 
     {
       source: [51.3890, 35.6892], target: [76.9366, 8.5241],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner I', icon: '/assets/icons/target-icon.jpg' }],
@@ -63,7 +63,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
 
     {
       source: [116.4074, 39.9042], target: [77.5946, 12.9716],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner J', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner K', icon: '/assets/icons/target-icon.jpg' }],
@@ -73,7 +73,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
     // Additional Internal Connections
     {
       source: [77.2090, 28.6139], target: [75.7873, 26.9124],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner L', icon: '/assets/icons/target-icon.jpg' }],
@@ -82,7 +82,7 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
 
     {
       source: [88.3639, 22.5726], target: [79.0193, 21.1458],
-      lineType: 'solid',
+      lineType: 'multi-dash',
       sourceIcon: '/assets/icons/source-icon.png',
       targetIcon: '/assets/icons/target-icon.jpg',
       partners: [{ name: 'Partner M', icon: '/assets/icons/target-icon.jpg' }],
