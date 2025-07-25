@@ -1,13 +1,36 @@
 <div class="country-view-container">
   <div class="main-container">
+    <div class="legend-container">
+  <div class="legend-item">
+    <div class="color-box both"></div>
+    <span>State and District led missions</span>
+  </div>
+  <div class="legend-item">
+    <div class="color-box state"></div>
+    <span>State led missions</span>
+  </div>
+  <div class="legend-item">
+    <div class="color-box district"></div>
+    <span>District led missions</span>
+  </div>
+  <div class="legend-item">
+    <div class="color-box yet"></div>
+    <span>Yet to start</span>
+  </div>
+  <div class="note">
+    *Click on the map to access the main dashboard
+  </div>
+</div>
+
+
     <div id="india-map-container" #indiaMapContainer></div>
-    <div class="indicator-container">
+    <div class="indicator-container" *ngIf="showDetails">
       <div class="indicators">
         <h4>Details</h4>
         <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
       </div>
     </div>
-    <div class="indicator-container" *ngIf="showVariations">
+    <div *ngIf="showVariations">
       <mat-form-field>
         <mat-label>Select Improvement</mat-label>
         <mat-select>
@@ -17,3 +40,4 @@
     </div>
   </div>
 </div>
+
