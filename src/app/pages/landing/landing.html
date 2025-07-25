@@ -47,8 +47,18 @@
     </ng-container>
 
     <!-- Partner Logos Section -->
+    <ng-container *ngIf="section.type === 'country-view'">
+      <app-country-view [showVariations]="section.showVariations" [legends]="section.legends" [selections]="section.selections"></app-country-view>
+    </ng-container>
+
+    <!-- Partner Logos Section -->
+    <ng-container *ngIf="section.type === 'global-view'">
+      <app-catalysing-network-1 [showDetails]="section.showDetails"></app-catalysing-network-1>
+    </ng-container>
+
+    <!-- Partner Logos Section -->
     <ng-container *ngIf="section.type === 'partner-logos'">
-      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title"></app-partner-logos>
+      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title" [showFilters]="section.showFilters"></app-partner-logos>
     </ng-container>
 
     <!-- Carousel Section -->

@@ -15,7 +15,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard';
         <div class="nav-links">
           <a routerLink="/">Home</a>
           <a routerLink="/dashboard">Dashboard</a>
-          <a routerLink="/catalysing-networks">Network Health</a>
+          <a routerLink="/network-health">Network Health</a>
         </div>
       </nav>
     </header>

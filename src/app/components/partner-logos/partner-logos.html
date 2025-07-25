@@ -1,7 +1,7 @@
 <section [ngClass]="styles.section">
   <div class="container">
     <h2 [ngClass]="styles.title">{{ title }}</h2>
-    <div class="filter-buttons">
+    <div class="filter-buttons" *ngIf="showFilters">
       <button (click)="filterLogos(null)" [class.active]="activeCategory === null">All</button>
       <button *ngFor="let category of categories" (click)="filterLogos(category)" [class.active]="activeCategory === category">
         {{ category }}

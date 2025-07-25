@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,6 +12,7 @@ export class PartnerLogosComponent implements OnInit {
   @Input() partners: any[] = [];
   @Input() styles: any = {};
   @Input() title: string = '';
+  @Input() showFilters:boolean = false;
 
   allLogos: any[] = [];
   filteredLogos: any[] = [];

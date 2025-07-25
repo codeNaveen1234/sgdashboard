@@ -12,6 +12,7 @@ import { GlobalMap10 } from './pages/global-map-10/global-map-10';
 import { CatalysingNetwork1 } from './pages/catalysing-network-1/catalysing-network-1';
 import { GlobalMap11 } from './pages/global-map-11/global-map-11';
 import { DashboardComponent } from './pages/dashboard/dashboard';
+import { NetworkHealth } from './pages/network-health/network-health';
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'country-view', component: CountryView },
     { path: 'national-view', component: NationalView },
+    { path: 'network-health', component: NetworkHealth },
     { path: 'state-view/:state', component: StateView },
     { path: 'district-view/:district', component: DistrictView },
     { path: 'catalysing-networks', component: CatalysingNetworks },

@@ -8,11 +8,12 @@ import { PartnerLogosComponent } from '../../components/partner-logos/partner-lo
 import { CarouselComponent } from '../../components/carousel/carousel';
 import { LineChartComponent } from '../../components/line-chart/line-chart';
 import { PieChartComponent } from '../../components/pie-chart/pie-chart';
+import { CountryView } from '../country-view/country-view';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent],
+  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })

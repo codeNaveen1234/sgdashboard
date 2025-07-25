@@ -1,20 +1,27 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, input, Input } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
 import { IndicatorCardComponent } from '../../components/indicator-card/indicator-card';
 import { MiniIndicatorCardComponent } from '../../components/mini-indicator-card/mini-indicator-card';
 import { Router } from '@angular/router'; // Import Router
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-country-view',
   standalone: true,
-  imports: [CommonModule, MiniIndicatorCardComponent],
+  imports: [CommonModule, MiniIndicatorCardComponent, MatSelectModule, FormsModule, ReactiveFormsModule],
   templateUrl: './country-view.html',
   styleUrls: ['./country-view.css']
 })
 export class CountryView implements OnInit, AfterViewInit {
   @ViewChild('indiaMapContainer') private mapContainer!: ElementRef;
+  @Input() showDetails: boolean = false;
+  @Input() showVariations: boolean = false;
+  @Input() legends: any = [];
+  @Input() selections: any = [];
 
   indicatorData: { value: number | string; label: string }[] = [];
 
