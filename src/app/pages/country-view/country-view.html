@@ -24,6 +24,7 @@
 
 
     <div id="india-map-container" #indiaMapContainer></div>
+    <div id="map-tooltip" class="map-tooltip"></div>
     <div class="indicator-container" *ngIf="showDetails">
       <div class="indicators">
         <h4>Details</h4>
@@ -33,8 +34,8 @@
     <div *ngIf="showVariations">
       <mat-form-field>
         <mat-label>Select Improvement</mat-label>
-        <mat-select>
-          <mat-option [value]="option.value" *ngFor="let option of selections" >{{option.value}}</mat-option>
+        <mat-select [(ngModel)]="selectedIndicator">
+          <mat-option [value]="option.value" *ngFor="let option of selections" >{{option.label}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
