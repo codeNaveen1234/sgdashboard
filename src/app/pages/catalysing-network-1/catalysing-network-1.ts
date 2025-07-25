@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-catalysing-network-1',
   standalone: true,
@@ -15,14 +14,10 @@ export class CatalysingNetwork1 implements OnInit {
   @ViewChild('networkMapContainer') private mapContainer!: ElementRef;
   @Input() showDetails: boolean = false;
   networkData: any
-
-
   constructor() { }
-
 
   ngOnInit(): void {
     this.getNetworkData()
-
   }
 
   getNetworkData() {
@@ -37,60 +32,48 @@ export class CatalysingNetwork1 implements OnInit {
     });
   }
 
-
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.drawMap();
   }
 
-
   private drawMap(): void {
     d3.select('#network-map-container svg').remove();
-
 
     const container = this.mapContainer.nativeElement;
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
 
-
     d3.json('/assets/india.json').then((india: any) => {
       const states = topojson.feature(india, india.objects.states) as any;
 
-
       const projection = d3.geoMercator().fitSize([containerWidth, containerHeight], states);
       const path = d3.geoPath().projection(projection);
-
 
       const svg = d3.select('#network-map-container')
         .append('svg')
         .attr('viewBox', `0 0 ${containerWidth} ${containerHeight}`)
         .attr('preserveAspectRatio', 'xMidYMid meet');
 
-
       // Define a linear gradient for the running lines
       const defs = svg.append('defs');
-
 
       const gradient = defs.append('linearGradient')
         .attr('id', 'line-gradient')
         .attr('x1', '0%').attr('y1', '0%')
         .attr('x2', '100%').attr('y2', '0%');
 
-
       gradient.append('stop')
         .attr('offset', '0%')
         .attr('stop-color', 'rgba(0,255,0,0)'); // Transparent green
-
 
       gradient.append('stop')
         .attr('offset', '50%')
         .attr('stop-color', 'green'); // Solid green
 
-
       gradient.append('stop')
         .attr('offset', '100%')
         .attr('stop-color', 'rgba(0,255,0,0)'); // Transparent green
-
 
       // Define arrowhead marker
       defs.append('marker')
@@ -105,7 +88,6 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('d', 'M 0,0 m -5,-5 L 5,0 L -5,5 Z')
         .attr('fill', 'purple');
 
-
       svg.selectAll('path')
         .data(states.features)
         .enter().append('path')
@@ -114,11 +96,9 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('stroke', '#000')
         .attr('stroke-width', 0.5);
 
-
       // Draw network lines
       const lineGenerator = d3.line()
         .curve(d3.curveBundle.beta(0.85)); // Adjust beta for more or less curvature
-
 
       svg.selectAll('path.network-line')
         .data(this.networkData?.impactData)
@@ -128,19 +108,14 @@ export class CatalysingNetwork1 implements OnInit {
           const sourceCoords = projection(d.source.coords);
           const targetCoords = projection(d.target.coords);
 
-
           if (!sourceCoords || !targetCoords) return null;
-
 
           const midX = (sourceCoords[0] + targetCoords[0]) / 2;
           const midY = (sourceCoords[1] + targetCoords[1]) / 2;
 
-
           let controlPoint: [number, number];
 
-
           const currentCurvature = d.curvature !== undefined ? d.curvature : 0.3; // Default curvature
-
 
           if (currentCurvature === 0) {
             // Straight line
@@ -150,16 +125,12 @@ export class CatalysingNetwork1 implements OnInit {
             const dx = targetCoords[0] - sourceCoords[0]; // Difference in X
             const dy = targetCoords[1] - sourceCoords[1]; // Difference in Y
 
-
             // Adjust the control point to always push the curve upwards
             controlPoint = [
               midX, // Keep the X coordinate the same as the midpoint for a symmetric curve
               midY - Math.abs(dy) * currentCurvature // Pull the control point upwards by the magnitude of dy
             ];
           }
-
-
-
 
           return lineGenerator([sourceCoords, controlPoint, targetCoords]);
         })
@@ -182,7 +153,6 @@ export class CatalysingNetwork1 implements OnInit {
             const totalLength = (this as SVGPathElement).getTotalLength();
             const pathElement = d3.select(this);
 
-
             function repeat() {
               pathElement
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
@@ -197,7 +167,6 @@ export class CatalysingNetwork1 implements OnInit {
           } else if (d.lineType === 'glow') {
             const originalPath = d3.select(this);
             const totalLength = (this as SVGPathElement).getTotalLength();
-
 
             function repeat() {
               originalPath
@@ -220,7 +189,6 @@ export class CatalysingNetwork1 implements OnInit {
             const totalLength = (this as SVGPathElement).getTotalLength();
             const pathElement = d3.select(this);
 
-
             function repeat() {
               pathElement
                 .attr('stroke-dashoffset', totalLength)
@@ -234,20 +202,16 @@ export class CatalysingNetwork1 implements OnInit {
           }
         });
 
-
       const iconData = this.networkData.impactData.flatMap((d: any) => [
         { icon: d.sourceIcon, coordinates: d.source.coords, partner_ids: d.source.partner_id },
         { icon: d.targetIcon, coordinates: d.target.coords, partner_ids: d.target.partner_id },
       ]);
 
-
       const tooltip = d3.select('#tooltip');
-
 
       svg.on('click', () => {
         tooltip.style('display', 'none');
       });
-
 
       svg.selectAll('image.node-icon')
         .data(iconData)
@@ -268,7 +232,6 @@ export class CatalysingNetwork1 implements OnInit {
             .style('left', (x + 10) + 'px')
             .style('top', (y - 28) + 'px');
         });
-
 
     }).catch((error: any) => {
       console.error('Error loading or processing the TopoJSON data:', error);
