@@ -3,7 +3,10 @@
   <div class="main-container">
     <div id="india-map-container" #indiaMapContainer></div>
     <div class="indicator-container">
-      <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
+      <div class="indicators">
+        <h4>Details</h4>
+        <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
+      </div>
     </div>
   </div>
 </div>

@@ -3,43 +3,43 @@
     "states":{
       "33": {
         "label":"Tamil Nadu",
-        "type":"active_state_program",
+        "type":"state_and_district_led_missions",
         "details":[
-          { "value": 121, "code": "active_missions" },
-          { "value": 1866, "code": "momentum_partners" },
-          { "value": 70043, "code": "improvements_activated" },
-          { "value": 3003, "code": "leaders_driving_improvements" },
-          { "value": 4200, "code": "school_driving_improvements" },
-          { "value": 80, "code": "community_improvements" }
+          { "value": 121344, "code": "active_missions" },
+          { "value": 1, "code": "momentum_partners" },
+          { "value": 7, "code": "improvements_activated" },
+          { "value": 3, "code": "leaders_driving_improvements" },
+          { "value": 4, "code": "school_driving_improvements" },
+          { "value": 8, "code": "community_improvements" }
         ]
       },
       "09": {
         "label":"Uttar pradesh",
-        "type":"active_district_program",
+        "type":"state_led_missions",
         "details":[
-          { "value": 12, "code": "active_missions" },
+          { "value": 1, "code": "active_missions" },
           { "value": 18, "code": "momentum_partners" },
-          { "value": 700, "code": "improvements_activated" },
-          { "value": 300, "code": "leaders_driving_improvements" },
-          { "value": 400, "code": "school_driving_improvements" },
+          { "value": 70, "code": "improvements_activated" },
+          { "value": 30, "code": "leaders_driving_improvements" },
+          { "value": 40, "code": "school_driving_improvements" },
           { "value": 80, "code": "community_improvements" }
         ]
       },
       "32": {
         "label":"Kerala",
-        "type":"active_district_program",
+        "type":"district_led_missions",
         "details":[
-          { "value": 12, "code": "active_missions" },
+          { "value": 12222, "code": "active_missions" },
           { "value": 18, "code": "momentum_partners" },
-          { "value": 700, "code": "improvements_activated" },
-          { "value": 300, "code": "leaders_driving_improvements" },
-          { "value": 400, "code": "school_driving_improvements" },
+          { "value": 734, "code": "improvements_activated" },
+          { "value": 34554, "code": "leaders_driving_improvements" },
+          { "value": 45, "code": "school_driving_improvements" },
           { "value": 80, "code": "community_improvements" }
         ]
       },
       "default": {
         "label":"india",
-        "type":"not_started",
+        "type":"yet_to_start",
         "details":[
           { "value": 121, "code": "active_missions" },
           { "value": 186, "code": "momentum_partners" },
@@ -52,17 +52,22 @@
     },
     "meta":{
         "legends": {
-          "active_district_program":{
-            "label":"Active District Program",
-            "color":"#ff5733",
+          "state_and_district_led_missions":{
+            "label":"State and District led missions",
+            "color":"#5d35b0",
             "show_details":true
           },
-          "active_state_program":{
-            "label":"Active State Program",
-            "color":"#b2786c",
+          "state_led_missions":{
+            "label":"State led missions",
+            "color":"#8147e1",
             "show_details":true
           },
-          "not_started":{
+          "district_led_missions":{
+            "label":"District led missions",
+            "color":"#9675ce",
+            "show_details":true
+          },
+          "yet_to_start":{
             "label":"Yes to start",
             "color":"#ffffff",
             "show_details":false
