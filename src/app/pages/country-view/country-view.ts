@@ -96,9 +96,9 @@ export class CountryView implements OnInit, AfterViewInit {
           const stateCode = d.properties.st_code;
           const stateInfo = statesData[stateCode];
           if (stateInfo) {
-            return legends[stateInfo.type]?.color || '#ccc';
+            return legends[stateInfo.type]?.color || '#fff';
           } else {
-            return '#ccc';
+            return '#fff';
           }
         })
         .attr('stroke', '#000')
