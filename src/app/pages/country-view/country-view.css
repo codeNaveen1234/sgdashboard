@@ -66,3 +66,48 @@
     flex-basis: 100%; /* 1 card per row */
   }
 }
+
+.legend-container {
+  background-color: #e8f5ff; /* Light blue background */
+  padding: 16px;
+  width: fit-content;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border: 1px solid #999;
+}
+
+.both {
+  background-color: #4b2e83; /* Darker purple */
+}
+
+.state {
+  background-color: #6a3fb2; /* Medium purple */
+}
+
+.district {
+  background-color: #9b6fc6; /* Lighter purple */
+}
+
+.yet {
+  background-color: #ffffff;
+  border: 1px solid #999;
+}
+
+.note {
+  font-size: 12px;
+  color: #555;
+  margin-top: 10px;
+}
+

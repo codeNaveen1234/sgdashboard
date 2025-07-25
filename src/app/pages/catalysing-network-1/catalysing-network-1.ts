@@ -10,121 +10,26 @@ import { CommonModule } from '@angular/common';
   templateUrl: './catalysing-network-1.html',
   styleUrl: './catalysing-network-1.css'
 })
-export class CatalysingNetwork1 implements OnInit, AfterViewInit {
+export class CatalysingNetwork1 implements OnInit {
   @ViewChild('networkMapContainer') private mapContainer!: ElementRef;
-  @Input() showDetails:boolean = false;
-
-  // Dummy data for network lines (example: connecting major cities)
-  networkData = [
-    // Existing Data
-    {
-      source: [77.2090, 28.6139], target: [72.8777, 19.0760],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner A', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner B', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Delhi to Mumbai
-
-    {
-      source: [75.7139, 15.3173], target: [94.5624, 26.1584],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner C', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner D', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Karnataka to Nagaland
-
-    {
-      source: [90.4336, 27.5142], target: [77.5946, 12.9716],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner E', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Bhutan to Karnataka
-
-    {
-      source: [45.3182, 2.0469], target: [75.7873, 26.9124],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner F', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner G', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner H', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Somalia (Mogadishu) to Rajasthan (Jaipur)
-
-    {
-      source: [51.3890, 35.6892], target: [76.9366, 8.5241],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner I', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Iran (Tehran) to Kerala (Thiruvananthapuram)
-
-    {
-      source: [116.4074, 39.9042], target: [77.5946, 12.9716],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner J', icon: '/assets/icons/target-icon.jpg' }, { name: 'Partner K', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.8 // Special high curvature for this line
-    }, // China (Beijing) to Karnataka (Bangalore)
-
-    // Additional Internal Connections
-    {
-      source: [77.2090, 28.6139], target: [75.7873, 26.9124],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner L', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Delhi to Jaipur (Rajasthan)
-
-    {
-      source: [88.3639, 22.5726], target: [79.0193, 21.1458],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner M', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Kolkata (West Bengal) to Maharashtra (Nagpur)
-
-    {
-      source: [77.2090, 28.6139], target: [88.3639, 22.5726],
-      lineType: 'solid',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner N', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Delhi to Kolkata
-
-    {
-      source: [72.8777, 19.0760], target: [78.4867, 17.3850],
-      lineType: 'multi-dash',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner O', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Mumbai to Hyderabad
-
-    {
-      source: [80.9462, 26.8467], target: [76.9366, 8.5241],
-      lineType: 'solid',
-      sourceIcon: '/assets/icons/source-icon.png',
-      targetIcon: '/assets/icons/target-icon.jpg',
-      partners: [{ name: 'Partner P', icon: '/assets/icons/target-icon.jpg' }],
-      curvature: 0.3
-    }, // Lucknow (Uttar Pradesh) to Kerala
-  ];
-
+  @Input() showDetails: boolean = false;
+  networkData: any
   constructor() { }
 
   ngOnInit(): void {
+    this.getNetworkData()
   }
 
-  ngAfterViewInit(): void {
-    this.drawMap();
+  getNetworkData() {
+    d3.json('/assets/network-data.json').then((networkData: any) => {
+      this.networkData = networkData;
+      console.log(this.networkData)
+      if (this.networkData) {
+        this.drawMap();
+      }
+    }).catch((error: any) => {
+      console.error('Error loading indicator data:', error);
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -196,12 +101,12 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
         .curve(d3.curveBundle.beta(0.85)); // Adjust beta for more or less curvature
 
       svg.selectAll('path.network-line')
-        .data(this.networkData)
+        .data(this.networkData?.impactData)
         .enter().append('path')
         .attr('class', 'network-line')
         .attr('d', (d: any) => {
-          const sourceCoords = projection(d.source);
-          const targetCoords = projection(d.target);
+          const sourceCoords = projection(d.source.coords);
+          const targetCoords = projection(d.target.coords);
 
           if (!sourceCoords || !targetCoords) return null;
 
@@ -226,7 +131,6 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
               midY - Math.abs(dy) * currentCurvature // Pull the control point upwards by the magnitude of dy
             ];
           }
-
 
           return lineGenerator([sourceCoords, controlPoint, targetCoords]);
         })
@@ -298,10 +202,9 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
           }
         });
 
-      // Add icons at source and target points
-      const iconData = this.networkData.flatMap((d: any) => [
-        { icon: d.sourceIcon, coordinates: d.source, partners: d.partners },
-        { icon: d.targetIcon, coordinates: d.target, partners: d.partners },
+      const iconData = this.networkData.impactData.flatMap((d: any) => [
+        { icon: d.sourceIcon, coordinates: d.source.coords, partner_ids: d.source.partner_id },
+        { icon: d.targetIcon, coordinates: d.target.coords, partner_ids: d.target.partner_id },
       ]);
 
       const tooltip = d3.select('#tooltip');
@@ -323,8 +226,9 @@ export class CatalysingNetwork1 implements OnInit, AfterViewInit {
         .on('click', (event, d: any) => {
           event.stopPropagation();
           const [x, y] = d3.pointer(event);
+          const partnerDetails = d.partner_ids.map((id: any) => this.networkData?.partners.find((p: { id: any; }) => p.id === id));
           tooltip.style('display', 'block')
-            .html(d.partners.map((p: { icon: any; name: any; }) => `<ul style="list-style-type: none; padding: 0; margin: 0;"><li><img src="${p.icon}" width="12" height="12" /><span> ${p.name}</span></li></ul>`).join(''))
+            .html(partnerDetails.map((p: any) => `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`).join(''))
             .style('left', (x + 10) + 'px')
             .style('top', (y - 28) + 'px');
         });
