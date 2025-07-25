@@ -1,0 +1,25 @@
+<mat-card class="chart-card">
+  <mat-card-title>Production by Month - {{ currentYear }}</mat-card-title>
+
+  <div class="year-buttons">
+    <button mat-button *ngFor="let year of ['2021', '2022', '2023']"
+            [color]="year === currentYear ? 'primary' : ''"
+            (click)="currentYear = year">
+      {{ year }}
+    </button>
+  </div>
+
+  <mat-card-content>
+    <ngx-charts-line-chart
+      [results]="chartData"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [xAxisLabel]="xAxisLabel"
+      [showYAxisLabel]="true"
+      [yAxisLabel]="yAxisLabel"
+      [view]="view">
+    </ngx-charts-line-chart>
+  </mat-card-content>
+</mat-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, Input } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CatalysingNetwork1 implements OnInit, AfterViewInit {
   @ViewChild('networkMapContainer') private mapContainer!: ElementRef;
+  @Input() showDetails:boolean = false;
 
   // Dummy data for network lines (example: connecting major cities)
   networkData = [

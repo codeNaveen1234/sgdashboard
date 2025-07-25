@@ -1,0 +1,119 @@
+{
+  "sections": [
+    {
+      "type": "hero",
+      "width": "100%",
+      "position": "left",
+      "header": "Shikshagraha Network",
+      "subHeader": "Shikshagraha is about people - partners, leaders, coming together to make school better.",
+      "description":"Across states, momentum partners drive on-ground action while strategic partners offer policy support, tools, and resourcesDialogues like Shiksha Samvaad help connect these efforts, creating spaces for shared learning and collective problem-solving..",
+      "styles": {
+        "section": "hero-section",
+        "title": "hero-title",
+        "tagline": "hero-tagline",
+        "summary": "hero-summary"
+      }
+    },
+    {
+      "type": "country-view",
+      "showVariations":false,
+      "showDetails":true,
+      "width": "100%",
+      "position": "left",
+      "title": "Our Network",
+      "selections":[
+        {
+          "label":"Micro Improvement Initiated",
+          "value":"Micro Improvement Initiated",
+          "selected":true
+        },
+        {
+          "label":"Leaders Driving Improvements",
+          "value":"Leaders Driving Improvements",
+          "selected":false
+        },
+        {
+          "label":"Schools Driving Improvements",
+          "value":"Schools Driving Improvements",
+          "selected":false
+        },
+        {
+          "label":"Community-Led Improvements",
+          "value":"Community-Led Improvements",
+          "selected":false
+        }
+      ],
+      "legends":[
+        {
+          "label":"Micro Improvement Initiated",
+          "color":"#6c757d"
+        },
+        {
+          "label":"Leaders Driving Improvements",
+          "color":"#6c757d"
+        },
+        {
+          "label":"Schools Driving Improvements",
+          "color":"#6c757d"
+        },
+        {
+          "label":"Community-Led Improvements",
+          "color":"#6c757d"
+        }
+      ],
+      "styles": {
+        "section": "partner-logos-section",
+        "title": "section-title",
+        "category": "partner-category",
+        "logosContainer": "logos-container",
+        "logo": "partner-logo"
+      }
+    },
+    {
+      "type": "partner-logos",
+      "width": "100%",
+      "position": "left",
+      "title": "Partners",
+      "showFilters":true,
+      "partners": [
+        {
+          "category": "Strategic Partners",
+          "logos": [
+            { "src": "assets/partners/alohomora.svg", "alt": "alohomora", "name": "alohomora" },
+            { "src": "assets/partners/amansa.svg", "alt": "amansa", "name": "amansa" },
+            { "src": "assets/partners/aws.svg", "alt": "aws", "name": "aws" },
+            { "src": "assets/partners/axisbank.svg", "alt": "axisbank", "name": "axisbank" },
+            { "src": "assets/partners/hdfc.svg", "alt": "hdfc", "name": "hdfc" },
+            { "src": "assets/partners/c4ec.svg", "alt": "c4ec", "name": "c4ec" },
+            { "src": "assets/partners/colab.svg", "alt": "colab", "name": "colab" },
+            { "src": "assets/partners/gnothi.svg", "alt": "gnothi", "name": "gnothi" },
+            { "src": "assets/partners/ifet.svg", "alt": "ifet", "name": "ifet" },
+            { "src": "assets/partners/mj.svg", "alt": "mj", "name": "mj" }
+          ]
+        },
+        {
+          "category": "Collaborators",
+          "logos": [
+            { "src": "assets/partners/orf.svg", "alt": "orf", "name": "orf" },
+            { "src": "assets/partners/paypal.svg", "alt": "paypal", "name": "paypal" }
+          ]
+        },
+        {
+          "category": "Momentum Partners",
+          "logos": [
+            { "src": "assets/partners/vv.svg", "alt": "vv", "name": "vv" },
+            { "src": "assets/partners/sms.svg", "alt": "sms", "name": "sms" },
+            { "src": "assets/partners/tekdi.svg", "alt": "tekdi", "name": "tekdi" }
+          ]
+        }
+      ],
+      "styles": {
+        "section": "partner-logos-section",
+        "title": "section-title",
+        "category": "partner-category",
+        "logosContainer": "logos-container",
+        "logo": "partner-logo"
+      }
+    }
+  ]
+}

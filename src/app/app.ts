@@ -2,19 +2,20 @@ import { Component, OnInit, effect } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from './core/services/theme';
 import { CommonModule } from '@angular/common';
+import { DashboardComponent } from './pages/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, DashboardComponent],
   template: `
     <header class="app-header">
       <nav class="container">
-        <a routerLink="/" class="logo">Shikshagraha</a>
+        <a routerLink="/" class="logo"><img src='assets/icons/main_logo.svg'></a>
         <div class="nav-links">
-          <a routerLink="/national-view">National View</a>
-          <a routerLink="/catalysing-networks">Catalysing Networks</a>
-          <button (click)="toggleTheme()" class="theme-toggle-button">Toggle Theme</button>
+          <a routerLink="/">Home</a>
+          <a routerLink="/dashboard">Dashboard</a>
+          <a routerLink="/network-health">Network Health</a>
         </div>
       </nav>
     </header>

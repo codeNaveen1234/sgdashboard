@@ -1,6 +1,25 @@
 .landing-container {
   font-family: 'Roboto', sans-serif;
   color: var(--text-color);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.landing-container > div {
+  box-sizing: border-box;
+}
+
+.section-position-left {
+  margin-right: auto;
+}
+
+.section-position-right {
+  margin-left: auto;
+}
+
+.section-position-center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Hero Section */
@@ -178,6 +197,8 @@
   filter: grayscale(0%); /* Full color on hover */
   opacity: 1; /* Full opacity on hover */
 }
+
+
 
 /* Animations */
 @keyframes fadeIn {

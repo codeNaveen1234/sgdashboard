@@ -1,36 +1,30 @@
 .indicator-card {
-  background-color: var(--hero-background-color);
-  border-radius: 16px; /* Softer corners */
+  background:none;
   padding: 2rem;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
   transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease; /* Smooth transitions */
-  border: 1px solid #e0e0e0;
   opacity: 0;
   transform: translateY(30px) scale(0.95); /* Initial state for animation */
   animation: slideInUpScale 0.6s forwards; /* New animation */
 
   /* Flexbox for consistent internal layout */
   display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Distribute content vertically */
 }
 
-.indicator-card:hover {
-  transform: translateY(-8px) scale(1.07); /* Lift and more noticeable enlarge */
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
-  background-color: rgba(var(--primary-color-rgb), 0.05); /* Subtle background change */
+.indicator-container {
+  padding-left: 1rem;
+  border-left: 3px solid;
 }
 
 .indicator-value {
-  font-size: 3.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  color: var(--secondary-color-light);
 }
 
 .indicator-label {
-  font-size: 1.1rem;
+  font-size: .9rem;
   color: var(--text-color);
   opacity: 0.8;
   min-height: 2.2em; /* Ensure consistent height for labels */

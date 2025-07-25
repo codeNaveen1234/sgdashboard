@@ -16,14 +16,7 @@ export class DistrictView implements OnInit, AfterViewInit {
   @ViewChild('districtMapContainer') private mapContainer!: ElementRef;
   stateName: string | null = null;
 
-  indicatorData = [
-    { value: 5, label: 'No. of blocks with active missions' },
-    { value: 10, label: 'No. of momentum partners' },
-    { value: 500, label: 'No. of MIs activated/initiated' },
-    { value: 200, label: 'No. of leaders driving improvements' },
-    { value: 300, label: 'No. of Schools driving improvements' },
-    { value: 50, label: 'Community-Led Improvements' },
-  ];
+  indicatorData: { value: number | string; label: string }[] = [];
 
   constructor(private route: ActivatedRoute) { }
 
@@ -32,7 +25,20 @@ export class DistrictView implements OnInit, AfterViewInit {
       this.stateName = params.get('district'); // 'district' is the parameter name in app.routes.ts
       if (this.stateName) {
         console.log(`Loading districts for state: ${this.stateName}`);
+        this.fetchIndicatorData();
       }
+    });
+  }
+
+  fetchIndicatorData(): void {
+    d3.json('/assets/district-view-indicators.json').then((data: any) => {
+      if (this.stateName && data.result[this.stateName]) {
+        this.indicatorData = data.result[this.stateName];
+      } else {
+        this.indicatorData = data.result.Default;
+      }
+    }).catch((error: any) => {
+      console.error('Error loading indicator data:', error);
     });
   }
 

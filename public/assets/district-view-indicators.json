@@ -1,0 +1,81 @@
+{
+  "result": {
+    "states":{
+      "33": {
+        "label":"Tamil Nadu",
+        "type":"active_state_program",
+        "details":[
+          { "value": 121, "code": "active_missions" },
+          { "value": 1866, "code": "momentum_partners" },
+          { "value": 70043, "code": "improvements_activated" },
+          { "value": 3003, "code": "leaders_driving_improvements" },
+          { "value": 4200, "code": "school_driving_improvements" },
+          { "value": 80, "code": "community_improvements" }
+        ]
+      },
+      "09": {
+        "label":"Uttar pradesh",
+        "type":"active_district_program",
+        "details":[
+          { "value": 12, "code": "active_missions" },
+          { "value": 18, "code": "momentum_partners" },
+          { "value": 700, "code": "improvements_activated" },
+          { "value": 300, "code": "leaders_driving_improvements" },
+          { "value": 400, "code": "school_driving_improvements" },
+          { "value": 80, "code": "community_improvements" }
+        ]
+      },
+      "32": {
+        "label":"Kerala",
+        "type":"active_district_program",
+        "details":[
+          { "value": 12, "code": "active_missions" },
+          { "value": 18, "code": "momentum_partners" },
+          { "value": 700, "code": "improvements_activated" },
+          { "value": 300, "code": "leaders_driving_improvements" },
+          { "value": 400, "code": "school_driving_improvements" },
+          { "value": 80, "code": "community_improvements" }
+        ]
+      },
+      "default": {
+        "label":"india",
+        "type":"not_started",
+        "details":[
+          { "value": 121, "code": "active_missions" },
+          { "value": 186, "code": "momentum_partners" },
+          { "value": 70046, "code": "improvements_activated" },
+          { "value": 3070, "code": "leaders_driving_improvements" },
+          { "value": 40320, "code": "school_driving_improvements" },
+          { "value": 8056, "code": "community_improvements" }
+        ]
+      }
+    },
+    "meta":{
+        "legends": {
+          "active_district_program":{
+            "label":"Active District Program",
+            "color":"#ff5733",
+            "show_details":true
+          },
+          "active_state_program":{
+            "label":"Active State Program",
+            "color":"#b2786c",
+            "show_details":true
+          },
+          "not_started":{
+            "label":"Yes to start",
+            "color":"#ffffff",
+            "show_details":false
+          }
+      },
+      "labels":{
+        "active_missions":"No. of blocks with active missions",
+        "momentum_partners":"No. of momentum partners",
+        "improvements_activated":"No. of MIs activated/initiated",
+        "leaders_driving_improvements":"No. of leaders driving improvements",
+        "school_driving_improvements":"No. of Schools driving improvements",
+        "community_improvements":"Community-Led Improvements"
+      }
+    }
+  }
+}

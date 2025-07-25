@@ -1,5 +1,5 @@
 .app-header {
-  background-color: var(--background-color);
+  background-color: #fff;
   color: var(--text-color);
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -11,11 +11,11 @@
 
 .app-header nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem; /* Add padding to align with container */
+  padding: 1rem 1.5rem;
 }
 
 .app-header .logo {
@@ -23,6 +23,8 @@
   font-size: 1.8rem;
   font-weight: bold;
   text-decoration: none;
+  position: fixed;
+  left: 0;
 }
 
 .app-header .nav-links {
@@ -40,18 +42,6 @@
 
 .app-header .nav-links a:hover {
   color: var(--primary-color);
-}
-
-.theme-toggle-button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-left: 1.8rem;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .theme-toggle-button:hover {
