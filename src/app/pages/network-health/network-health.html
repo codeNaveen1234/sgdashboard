@@ -11,22 +11,6 @@
       </section>
     </ng-container>
 
-    <!-- Hero Section -->
-    <ng-container *ngIf="section.type === 'dashboard-metrics'">
-      <section [ngClass]="section.styles.section">
-        <div class="dashboard-container">
-          <h3 class="">{{ section.header }}</h3>
-          <h4 class="">{{ section.subHeader }}</h4>
-          <div class="dashboard-indicator">
-            <div *ngFor="let item of section.indicators">
-              <h4>{{item.value}}</h4>
-              <p>{{item.label}}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </ng-container>
-
     <!-- CTA Section -->
     <ng-container *ngIf="section.type === 'cta'">
       <section [ngClass]="section.styles.section">
@@ -63,20 +47,8 @@
 
     <!-- Partner Logos Section -->
     <ng-container *ngIf="section.type === 'partner-logos'">
-      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title"></app-partner-logos>
-    </ng-container>
-
-    <!-- Carousel Section -->
-    <ng-container *ngIf="section.type === 'carousel'">
-      <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
-    </ng-container>
-
-    <ng-container *ngIf="section.type === 'line-chart'">
-      <app-line-chart></app-line-chart>
-    </ng-container>
-
-    <ng-container *ngIf="section.type === 'pie-chart'">
-      <app-pie-chart></app-pie-chart>
+      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title" [showFilters]="section.showFilters"></app-partner-logos>
     </ng-container>
   </div>
+  <app-slider-carousel></app-slider-carousel>
 </div>

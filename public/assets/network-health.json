@@ -1,79 +1,23 @@
 {
   "sections": [
     {
-      "type": "carousel",
-      "width": "50%",
-      "position": "center",
-      "title": "Voices of Change",
-      "slides": [
-        {
-          "header": "Empowering Educators in Uttar Pradesh",
-          "subHeader": "A Teacher's Story",
-          "description": "“The micro-improvement approach has transformed my classroom. I feel empowered to innovate and my students are more engaged than ever before.”"
-        },
-        {
-          "header": "Community-Led Action in Tamil Nadu",
-          "subHeader": "A Parent's Perspective",
-          "description": "“We are no longer just spectators. Shikshagraha has given us a voice to demand and co-create better schools for our children.”"
-        },
-        {
-          "header": "Systemic Transformation in Kerala",
-          "subHeader": "An Administrator's View",
-          "description": "“The network of leaders has been invaluable. We are sharing best practices and solving complex challenges together, leading to tangible improvements across the district.”"
-        },
-        {
-          "header": "Another Story from UP",
-          "subHeader": "Another Teacher",
-          "description": "“This is another great story about how things are changing for the better.”"
-        }
-      ],
-      "styles": {
-        "section": "carousel-section",
-        "title": "section-title",
-        "container": "carousel-container",
-        "track": "carousel-track",
-        "slide": "carousel-slide"
-      }
-    },
-    {
-      "type": "global-view",
-      "showVariations":true,
-      "width": "50%",
-      "position": "left",
-      "title": "",
-      "showDetails":false,
-      "styles": {
-        "section": "partner-logos-section",
-        "title": "section-title",
-        "category": "partner-category",
-        "logosContainer": "logos-container",
-        "logo": "partner-logo"
-      }
-    },
-    {
-      "type": "data-indicators",
+      "type": "hero",
       "width": "100%",
       "position": "left",
-      "title": "Key Progress Indicators",
-      "indicators": [
-        { "value": 15000,"icon":"assets/icons/group.svg", "label": "MIs Activated/Initiated" },
-        { "value": 5000,"icon":"assets/icons/group.svg", "label": "Leaders Driving Improvements" },
-        { "value": 10000,"icon":"assets/icons/group.svg", "label": "Schools Driving Improvements" },
-        { "value": 25,"icon":"assets/icons/group.svg", "label": "Momentum Partners Mobilizing Action" },
-        { "value": 10,"icon":"assets/icons/group.svg", "label": "Strategic Partners" },
-        { "value": 500, "icon":"assets/icons/group.svg","label": "Community-Led Improvements" },
-        { "value": "75%","icon":"assets/icons/group.svg", "label": "Funds Mobilised" },
-        { "value": "75%", "icon":"assets/icons/group.svg","label": "Funds Mobilised updated" }
-      ],
+      "header": "Shikshagraha Network",
+      "subHeader": "Shikshagraha is about people - partners, leaders, coming together to make school better.",
+      "description":"Across states, momentum partners drive on-ground action while strategic partners offer policy support, tools, and resourcesDialogues like Shiksha Samvaad help connect these efforts, creating spaces for shared learning and collective problem-solving..",
       "styles": {
-        "section": "data-indicators-section",
-        "title": "section-title",
-        "grid": "data-indicators-grid"
+        "section": "hero-section",
+        "title": "hero-title",
+        "tagline": "hero-tagline",
+        "summary": "hero-summary"
       }
     },
     {
       "type": "country-view",
-      "showVariations":true,
+      "showVariations":false,
+      "showDetails":true,
       "width": "100%",
       "position": "left",
       "title": "Our Network",
@@ -129,8 +73,8 @@
       "type": "partner-logos",
       "width": "100%",
       "position": "left",
-      "title": "Our Network",
-      "showFilters":false,
+      "title": "Partners",
+      "showFilters":true,
       "partners": [
         {
           "category": "Strategic Partners",

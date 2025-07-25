@@ -1,5 +1,4 @@
 <div class="country-view-container">
-  <h2>India Map View</h2>
   <div class="main-container">
     <div id="india-map-container" #indiaMapContainer></div>
     <div class="indicator-container">
@@ -7,6 +6,14 @@
         <h4>Details</h4>
         <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
       </div>
+    </div>
+    <div class="indicator-container" *ngIf="showVariations">
+      <mat-form-field>
+        <mat-label>Select Improvement</mat-label>
+        <mat-select>
+          <mat-option [value]="option.value" *ngFor="let option of selections" >{{option.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </div>

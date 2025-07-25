@@ -1,5 +1,6 @@
 .country-view-container {
-  padding: 2rem;
+  padding: 4rem 2rem;
+  background: #e6f6fe!important;
 }
 
 .main-container {
@@ -20,8 +21,7 @@
 
 .indicator-container {
   display: flex;
-  flex-direction: column; /* Ensure vertical stacking */
-  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Mobile layout: 1 card per row */
@@ -33,7 +33,6 @@
 @media (min-width: 768px) {
   .main-container {
     flex-direction: row;
-    align-items: center; /* Vertically center items */
   }
 
   #india-map-container {
@@ -50,6 +49,17 @@
   }
 }
 
+::ng-deep .mat-mdc-text-field-wrapper {
+  background: white !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background: white !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+}
 /* Large screens (desktops): 1 card per row */
 @media (min-width: 1200px) {
   .indicator-container > app-mini-indicator-card {

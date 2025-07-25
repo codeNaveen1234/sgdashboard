@@ -6,17 +6,19 @@ import * as d3 from 'd3';
 
 import { PartnerLogosComponent } from '../../components/partner-logos/partner-logos';
 import { CarouselComponent } from '../../components/carousel/carousel';
+import { LineChartComponent } from '../../components/line-chart/line-chart';
+import { PieChartComponent } from '../../components/pie-chart/pie-chart';
 import { CountryView } from '../country-view/country-view';
-import { CatalysingNetwork1 } from '../catalysing-network-1/catalysing-network-1';
+import { SliderCarouselComponent } from '../../components/slider-carousel/slider-carousel';
 
 @Component({
-  selector: 'app-landing',
-  standalone: true,
-  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, CountryView, CatalysingNetwork1],
-  templateUrl: './landing.html',
-  styleUrls: ['./landing.css']
+  selector: 'app-network-health',
+  standalone:true,
+  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, SliderCarouselComponent],
+  templateUrl: './network-health.html',
+  styleUrls: ['./network-health.css']
 })
-export class LandingComponent implements OnInit {
+export class NetworkHealth implements OnInit {
 
   pageData: any = {};
 
@@ -27,7 +29,7 @@ export class LandingComponent implements OnInit {
   }
 
   fetchPageData(): void {
-    d3.json('/assets/landing-page.json').then((data: any) => {
+    d3.json('/assets/network-health.json').then((data: any) => {
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {
