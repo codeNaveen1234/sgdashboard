@@ -27,6 +27,10 @@
       <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
     </ng-container>
 
+     <ng-container *ngIf="section.type === 'global-view'">
+      <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable] = "section.isPartnerShowable"></app-catalysing-network-1>
+    </ng-container>
+
     <!-- Data Indicators Section -->
     <ng-container *ngIf="section.type === 'data-indicators'">
       <section [ngClass]="section.styles.section">

@@ -10,11 +10,12 @@ import { LineChartComponent } from '../../components/line-chart/line-chart';
 import { PieChartComponent } from '../../components/pie-chart/pie-chart';
 import { CountryView } from '../country-view/country-view';
 import { SliderCarouselComponent } from '../../components/slider-carousel/slider-carousel';
+import { CatalysingNetwork1 } from '../catalysing-network-1/catalysing-network-1';
 
 @Component({
   selector: 'app-network-health',
   standalone:true,
-  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, SliderCarouselComponent],
+  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, SliderCarouselComponent, CatalysingNetwork1],
   templateUrl: './network-health.html',
   styleUrls: ['./network-health.css']
 })

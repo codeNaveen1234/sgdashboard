@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, 
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalysing-network-1',
@@ -13,11 +14,19 @@ import { CommonModule } from '@angular/common';
 export class CatalysingNetwork1 implements OnInit {
   @ViewChild('networkMapContainer') private mapContainer!: ElementRef;
   @Input() showDetails: boolean = false;
+  @Input() isPartnerShowable: boolean = true;
+
   networkData: any
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.getNetworkData()
+  }
+
+  goToNetworkPage() {
+    if (!this.isPartnerShowable) {
+      this.router.navigate(['/network-health']);
+    }
   }
 
   getNetworkData() {
@@ -101,7 +110,7 @@ export class CatalysingNetwork1 implements OnInit {
         .curve(d3.curveBundle.beta(0.85)); // Adjust beta for more or less curvature
 
       svg.selectAll('path.network-line')
-        .data(this.networkData?.impactData)
+        .data(this.networkData?.impactData.filter((d: any) => d.source && d.target))
         .enter().append('path')
         .attr('class', 'network-line')
         .attr('d', (d: any) => {
@@ -135,7 +144,7 @@ export class CatalysingNetwork1 implements OnInit {
           return lineGenerator([sourceCoords, controlPoint, targetCoords]);
         })
         .attr('fill', 'none')
-        .attr('stroke', (d: any) => d.lineType === 'dotted' ? 'url(#line-gradient)' : (d.lineType === 'glow' ? 'blue' : (d.lineType === 'multi-dash' ? 'red' : 'purple'))) // Use gradient for dotted lines, blue for glow, purple for arrowhead, red for multi-dash
+        .attr('stroke', (d: any) => d.color) // Use color from data // Use gradient for dotted lines, blue for glow, purple for arrowhead, red for multi-dash
         .attr('stroke-width', 2)
         .attr('opacity', 0.7)
         .attr('stroke-dasharray', (d: any) => {
@@ -202,10 +211,16 @@ export class CatalysingNetwork1 implements OnInit {
           }
         });
 
-      const iconData = this.networkData.impactData.flatMap((d: any) => [
-        { icon: d.sourceIcon, coordinates: d.source.coords, partner_ids: d.source.partner_id },
-        { icon: d.targetIcon, coordinates: d.target.coords, partner_ids: d.target.partner_id },
-      ]);
+      const iconData = this.networkData.impactData.flatMap((d: any) => {
+        const icons = [];
+        if (d.source) {
+          icons.push({ icon: d.sourceIcon, coordinates: d.source.coords, partner_ids: d.source.partner_id });
+        }
+        if (d.target) {
+          icons.push({ icon: d.targetIcon, coordinates: d.target.coords, partner_ids: d.target.partner_id });
+        }
+        return icons;
+      });
 
       const tooltip = d3.select('#tooltip');
 
@@ -224,13 +239,15 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('width', 24)
         .attr('height', 24)
         .on('click', (event, d: any) => {
-          event.stopPropagation();
-          const [x, y] = d3.pointer(event);
-          const partnerDetails = d.partner_ids.map((id: any) => this.networkData?.partners.find((p: { id: any; }) => p.id === id));
-          tooltip.style('display', 'block')
-            .html(partnerDetails.map((p: any) => `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`).join(''))
-            .style('left', (x + 10) + 'px')
-            .style('top', (y - 28) + 'px');
+          if (this.isPartnerShowable) {
+            event.stopPropagation();
+            const [x, y] = d3.pointer(event);
+            const partnerDetails = d.partner_ids.map((id: any) => this.networkData?.partners.find((p: { id: any; }) => p.id === id));
+            tooltip.style('display', 'block')
+              .html(partnerDetails.map((p: any) => `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`).join(''))
+              .style('left', (x + 10) + 'px')
+              .style('top', (y - 28) + 'px');
+          }
         });
 
     }).catch((error: any) => {

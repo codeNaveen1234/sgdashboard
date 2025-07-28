@@ -25,7 +25,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#FF5733"
         },
         {
             "source": {
@@ -53,7 +54,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#33FF57"
         },
         {
             "source": {
@@ -79,7 +81,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#3357FF"
         },
         {
             "source": {
@@ -109,7 +112,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#FF33A1"
         },
         {
             "source": {
@@ -135,7 +139,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#A133FF"
         },
         {
             "source": {
@@ -163,7 +168,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.8
+            "curvature": 0.8,
+            "color": "#33FFF0"
         },
         {
             "source": {
@@ -189,7 +195,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#F0FF33"
         },
         {
             "source": {
@@ -215,7 +222,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#FF8C33"
         },
         {
             "source": {
@@ -241,7 +249,8 @@
             "lineType": "solid",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#33FF8C"
         },
         {
             "source": {
@@ -267,7 +276,8 @@
             "lineType": "multi-dash",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#8C33FF"
         },
         {
             "source": {
@@ -293,7 +303,8 @@
             "lineType": "solid",
             "sourceIcon": "/assets/icons/source-icon.png",
             "targetIcon": "/assets/icons/target-icon.jpg",
-            "curvature": 0.3
+            "curvature": 0.3,
+            "color": "#FF3333"
         }
     ],
     "partners": [

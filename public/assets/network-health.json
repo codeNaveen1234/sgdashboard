@@ -70,6 +70,22 @@
       }
     },
     {
+      "type": "global-view",
+      "showVariations":true,
+      "width": "50%",
+      "position": "left",
+      "title": "",
+      "isPartnerShowable": true,
+      "showDetails":false,
+      "styles": {
+        "section": "partner-logos-section",
+        "title": "section-title",
+        "category": "partner-category",
+        "logosContainer": "logos-container",
+        "logo": "partner-logo"
+      }
+    },
+    {
       "type": "partner-logos",
       "width": "100%",
       "position": "left",
