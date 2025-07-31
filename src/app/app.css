@@ -1,0 +1,54 @@
+.app-header {
+  background-color: #fff;
+  color: var(--text-color);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Make the header fixed */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.app-header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.app-header .logo {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  position: fixed;
+  left: 0;
+}
+
+.app-header .nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin-left: 1.8rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.app-header .nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.theme-toggle-button:hover {
+  background-color: var(--primary-hover-color);
+  transform: translateY(-2px);
+}
+
+.app-content {
+  padding-top: 80px; /* Add padding to account for fixed header height */
+}
