@@ -170,12 +170,14 @@ export class CountryView implements OnInit, AfterViewInit {
         .on('click', (event: any, d: any) => {
           const stateCode = d.properties.st_code;
           const stateInfo = statesData[stateCode];
-          if (stateInfo) {
+          if (this.showDetails && stateInfo) {
             this.fetchIndicatorData(stateCode);
             const stateName = stateInfo.label;
             if (stateName) {
               this.router.navigate(['/state-view', stateName]);
             }
+          }else if(!this.showDetails){
+            this.router.navigate(['/dashboard']);
           }
         });
 
