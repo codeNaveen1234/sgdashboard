@@ -15,7 +15,7 @@
             "regexp": "(.*?)"
           },
           "endsPattern": {
-            "regexp": "bundle generation complete"
+            "regexp": "Compiled successfully"
           }
         }
       }
@@ -33,7 +33,7 @@
             "regexp": "(.*?)"
           },
           "endsPattern": {
-            "regexp": "bundle generation complete"
+            "regexp": "Compiled successfully"
           }
         }
       }
