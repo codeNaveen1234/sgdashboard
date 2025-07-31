@@ -1,12 +1,28 @@
 <div class="landing-container">
   <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
-    <!-- Main Section -->
-    <ng-container *ngIf="section.type === 'hero'">
+    <!-- dashboard main -->
+    <ng-container *ngIf="section.type === 'dashboard-main'">
       <section [ngClass]="section.styles.section">
         <div class="container">
           <h3 class="">{{ section.header }}</h3>
           <h4 class="">{{ section.subHeader }}</h4>
           <p class="">{{ section.description }}</p>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- dashboard metrics -->
+    <ng-container *ngIf="section.type === 'dashboard-metrics'">
+      <section [ngClass]="section.styles.section" class="metrics-container">
+        <div class="dashboard-container">
+          <h3 class="">{{ section.header }}</h3>
+          <h4 class="">{{ section.subHeader }}</h4>
+          <div class="dashboard-indicator">
+            <div *ngFor="let item of section.indicators">
+              <h4>{{item.value}}</h4>
+              <p>{{item.label}}</p>
+            </div>
+          </div>
         </div>
       </section>
     </ng-container>
@@ -22,13 +38,9 @@
       </section>
     </ng-container>
 
-    <!-- Partner Logos Section -->
+    <!-- country view -->
     <ng-container *ngIf="section.type === 'country-view'">
       <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
-    </ng-container>
-
-     <ng-container *ngIf="section.type === 'global-view'">
-      <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable] = "section.isPartnerShowable"></app-catalysing-network-1>
     </ng-container>
 
     <!-- Data Indicators Section -->
@@ -51,8 +63,20 @@
 
     <!-- Partner Logos Section -->
     <ng-container *ngIf="section.type === 'partner-logos'">
-      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title" [showFilters]="section.showFilters"></app-partner-logos>
+      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title"></app-partner-logos>
+    </ng-container>
+
+    <!-- Carousel Section -->
+    <ng-container *ngIf="section.type === 'carousel'">
+      <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
+    </ng-container>
+
+    <ng-container *ngIf="section.type === 'line-chart'">
+      <app-line-chart [allData]="section.data"></app-line-chart>
+    </ng-container>
+
+    <ng-container *ngIf="section.type === 'pie-chart'">
+      <app-pie-chart [pieData]="section.data"></app-pie-chart>
     </ng-container>
   </div>
-  <app-slider-carousel></app-slider-carousel>
 </div>

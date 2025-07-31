@@ -11,15 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./pie-chart.css']
 })
 export class PieChartComponent {
-  pieData = [
-    { name: 'Solar', value: 35 },
-    { name: 'Wind', value: 25 },
-    { name: 'Hydro', value: 20 },
-    { name: 'Biomass', value: 10 },
-    { name: 'Other', value: 10 }
-  ];
+  @Input() pieData:any = [];
 
-  view: [number, number] = [400, 300]; // width x height
+  view: [number, number] = [500, 400]; // width x height
 
   // options
   showLegend = true;
