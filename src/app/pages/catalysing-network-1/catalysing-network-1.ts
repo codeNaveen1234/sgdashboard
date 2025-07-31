@@ -17,6 +17,12 @@ export class CatalysingNetwork1 implements OnInit {
   @Input() isPartnerShowable: boolean = true;
 
   networkData: any
+  markerConfigList: any = {
+    momentum: { hqIcon: "./assets/marker-icons/hq-circle.svg", icon: "./assets/marker-icons/circle.svg", color: "#572E91" },
+    strategic: { hqIcon: "./assets/marker-icons/hq-square.svg", icon: "./assets/marker-icons/square.svg", color: "orange" },
+    collaborator: { hqIcon: "./assets/marker-icons/hq-triangle.svg", icon: "./assets/marker-icons/triangle.svg", color: "red" },
+    anchor: { hqIcon: "./assets/marker-icons/hq-diamond.svg", icon: "./assets/marker-icons/diamond.svg", color: "pink" }
+  }
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -214,10 +220,10 @@ export class CatalysingNetwork1 implements OnInit {
       const iconData = this.networkData.impactData.flatMap((d: any) => {
         const icons = [];
         if (d.source) {
-          icons.push({ icon: d.sourceIcon, coordinates: d.source.coords, partner_ids: d.source.partner_id });
+          icons.push({ iconUrl: this.markerConfigList[d.source.icon].icon, coordinates: d.source.coords, partner_ids: d.source.partner_id });
         }
         if (d.target) {
-          icons.push({ icon: d.targetIcon, coordinates: d.target.coords, partner_ids: d.target.partner_id });
+          icons.push({ iconUrl: this.markerConfigList[d.target.icon].icon, coordinates: d.target.coords, partner_ids: d.target.partner_id });
         }
         return icons;
       });
@@ -233,20 +239,36 @@ export class CatalysingNetwork1 implements OnInit {
         .enter()
         .append('image')
         .attr('class', 'node-icon')
-        .attr('xlink:href', (d: any) => d.icon)
+        .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => projection(d.coordinates)![0] - 12)
         .attr('y', (d: any) => projection(d.coordinates)![1] - 12)
-        .attr('width', 24)
-        .attr('height', 24)
+        .attr('width', 20)
+        .attr('height', 20)
+        .each(function(d: any) {
+          const icon = d3.select(this);
+          const x = projection(d.coordinates)![0];
+          const y = projection(d.coordinates)![1];
+          
+          function rotate() {
+            icon.transition()
+              .duration(2000)
+              .ease(d3.easeLinear)
+              .attrTween('transform', () => {
+                const i = d3.interpolate(0, 360);
+                return (t) => `rotate(${i(t)}, ${x}, ${y})`;
+              })
+              .on('end', rotate);
+          }
+          rotate();
+        })
         .on('click', (event, d: any) => {
           if (this.isPartnerShowable) {
             event.stopPropagation();
-            const [x, y] = d3.pointer(event);
             const partnerDetails = d.partner_ids.map((id: any) => this.networkData?.partners.find((p: { id: any; }) => p.id === id));
             tooltip.style('display', 'block')
               .html(partnerDetails.map((p: any) => `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`).join(''))
-              .style('left', (x + 10) + 'px')
-              .style('top', (y - 28) + 'px');
+              .style('left', (event.pageX + 10) + 'px')
+              .style('top', (event.pageY - 28) + 'px');
           }
         });
 

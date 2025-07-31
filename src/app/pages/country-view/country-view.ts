@@ -36,7 +36,7 @@ export class CountryView implements OnInit, AfterViewInit {
     return d3.json('/assets/district-view-indicators.json').then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
-      let details = stateCode ? statesData[stateCode]?.details : statesData.default.details;
+      let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
       let processedData: { value: number | string; label: string }[] = [];
 
       if (details) {
@@ -96,8 +96,9 @@ export class CountryView implements OnInit, AfterViewInit {
       const labels = indicatorData.result.meta.labels;
       const legends = indicatorData.result.meta.legends;
       this.legends = legends;
-      const activeStates = Object.keys(statesData).filter(key => key !== 'default');
+      const activeStates = indicatorData.result.overview;
       const states = topojson.feature(india, india.objects.states) as any;
+      const districts = topojson.feature(india, india.objects.districts) as any;
 
       const projection = d3.geoMercator().fitSize([containerWidth, height], states);
       const path = d3.geoPath().projection(projection);
@@ -109,9 +110,10 @@ export class CountryView implements OnInit, AfterViewInit {
         .attr('viewBox', `0 0 ${containerWidth} ${height}`)
         .attr('preserveAspectRatio', 'xMidYMid meet');
 
-      svg.selectAll('path')
+      svg.selectAll('.state-path')
         .data(states.features)
         .enter().append('path')
+        .attr('class', 'state-path')
         .attr('d', path as any)
         .attr('fill', (d: any) => {
           const stateCode = d.properties.st_code;
@@ -176,6 +178,11 @@ export class CountryView implements OnInit, AfterViewInit {
             }
           }
         });
+
+      svg.append('path')
+        .datum(districts)
+        .attr('class', 'district-outline')
+        .attr('d', path as any);
     }).catch((error: any) => {
       console.error('Error loading or processing data:', error);
     });
