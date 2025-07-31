@@ -1,7 +1,7 @@
 <div class="landing-container">
   <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
-    <!-- Hero Section -->
-    <ng-container *ngIf="section.type === 'hero'">
+    <!-- Main Section -->
+    <ng-container *ngIf="section.type === 'dashboard-main'">
       <section [ngClass]="section.styles.section">
         <div class="container">
           <h3 class="">{{ section.header }}</h3>
@@ -11,9 +11,9 @@
       </section>
     </ng-container>
 
-    <!-- Hero Section -->
+    <!-- Main Section -->
     <ng-container *ngIf="section.type === 'dashboard-metrics'">
-      <section [ngClass]="section.styles.section">
+      <section [ngClass]="section.styles.section" class="metrics-container">
         <div class="dashboard-container">
           <h3 class="">{{ section.header }}</h3>
           <h4 class="">{{ section.subHeader }}</h4>
@@ -72,11 +72,11 @@
     </ng-container>
 
     <ng-container *ngIf="section.type === 'line-chart'">
-      <app-line-chart></app-line-chart>
+      <app-line-chart [allData]="section.data"></app-line-chart>
     </ng-container>
 
     <ng-container *ngIf="section.type === 'pie-chart'">
-      <app-pie-chart></app-pie-chart>
+      <app-pie-chart [pieData]="section.data"></app-pie-chart>
     </ng-container>
   </div>
 </div>

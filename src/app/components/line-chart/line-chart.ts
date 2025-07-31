@@ -13,44 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class LineChartComponent {
   currentYear = '2023';
 
-  allData: Record<string, any[]> = {
-    '2021': [
-      {
-        name: 'Production',
-        series: [
-          { name: 'Jan', value: 40 },
-          { name: 'Feb', value: 55 },
-          { name: 'Mar', value: 60 },
-          { name: 'Apr', value: 50 },
-          { name: 'May', value: 70 }
-        ]
-      }
-    ],
-    '2022': [
-      {
-        name: 'Production',
-        series: [
-          { name: 'Jan', value: 45 },
-          { name: 'Feb', value: 60 },
-          { name: 'Mar', value: 65 },
-          { name: 'Apr', value: 55 },
-          { name: 'May', value: 75 }
-        ]
-      }
-    ],
-    '2023': [
-      {
-        name: 'Production',
-        series: [
-          { name: 'Jan', value: 50 },
-          { name: 'Feb', value: 65 },
-          { name: 'Mar', value: 70 },
-          { name: 'Apr', value: 60 },
-          { name: 'May', value: 80 }
-        ]
-      }
-    ]
-  };
+  @Input() allData: Record<string, any[]> = {};
 
   get chartData() {
     return this.allData[this.currentYear];

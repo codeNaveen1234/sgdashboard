@@ -1,13 +1,14 @@
 .chart-card {
   width: 600px;
   margin: 20px auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 mat-card-title {
  padding-top: 2rem;
  padding-left: 2rem;
  font-weight: 700;
+ font-size: 1.4rem;
+ margin-bottom: 1rem;
 }
 
 mat-card {
