@@ -128,3 +128,9 @@
   opacity: 0;
 }
 
+::ng-deep .district-outline {
+  fill: none !important;
+  stroke: #acaaaa !important;
+  stroke-width: 0.1px !important;
+}
+

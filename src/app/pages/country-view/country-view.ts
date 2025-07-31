@@ -98,6 +98,7 @@ export class CountryView implements OnInit, AfterViewInit {
       this.legends = legends;
       const activeStates = indicatorData.result.overview;
       const states = topojson.feature(india, india.objects.states) as any;
+      const districts = topojson.feature(india, india.objects.districts) as any;
 
       const projection = d3.geoMercator().fitSize([containerWidth, height], states);
       const path = d3.geoPath().projection(projection);
@@ -109,9 +110,10 @@ export class CountryView implements OnInit, AfterViewInit {
         .attr('viewBox', `0 0 ${containerWidth} ${height}`)
         .attr('preserveAspectRatio', 'xMidYMid meet');
 
-      svg.selectAll('path')
+      svg.selectAll('.state-path')
         .data(states.features)
         .enter().append('path')
+        .attr('class', 'state-path')
         .attr('d', path as any)
         .attr('fill', (d: any) => {
           const stateCode = d.properties.st_code;
@@ -176,6 +178,11 @@ export class CountryView implements OnInit, AfterViewInit {
             }
           }
         });
+
+      svg.append('path')
+        .datum(districts)
+        .attr('class', 'district-outline')
+        .attr('d', path as any);
     }).catch((error: any) => {
       console.error('Error loading or processing data:', error);
     });
