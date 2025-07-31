@@ -23,15 +23,15 @@
   margin-right: auto;
 }
 
-/* Hero Section */
-.hero-section {
+/* Main Section */
+.dashboard-main-section {
   background-color: var(--hero-background-color);
   padding: 5rem 0;
   color: var(--text-color);
   animation: fadeIn 1s ease-in-out;
 }
 
-.hero-title {
+.dashboard-main-title {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -39,13 +39,13 @@
   color: var(--primary-color);
 }
 
-.hero-tagline {
+.dashboard-main-tagline {
   font-size: 1.8rem;
   margin-bottom: 2.5rem;
   color: #6c757d; /* A slightly muted text color */
 }
 
-.hero-summary {
+.dashboard-main-summary {
   max-width: 800px;
   margin: 0 auto 3rem;
   text-align: left;
@@ -53,19 +53,19 @@
   line-height: 1.8;
 }
 
-.hero-summary ul {
+.dashboard-main-summary ul {
   list-style: none;
   padding: 0;
   margin-top: 1.5rem;
 }
 
-.hero-summary ul li {
+.dashboard-main-summary ul li {
   margin-bottom: 0.8rem;
   position: relative;
   padding-left: 25px;
 }
 
-.hero-summary ul li::before {
+.dashboard-main-summary ul li::before {
   content: '\2713'; /* Checkmark icon */
   color: var(--primary-color);
   position: absolute;
@@ -257,11 +257,11 @@
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .hero-title {
+  .dashboard-main-title {
     font-size: 2.8rem;
   }
 
-  .hero-tagline {
+  .dashboard-main-tagline {
     font-size: 1.3rem;
   }
 
@@ -313,4 +313,11 @@
 
 .dashboard-indicator p {
   font-size: 1rem;
+}
+
+.metrics-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

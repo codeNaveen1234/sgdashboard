@@ -1,17 +1,17 @@
 {
   "sections": [
     {
-      "type": "hero",
+      "type": "dashboard-main",
       "width": "50%",
       "position": "left",
       "header": "Enabling Leadership",
       "subHeader": "Change begins when leadership is unlocked, not only in government offices or school corridors, but also in village meetings and community spaces.",
       "description":"Shikshagraha supports both school leaders (headmasters, district, block and cluster level officials) and community leaders (SHG women, parents, youth) to design and lead local missions that solve real challenges. These micro-improvements form the foundation for sustained, scalable progress.",
       "styles": {
-        "section": "hero-section",
-        "title": "hero-title",
-        "tagline": "hero-tagline",
-        "summary": "hero-summary"
+        "section": "dashboard-main-section",
+        "title": "dashboard-main-title",
+        "tagline": "dashboard-main-tagline",
+        "summary": "dashboard-main-summary"
       }
     },
     {
@@ -92,20 +92,44 @@
       "width": "50%",
       "position": "center",
       "title": "Monthly Progress",
-      "data": [
-        {"month": "Jan", "percentage": 10},
-        {"month": "Feb", "percentage": 20},
-        {"month": "Mar", "percentage": 15},
-        {"month": "Apr", "percentage": 30},
-        {"month": "May", "percentage": 25},
-        {"month": "Jun", "percentage": 40},
-        {"month": "Jul", "percentage": 35},
-        {"month": "Aug", "percentage": 50},
-        {"month": "Sep", "percentage": 45},
-        {"month": "Oct", "percentage": 60},
-        {"month": "Nov", "percentage": 55},
-        {"month": "Dec", "percentage": 70}
-      ],
+      "data": {
+        "2021": [
+          {
+            "name": "Production",
+            "series": [
+              { "name": "Jan", "value": 40 },
+              { "name": "Feb", "value": 55 },
+              { "name": "Mar", "value": 60 },
+              { "name": "Apr", "value": 50 },
+              { "name": "May", "value": 70 }
+            ]
+          }
+        ],
+        "2022": [
+          {
+            "name": "Production",
+            "series": [
+              { "name": "Jan", "value": 45 },
+              { "name": "Feb", "value": 60 },
+              { "name": "Mar", "value": 65 },
+              { "name": "Apr", "value": 55 },
+              { "name": "May", "value": 75 }
+            ]
+          }
+        ],
+        "2023": [
+          {
+            "name": "Production",
+            "series": [
+              { "name": "Jan", "value": 50 },
+              { "name": "Feb", "value": 65 },
+              { "name": "Mar", "value": 70 },
+              { "name": "Apr", "value": 60 },
+              { "name": "May", "value": 80 }
+            ]
+          }
+        ]
+      },
       "styles": {
         "section": "line-chart-section",
         "title": "section-title"
@@ -117,18 +141,11 @@
       "position": "center",
       "title": "Monthly Progress",
       "data": [
-        {"month": "Jan", "percentage": 10},
-        {"month": "Feb", "percentage": 20},
-        {"month": "Mar", "percentage": 15},
-        {"month": "Apr", "percentage": 30},
-        {"month": "May", "percentage": 25},
-        {"month": "Jun", "percentage": 40},
-        {"month": "Jul", "percentage": 35},
-        {"month": "Aug", "percentage": 50},
-        {"month": "Sep", "percentage": 45},
-        {"month": "Oct", "percentage": 60},
-        {"month": "Nov", "percentage": 55},
-        {"month": "Dec", "percentage": 70}
+        { "name": "Curriculam and pedagogy", "value": 35 },
+        { "name": "Leadership", "value": 25 },
+        { "name": "Community Engagement", "value": 20 },
+        { "name": "Infrastructure", "value": 10 },
+        { "name": "Inclusive practices", "value": 10 }
       ],
       "styles": {
         "section": "line-chart-section",

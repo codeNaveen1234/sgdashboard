@@ -1,6 +1,6 @@
 <div class="landing-container">
   <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
-    <!-- Main Section -->
+    <!-- dashboard main -->
     <ng-container *ngIf="section.type === 'dashboard-main'">
       <section [ngClass]="section.styles.section">
         <div class="container">
@@ -11,7 +11,7 @@
       </section>
     </ng-container>
 
-    <!-- Main Section -->
+    <!-- dashboard metrics -->
     <ng-container *ngIf="section.type === 'dashboard-metrics'">
       <section [ngClass]="section.styles.section" class="metrics-container">
         <div class="dashboard-container">
@@ -38,7 +38,7 @@
       </section>
     </ng-container>
 
-    <!-- Partner Logos Section -->
+    <!-- country view -->
     <ng-container *ngIf="section.type === 'country-view'">
       <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
     </ng-container>
