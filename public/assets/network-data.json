@@ -4,29 +4,29 @@
             "source": {
                 "name": "Delhi",
                 "coords": [
-                    77.2090,
+                    77.209,
                     28.6139
                 ],
                 "partner_id": [
                     "aws"
-                ]
+                ],
+                "icon": "strategic"
             },
             "target": {
                 "name": "Mumbai",
                 "coords": [
                     72.8777,
-                    19.0760
+                    19.076
                 ],
                 "partner_id": [
                     "aws",
                     "alohomora"
-                ]
+                ],
+                "icon": "strategic"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#FF5733"
+            "color": "#34a541"
         },
         {
             "source": {
@@ -38,7 +38,8 @@
                 "partner_id": [
                     "c4ec",
                     "colab"
-                ]
+                ],
+                "icon": "strategic"
             },
             "target": {
                 "name": "Nagaland",
@@ -49,13 +50,12 @@
                 "partner_id": [
                     "c4ec",
                     "colab"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#33FF57"
+            "color": "#34a541"
         },
         {
             "source": {
@@ -66,7 +66,8 @@
                 ],
                 "partner_id": [
                     "gnothi"
-                ]
+                ],
+                "icon": "strategic"
             },
             "target": {
                 "name": "Karnataka",
@@ -76,13 +77,12 @@
                 ],
                 "partner_id": [
                     "gnothi"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#3357FF"
+            "color": "#34a541"
         },
         {
             "source": {
@@ -95,7 +95,8 @@
                     "ifet",
                     "mj",
                     "orf"
-                ]
+                ],
+                "icon": "strategic"
             },
             "target": {
                 "name": "Rajasthan",
@@ -107,24 +108,24 @@
                     "ifet",
                     "mj",
                     "orf"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#FF33A1"
+            "color": "#34a541"
         },
         {
             "source": {
                 "name": "Iran",
                 "coords": [
-                    51.3890,
+                    51.389,
                     35.6892
                 ],
                 "partner_id": [
                     "paypal"
-                ]
+                ],
+                "icon": "strategic"
             },
             "target": {
                 "name": "Kerala",
@@ -134,13 +135,12 @@
                 ],
                 "partner_id": [
                     "paypal"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#A133FF"
+            "color": "#34a541"
         },
         {
             "source": {
@@ -152,7 +152,8 @@
                 "partner_id": [
                     "vv",
                     "sms"
-                ]
+                ],
+                "icon": "momentum"
             },
             "target": {
                 "name": "Karnataka",
@@ -163,24 +164,24 @@
                 "partner_id": [
                     "vv",
                     "sms"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.8,
-            "color": "#33FFF0"
+            "color": "#34a541"
         },
         {
             "source": {
                 "name": "Delhi",
                 "coords": [
-                    77.2090,
+                    77.209,
                     28.6139
                 ],
                 "partner_id": [
                     "tekdi"
-                ]
+                ],
+                "icon": "momentum"
             },
             "target": {
                 "name": "Jaipur",
@@ -190,13 +191,12 @@
                 ],
                 "partner_id": [
                     "tekdi"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#F0FF33"
+            "color": "#34a541"
         },
         {
             "source": {
@@ -207,7 +207,8 @@
                 ],
                 "partner_id": [
                     "alohomora"
-                ]
+                ],
+                "icon": "momentum"
             },
             "target": {
                 "name": "Nagpur",
@@ -217,24 +218,24 @@
                 ],
                 "partner_id": [
                     "alohomora"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#FF8C33"
+            "color": "#34a541"
         },
         {
             "source": {
                 "name": "Delhi",
                 "coords": [
-                    77.2090,
+                    77.209,
                     28.6139
                 ],
                 "partner_id": [
                     "amansa"
-                ]
+                ],
+                "icon": "momentum"
             },
             "target": {
                 "name": "Kolkata",
@@ -244,40 +245,39 @@
                 ],
                 "partner_id": [
                     "amansa"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "solid",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#33FF8C"
+            "color": "#34a541"
         },
         {
             "source": {
                 "name": "Mumbai",
                 "coords": [
                     72.8777,
-                    19.0760
+                    19.076
                 ],
                 "partner_id": [
                     "axisbank"
-                ]
+                ],
+                "icon": "momentum"
             },
             "target": {
                 "name": "Hyderabad",
                 "coords": [
                     78.4867,
-                    17.3850
+                    17.385
                 ],
                 "partner_id": [
                     "axisbank"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "multi-dash",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#8C33FF"
+            "color": "#34a541"
         },
         {
             "source": {
@@ -288,7 +288,8 @@
                 ],
                 "partner_id": [
                     "hdfc"
-                ]
+                ],
+                "icon": "momentum"
             },
             "target": {
                 "name": "Kerala",
@@ -298,13 +299,12 @@
                 ],
                 "partner_id": [
                     "hdfc"
-                ]
+                ],
+                "icon": "momentum"
             },
             "lineType": "solid",
-            "sourceIcon": "/assets/icons/source-icon.png",
-            "targetIcon": "/assets/icons/target-icon.jpg",
             "curvature": 0.3,
-            "color": "#FF3333"
+            "color": "#34a541"
         }
     ],
     "partners": [
