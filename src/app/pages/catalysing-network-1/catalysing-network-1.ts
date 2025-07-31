@@ -264,12 +264,11 @@ export class CatalysingNetwork1 implements OnInit {
         .on('click', (event, d: any) => {
           if (this.isPartnerShowable) {
             event.stopPropagation();
-            const [x, y] = d3.pointer(event);
             const partnerDetails = d.partner_ids.map((id: any) => this.networkData?.partners.find((p: { id: any; }) => p.id === id));
             tooltip.style('display', 'block')
               .html(partnerDetails.map((p: any) => `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`).join(''))
-              .style('left', (x + 10) + 'px')
-              .style('top', (y - 28) + 'px');
+              .style('left', (event.pageX + 10) + 'px')
+              .style('top', (event.pageY - 28) + 'px');
           }
         });
 
