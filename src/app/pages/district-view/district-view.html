@@ -1,0 +1,9 @@
+<div class="district-view-container">
+  <h2>Districts of {{ stateName }}</h2>
+  <div class="main-container">
+    <div id="district-map-container" #districtMapContainer></div>
+    <div class="indicator-container">
+      <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
+    </div>
+  </div>
+</div>

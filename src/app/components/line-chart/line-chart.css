@@ -1,0 +1,23 @@
+.chart-card {
+  width: 600px;
+  margin: 20px auto;
+}
+
+mat-card-title {
+ padding-top: 2rem;
+ padding-left: 2rem;
+ font-weight: 700;
+ font-size: 1.4rem;
+ margin-bottom: 1rem;
+}
+
+mat-card {
+  border-radius: 2rem;
+}
+
+.year-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}

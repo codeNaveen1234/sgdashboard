@@ -1,0 +1,23 @@
+<section [ngClass]="styles.section">
+  <div class="container">
+    <h2 [ngClass]="styles.title">{{ title }}</h2>
+    <div class="filter-buttons" *ngIf="showFilters">
+      <button (click)="filterLogos(null)" [class.active]="activeCategory === null">All</button>
+      <button *ngFor="let category of categories" (click)="filterLogos(category)" [class.active]="activeCategory === category">
+        {{ category }}
+      </button>
+    </div>
+    <div class="scroller" data-animated="true">
+      <ul class="scroller__inner">
+        <li *ngFor="let logo of filteredLogos">
+          <img [src]="logo.src" [alt]="logo.alt" [ngClass]="styles.logo">
+          <p>{{logo.name}}</p>
+        </li>
+        <li *ngFor="let logo of filteredLogos" aria-hidden="true">
+          <img [src]="logo.src" [alt]="logo.alt" [ngClass]="styles.logo">
+          <p>{{logo.name}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,94 @@
+{
+    "sections": [
+      {
+        "type": "program-name",
+        "width": "100%",
+        "position": "left",
+        "header": "Enabling Leadership",
+        "maximum_characters":150,
+        "description":"Shikshagraha supports both school leaders (headmasters, district, block and cluster level officials) and community leaders (SHG women, parents, youth) to design and lead local missions that solve real challenges. These micro-improvements form the foundation for sustained, scalable progress.",
+        "styles": {
+          "section": "dashboard-main-section",
+          "title": "dashboard-main-title",
+          "tagline": "dashboard-main-tagline",
+          "summary": "dashboard-main-summary"
+        }
+      },
+      {
+        "type": "about-program",
+        "width": "100%",
+        "position": "left",
+        "header": "About the program",
+        "maximum_characters":150,
+        "description":"Shikshagraha supports both school leaders (headmasters, district, block and cluster level officials) and community leaders (SHG women, parents, youth) to design and lead local missions that solve real challenges. These micro-improvements form the foundation for sustained, scalable progress.",
+        "styles": {
+          "section": "dashboard-main-section",
+          "title": "dashboard-main-title",
+          "tagline": "dashboard-main-tagline",
+          "summary": "dashboard-main-summary"
+        }
+      },
+      {
+        "type": "program-impact",
+        "width": "100%",
+        "position": "left",
+        "maximum_characters":150,
+        "header": "Micro Improvements towards (Impact aimed)",
+        "description":"Shikshagraha supports both school leaders (headmasters, district, block and cluster level officials) and community leaders (SHG women, parents, youth) to design and lead local missions that solve real challenges. These micro-improvements form the foundation for sustained, scalable progress.",
+        "styles": {
+          "section": "dashboard-main-section",
+          "title": "dashboard-main-title",
+          "tagline": "dashboard-main-tagline",
+          "summary": "dashboard-main-summary"
+        }
+      },
+      {
+        "type": "improvement-initiation",
+        "width": "100%",
+        "position": "left",
+        "maximum_characters":150,
+        "header": "Micro Improvements Initiated/Stakeholder",
+        "description":"Shikshagraha supports both school leaders (headmasters, district, block and cluster level officials) and community leaders (SHG women, parents, youth) to design and lead local missions that solve real challenges. These micro-improvements form the foundation for sustained, scalable progress.",
+        "styles": {
+          "section": "dashboard-main-section",
+          "title": "dashboard-main-title",
+          "tagline": "dashboard-main-tagline",
+          "summary": "dashboard-main-summary"
+        }
+      },
+      {
+        "type": "image-gallery",
+        "width": "100%",
+        "position": "left",
+        "gallery":[
+            "link","link"
+        ],
+        "title":"Gallery",
+        "styles": {
+          "section": "dashboard-main-section",
+          "title": "dashboard-main-title",
+          "tagline": "dashboard-main-tagline",
+          "summary": "dashboard-main-summary"
+        }
+      },
+      {
+        "type": "about-partners",
+        "width": "100%",
+        "position": "center",
+        "title":"About partners",
+        "partners":[
+            {
+                "name":"abcd",
+                "logo":"image-link",
+                "url":"url"
+            }
+        ],
+        "styles": {
+          "section": "dashboard-main-section",
+          "title": "dashboard-main-title",
+          "tagline": "dashboard-main-tagline",
+          "summary": "dashboard-main-summary"
+        }
+      }
+    ]
+  }

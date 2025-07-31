@@ -1,0 +1,136 @@
+.country-view-container {
+  padding: 4rem 2rem;
+  background: #e6f6fe!important;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#india-map-container {
+  width: 100%;
+  height: auto;
+}
+
+#india-map-container svg {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.indicator-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Mobile layout: 1 card per row */
+.indicator-container > app-mini-indicator-card {
+  flex-basis: 100%;
+}
+
+/* Medium screens (tablets): 1 card per row, side-by-side with map */
+@media (min-width: 768px) {
+  .main-container {
+    flex-direction: row;
+  }
+
+  #india-map-container {
+    flex: 3;
+  }
+
+  .indicator-container {
+    flex: 1;
+    /* flex-direction: column is already set above */
+  }
+
+  .indicator-container > app-mini-indicator-card {
+    flex-basis: 100%; /* 1 card per row */
+  }
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  background: white !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background: white !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+}
+/* Large screens (desktops): 1 card per row */
+@media (min-width: 1200px) {
+  .indicator-container > app-mini-indicator-card {
+    flex-basis: 100%; /* 1 card per row */
+  }
+}
+
+.legend-container {
+  background-color: #e8f5ff; /* Light blue background */
+  padding: 16px;
+  width: fit-content;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border: 1px solid #999;
+}
+
+.both {
+  background-color: #4b2e83; /* Darker purple */
+}
+
+.state {
+  background-color: #6a3fb2; /* Medium purple */
+}
+
+.district {
+  background-color: #9b6fc6; /* Lighter purple */
+}
+
+.yet {
+  background-color: #ffffff;
+  border: 1px solid #999;
+}
+
+.note {
+  font-size: 12px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.map-tooltip {
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 8px;
+  font: 12px sans-serif;
+  background: rgb(254, 254, 254);
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+::ng-deep .district-outline {
+  fill: none !important;
+  stroke: #acaaaa !important;
+  stroke-width: 0.1px !important;
+}
+
