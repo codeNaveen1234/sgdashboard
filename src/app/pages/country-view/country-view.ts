@@ -36,7 +36,7 @@ export class CountryView implements OnInit, AfterViewInit {
     return d3.json('/assets/district-view-indicators.json').then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
-      let details = stateCode ? statesData[stateCode]?.details : statesData.default.details;
+      let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
       let processedData: { value: number | string; label: string }[] = [];
 
       if (details) {
@@ -96,7 +96,7 @@ export class CountryView implements OnInit, AfterViewInit {
       const labels = indicatorData.result.meta.labels;
       const legends = indicatorData.result.meta.legends;
       this.legends = legends;
-      const activeStates = Object.keys(statesData).filter(key => key !== 'default');
+      const activeStates = indicatorData.result.overview;
       const states = topojson.feature(india, india.objects.states) as any;
 
       const projection = d3.geoMercator().fitSize([containerWidth, height], states);
