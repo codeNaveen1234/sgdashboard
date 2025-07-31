@@ -41,6 +41,7 @@
       "width": "50%",
       "position": "left",
       "title": "",
+      "isPartnerShowable": false,
       "showDetails":false,
       "styles": {
         "section": "partner-logos-section",
@@ -80,22 +81,22 @@
       "selections":[
         {
           "label":"Micro Improvement Initiated",
-          "value":"Micro Improvement Initiated",
+          "value":"improvements_activated",
           "selected":true
         },
         {
           "label":"Leaders Driving Improvements",
-          "value":"Leaders Driving Improvements",
+          "value":"leaders_driving_improvements",
           "selected":false
         },
         {
           "label":"Schools Driving Improvements",
-          "value":"Schools Driving Improvements",
+          "value":"school_driving_improvements",
           "selected":false
         },
         {
           "label":"Community-Led Improvements",
-          "value":"Community-Led Improvements",
+          "value":"community_improvements",
           "selected":false
         }
       ],

@@ -22,6 +22,7 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() showVariations: boolean = false;
   @Input() legends: any = [];
   @Input() selections: any = [];
+  selectedIndicator: string = 'improvements_activated'; // Default to improvements_activated
 
   indicatorData: { value: number | string; label: string }[] = [];
 
@@ -31,21 +32,38 @@ export class CountryView implements OnInit, AfterViewInit {
     this.fetchIndicatorData();
   }
 
-  fetchIndicatorData(stateCode?: string): void {
-    d3.json('/assets/district-view-indicators.json').then((data: any) => {
+  fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
+    return d3.json('/assets/district-view-indicators.json').then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
-      const details = stateCode ? statesData[stateCode]?.details : statesData.default.details;
+      let details = stateCode ? statesData[stateCode]?.details : statesData.default.details;
+      let processedData: { value: number | string; label: string }[] = [];
+
       if (details) {
-        this.indicatorData = details.map((item: any) => ({
-          value: item.value,
-          label: labels[item.code]
-        }));
-      } else {
-        this.indicatorData = [];
+        if (forTooltip && this.showVariations && this.selectedIndicator) {
+          const filteredDetails = details.filter((item: any) => labels[item.code] === this.selectedIndicator);
+          processedData = filteredDetails.map((item: any) => ({
+            value: item.value,
+            label: labels[item.code]
+          }));
+        } else {
+          processedData = details.map((item: any) => ({
+            value: item.value,
+            label: labels[item.code]
+          }));
+        }
       }
+
+      if (!forTooltip) {
+        this.indicatorData = processedData;
+      }
+      return processedData;
     }).catch((error: any) => {
       console.error('Error loading indicator data:', error);
+      if (!forTooltip) {
+        this.indicatorData = [];
+      }
+      return [];
     });
   }
 
@@ -68,11 +86,14 @@ export class CountryView implements OnInit, AfterViewInit {
     const containerWidth = container.offsetWidth;
     const height = containerWidth * 0.6;
 
+    const tooltip = d3.select("#map-tooltip");
+
     Promise.all([
       d3.json('/assets/india.json'),
       d3.json('/assets/district-view-indicators.json')
     ]).then(([india, indicatorData]: [any, any]) => {
       const statesData = indicatorData.result.states;
+      const labels = indicatorData.result.meta.labels;
       const legends = indicatorData.result.meta.legends;
       this.legends = legends;
       const activeStates = Object.keys(statesData).filter(key => key !== 'default');
@@ -111,11 +132,38 @@ export class CountryView implements OnInit, AfterViewInit {
           const stateCode = d.properties.st_code;
           const stateInfo = statesData[stateCode];
           if (stateInfo) {
-            this.fetchIndicatorData(stateCode);
+            if (this.showDetails) {
+              this.fetchIndicatorData(stateCode);
+            }
+            if (this.showVariations) {
+              const selectedDetail = stateInfo.details.find((detail: any) => detail.code === this.selectedIndicator);
+              if (selectedDetail) {
+                tooltip.transition().duration(200).style("opacity", .9);
+                // let tooltipHtml = `<strong>${stateInfo.label}</strong><br/>`;
+                // let tooltipHtml = `${labels[selectedDetail.code]}: ${selectedDetail.value}`;
+                let tooltipHtml = `<div style="padding: 8px 12px;border-radius: 6px;text-align: center;font-family: Arial, sans-serif;">
+                <div style="font-size: 14px; color: #333; font-weight: 500;">${labels[selectedDetail.code] || ''}</div>
+                <div style="font-size: 20px; color: #e6007a; font-weight: bold;">${selectedDetail.value}</div></div>`;
+                tooltip.html(tooltipHtml)
+              } else {
+                tooltip.transition().duration(500).style("opacity", 0); // Hide tooltip if data not found
+              }
+            }
           }
         })
-        .on('mouseout', (event: any, d: any) => {
-          this.fetchIndicatorData();
+        .on('mousemove', (event: any) => {
+          if (this.showVariations) {
+            tooltip.style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 28) + "px");
+          }
+        })
+        .on('mouseout', () => {
+          if (this.showDetails) {
+            this.fetchIndicatorData(); // Reset right panel to default
+          }
+          if (this.showVariations) {
+            tooltip.transition().duration(500).style("opacity", 0);
+          }
         })
         .on('click', (event: any, d: any) => {
           const stateCode = d.properties.st_code;
@@ -127,12 +175,6 @@ export class CountryView implements OnInit, AfterViewInit {
               this.router.navigate(['/state-view', stateName]);
             }
           }
-        })
-        .append('title')
-        .text((d: any) => {
-          const stateCode = d.properties.st_code;
-          const stateInfo = statesData[stateCode];
-          return stateInfo?.label || d.properties.st_nm || 'Unknown';
         });
     }).catch((error: any) => {
       console.error('Error loading or processing data:', error);
