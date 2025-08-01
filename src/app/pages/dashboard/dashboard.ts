@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IndicatorCardComponent } from '../../components/indicator-card/indicator-card';
 import * as d3 from 'd3';
 
@@ -20,8 +20,9 @@ import { CountryView } from '../country-view/country-view';
 export class DashboardComponent implements OnInit {
 
   pageData: any = {};
+  selectedState: string | null = null;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.fetchPageData();
@@ -43,4 +44,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  onStateSelected(state: string): void {
+    this.router.navigate(['/state-view', state]);
+  }
 }

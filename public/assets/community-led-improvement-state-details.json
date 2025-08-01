@@ -15,7 +15,7 @@
         }
       },
       {
-        "type": "country-view",
+        "type": "state-view",
         "showVariations":false,
         "showDetails":true,
         "width": "100%",

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, input, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule, KeyValuePipe } from '@angular/common';
@@ -22,6 +22,7 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() showVariations: boolean = false;
   @Input() legends: any = [];
   @Input() selections: any = [];
+  @Output() stateSelected = new EventEmitter<string>();
   selectedIndicator: string = 'improvements_activated'; // Default to improvements_activated
 
   indicatorData: { value: number | string; label: string }[] = [];
@@ -174,9 +175,11 @@ export class CountryView implements OnInit, AfterViewInit {
             this.fetchIndicatorData(stateCode);
             const stateName = stateInfo.label;
             if (stateName) {
+              this.stateSelected.emit(stateInfo.label);
               this.router.navigate(['/state-view', stateName]);
             }
           }else if(!this.showDetails){
+            this.stateSelected.emit(stateInfo.label);
             this.router.navigate(['/dashboard']);
           }
         });

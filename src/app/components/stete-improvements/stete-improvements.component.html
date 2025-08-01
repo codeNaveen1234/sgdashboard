@@ -1,4 +1,8 @@
 <div class="landing-container">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a [routerLink]="['/dashboard']">Dashboard</a> / <span>{{ stateName }}</span>
+  </div>
     <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
       <!-- Main Section -->
       <ng-container *ngIf="section.type === 'dashboard-main'">
@@ -39,8 +43,13 @@
       </ng-container>
 
       <!-- Partner Logos Section -->
-      <ng-container *ngIf="section.type === 'country-view'">
+      <!-- <ng-container *ngIf="section.type === 'country-view'">
         <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
+      </ng-container> -->
+
+      <!-- app-state-view -->
+      <ng-container *ngIf="section.type === 'state-view'">
+        <app-state-view></app-state-view>
       </ng-container>
 
       <!-- Data Indicators Section -->
