@@ -35,37 +35,127 @@
       "width": "100%",
       "position": "left",
       "title": "Partners",
-      "showFilters":true,
+      "showFilters": true,
       "partners": [
         {
+          "id": "alohomora",
+          "src": "assets/partners/alohomora.svg",
+          "alt": "alohomora",
+          "name": "alohomora",
           "category": "Strategic Partners",
-          "logos": [
-            { "src": "assets/partners/alohomora.svg", "alt": "alohomora", "name": "alohomora" },
-            { "src": "assets/partners/amansa.svg", "alt": "amansa", "name": "amansa" },
-            { "src": "assets/partners/aws.svg", "alt": "aws", "name": "aws" },
-            { "src": "assets/partners/axisbank.svg", "alt": "axisbank", "name": "axisbank" },
-            { "src": "assets/partners/hdfc.svg", "alt": "hdfc", "name": "hdfc" },
-            { "src": "assets/partners/c4ec.svg", "alt": "c4ec", "name": "c4ec" },
-            { "src": "assets/partners/colab.svg", "alt": "colab", "name": "colab" },
-            { "src": "assets/partners/gnothi.svg", "alt": "gnothi", "name": "gnothi" },
-            { "src": "assets/partners/ifet.svg", "alt": "ifet", "name": "ifet" },
-            { "src": "assets/partners/mj.svg", "alt": "mj", "name": "mj" }
-          ]
+          "website": "https://www.alohomora.org"
         },
         {
+          "id": "amansa",
+          "src": "assets/partners/amansa.svg",
+          "alt": "amansa",
+          "name": "amansa",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "aws",
+          "src": "assets/partners/aws.svg",
+          "alt": "aws",
+          "name": "aws",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "axisbank",
+          "src": "assets/partners/axisbank.svg",
+          "alt": "axisbank",
+          "name": "axisbank",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "hdfc",
+          "src": "assets/partners/hdfc.svg",
+          "alt": "hdfc",
+          "name": "hdfc",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "c4ec",
+          "src": "assets/partners/c4ec.svg",
+          "alt": "c4ec",
+          "name": "c4ec",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "colab",
+          "src": "assets/partners/colab.svg",
+          "alt": "colab",
+          "name": "colab",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "gnothi",
+          "src": "assets/partners/gnothi.svg",
+          "alt": "gnothi",
+          "name": "gnothi",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "ifet",
+          "src": "assets/partners/ifet.svg",
+          "alt": "ifet",
+          "name": "ifet",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "mj",
+          "src": "assets/partners/mj.svg",
+          "alt": "mj",
+          "name": "mj",
+          "category": "Strategic Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "orf",
+          "src": "assets/partners/orf.svg",
+          "alt": "orf",
+          "name": "orf",
           "category": "Collaborators",
-          "logos": [
-            { "src": "assets/partners/orf.svg", "alt": "orf", "name": "orf" },
-            { "src": "assets/partners/paypal.svg", "alt": "paypal", "name": "paypal" }
-          ]
+          "website": "https://www.alohomora.org"
         },
         {
+          "id": "paypal",
+          "src": "assets/partners/paypal.svg",
+          "alt": "paypal",
+          "name": "paypal",
+          "category": "Collaborators",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "vv",
+          "src": "assets/partners/vv.svg",
+          "alt": "vv",
+          "name": "vv",
           "category": "Momentum Partners",
-          "logos": [
-            { "src": "assets/partners/vv.svg", "alt": "vv", "name": "vv" },
-            { "src": "assets/partners/sms.svg", "alt": "sms", "name": "sms" },
-            { "src": "assets/partners/tekdi.svg", "alt": "tekdi", "name": "tekdi" }
-          ]
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "sms",
+          "src": "assets/partners/sms.svg",
+          "alt": "sms",
+          "name": "sms",
+          "category": "Momentum Partners",
+          "website": "https://www.alohomora.org"
+        },
+        {
+          "id": "tekdi",
+          "src": "assets/partners/tekdi.svg",
+          "alt": "tekdi",
+          "name": "tekdi",
+          "category": "Momentum Partners",
+          "website": "https://www.alohomora.org"
         }
       ],
       "styles": {
