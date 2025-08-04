@@ -112,37 +112,6 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('stroke-width', 0.5);
 
       // Draw network lines
-      const getCoords = (location: any) => {
-        if (location.coords) {
-          return location.coords;
-        }
-
-        let locationName = location.stateName || location.countryName;
-
-        if (locationName) {
-          locationName = locationName.trim().toLowerCase();
-          if (locationName === 'india') {
-            return d3.geoCentroid(states);
-          }
-
-          const feature = states.features.find((f: any) => {
-            return f.properties && f.properties.st_nm && f.properties.st_nm.trim().toLowerCase() === locationName;
-          });
-
-          if (feature) {
-            return d3.geoCentroid(feature);
-          }
-
-          // If the location is a country other than India, place it at the top of the map.
-          if (location.countryName) {
-            return projection.invert ? projection.invert([containerWidth / 2, 0]) : [0,0];
-          }
-        }
-
-        console.warn(`Location not found for`, location);
-        return null;
-      };
-
       const lineGenerator = d3.line()
         .curve(d3.curveBundle.beta(0.85)); // Adjust beta for more or less curvature
 
@@ -151,18 +120,13 @@ export class CatalysingNetwork1 implements OnInit {
         .enter().append('path')
         .attr('class', 'network-line')
         .attr('d', (d: any) => {
-          const sourceCoords = getCoords(d.source);
-          const targetCoords = getCoords(d.target);
+          const sourceCoords = projection(d.source.coords);
+          const targetCoords = projection(d.target.coords);
 
           if (!sourceCoords || !targetCoords) return null;
 
-          const projectedSource = projection(sourceCoords);
-          const projectedTarget = projection(targetCoords);
-
-          if (!projectedSource || !projectedTarget) return null;
-
-          const midX = (projectedSource[0] + projectedTarget[0]) / 2;
-          const midY = (projectedSource[1] + projectedTarget[1]) / 2;
+          const midX = (sourceCoords[0] + targetCoords[0]) / 2;
+          const midY = (sourceCoords[1] + targetCoords[1]) / 2;
 
           let controlPoint: [number, number];
 
@@ -173,8 +137,8 @@ export class CatalysingNetwork1 implements OnInit {
             controlPoint = [midX, midY];
           } else {
             // Curved line
-            const dx = projectedTarget[0] - projectedSource[0]; // Difference in X
-            const dy = projectedTarget[1] - projectedSource[1]; // Difference in Y
+            const dx = targetCoords[0] - sourceCoords[0]; // Difference in X
+            const dy = targetCoords[1] - sourceCoords[1]; // Difference in Y
 
             // Adjust the control point to always push the curve upwards
             controlPoint = [
@@ -183,7 +147,7 @@ export class CatalysingNetwork1 implements OnInit {
             ];
           }
 
-          return lineGenerator([projectedSource, controlPoint, projectedTarget]);
+          return lineGenerator([sourceCoords, controlPoint, targetCoords]);
         })
         .attr('fill', 'none')
         .attr('stroke', (d: any) => d.color) // Use color from data // Use gradient for dotted lines, blue for glow, purple for arrowhead, red for multi-dash
@@ -256,16 +220,10 @@ export class CatalysingNetwork1 implements OnInit {
       const iconData = this.networkData.impactData.flatMap((d: any) => {
         const icons = [];
         if (d.source) {
-          const coords = getCoords(d.source);
-          if (coords) {
-            icons.push({ iconUrl: this.markerConfigList[d.source.icon].icon, coordinates: coords, partner_ids: d.source.partner_id });
-          }
+          icons.push({ iconUrl: this.markerConfigList[d.source.icon].icon, coordinates: d.source.coords, partner_ids: d.source.partner_id });
         }
         if (d.target) {
-          const coords = getCoords(d.target);
-          if (coords) {
-            icons.push({ iconUrl: this.markerConfigList[d.target.icon].icon, coordinates: coords, partner_ids: d.target.partner_id });
-          }
+          icons.push({ iconUrl: this.markerConfigList[d.target.icon].icon, coordinates: d.target.coords, partner_ids: d.target.partner_id });
         }
         return icons;
       });
@@ -282,23 +240,15 @@ export class CatalysingNetwork1 implements OnInit {
         .append('image')
         .attr('class', 'node-icon')
         .attr('xlink:href', (d: any) => d.iconUrl)
-        .attr('x', (d: any) => {
-          const projected = projection(d.coordinates);
-          return projected ? projected[0] - 12 : -9999;
-        })
-        .attr('y', (d: any) => {
-          const projected = projection(d.coordinates);
-          return projected ? projected[1] - 12 : -9999;
-        })
+        .attr('x', (d: any) => projection(d.coordinates)![0] - 12)
+        .attr('y', (d: any) => projection(d.coordinates)![1] - 12)
         .attr('width', 20)
         .attr('height', 20)
-        .each(function (d: any) {
+        .each(function(d: any) {
           const icon = d3.select(this);
-          const projected = projection(d.coordinates);
-          if (!projected) return;
-          const x = projected[0];
-          const y = projected[1];
-
+          const x = projection(d.coordinates)![0];
+          const y = projection(d.coordinates)![1];
+          
           function rotate() {
             icon.transition()
               .duration(2000)

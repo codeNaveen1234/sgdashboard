@@ -6,9 +6,6 @@ from constants import PAGE_METADATA, TABS_METADATA
 
 
 def convert_drive_link_to_direct_url(link):
-    """
-    Convert a Google Drive sharing link to a direct image URL.
-    """
     if not isinstance(link, str):
         return ''
     
@@ -25,9 +22,10 @@ def excel_to_json_partners():
         # Get the directory of the current script
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        # Define file paths
-        file_path = os.path.join(script_dir, "doc.xlsx")
+       # Define file paths
+        file_path = os.path.join(script_dir, "suma.xlsx")
         json_path = os.path.join(script_dir, "public/assets", "landing-page.json")
+        network_data_path = os.path.join(script_dir, "public/assets", "network-data.json")
 
         # Load Excel workbook and sheet
         workbook = openpyxl.load_workbook(file_path, data_only=True)
@@ -44,12 +42,12 @@ def excel_to_json_partners():
 
         # Ensure all expected columns are present
         if not all(col in headers for col in expected_columns):
-            print("❌ Error: Missing required columns in Excel sheet.")
+            print("❌ Error: Missing required columns.")
             print("Expected:", expected_columns)
             print("Found:", headers)
             return
 
-        # Collect valid partner data from rows
+       # Collect valid partner data from rows
         data = []
         for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
             try:
@@ -60,26 +58,24 @@ def excel_to_json_partners():
                 raw_src = row[headers.index(expected_columns[1])] or ''
                 logo_url = convert_drive_link_to_direct_url(raw_src)
 
+                name_clean = str(raw_name).lower().replace(" ", "")
                 row_data = {
+                    'id': name_clean,
+                    'src': logo_url,
+                    'alt': name_clean,
                     'name': str(raw_name).strip(),
                     'src': logo_url,
                     'partnerState':row[headers.index(expected_columns[2])] or '',
                     'category': row[headers.index(expected_columns[3])] or '',
                     'website': row[headers.index(expected_columns[4])] or ''
                 }
-
-                # Generate id and alt from name
-                name_clean = row_data['name'].lower().replace(" ", "")
-                row_data['id'] = name_clean
-                row_data['alt'] = name_clean
-
                 data.append(row_data)
 
             except Exception as e:
                 print(f"⚠️ Error processing row {row_idx}: {e}")
                 continue
 
-        # Read existing JSON data
+        # Update landing-page.json
         if os.path.exists(json_path):
             with open(json_path, 'r', encoding='utf-8') as f:
                 try:
@@ -89,11 +85,9 @@ def excel_to_json_partners():
         else:
             json_data = []
 
-        # Ensure JSON is a list
         if not isinstance(json_data, list):
             json_data = [json_data]
 
-        # Append to existing partner-logos section or create it
         found = False
         for obj in json_data:
             if isinstance(obj, dict) and obj.get('type', '').strip().lower() == 'partner-logos':
@@ -120,11 +114,36 @@ def excel_to_json_partners():
                 }
             })
 
-        # Write back to JSON file
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(json_data, f, indent=2, ensure_ascii=False)
 
-        print("✅ Partner data appended successfully.")
+        print("✅ landing-page.json updated.")
+
+        # 🔄 Extend network-data.json with these same partners
+        if os.path.exists(network_data_path):
+            with open(network_data_path, 'r', encoding='utf-8') as f:
+                try:
+                    network_data = json.load(f)
+                except json.JSONDecodeError:
+                    network_data = {}
+        else:
+            network_data = {}
+
+        if 'partners' not in network_data or not isinstance(network_data['partners'], list):
+            network_data['partners'] = []
+
+        # Avoid duplicate partner IDs
+        existing_ids = {p['id'] for p in network_data['partners'] if 'id' in p}
+        new_partners = [p for p in data if p['id'] not in existing_ids]
+
+        if new_partners:
+            network_data['partners'].extend(new_partners)
+
+            with open(network_data_path, 'w', encoding='utf-8') as f:
+                json.dump(network_data, f, indent=2, ensure_ascii=False)
+            print(f"✅ {len(new_partners)} new partners added to network-data.json.")
+        else:
+            print("ℹ️ No new partners to add to network-data.json.")
 
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
