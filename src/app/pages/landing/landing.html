@@ -51,9 +51,13 @@
       <app-country-view [showVariations]="section.showVariations" [legends]="section.legends" [selections]="section.selections"></app-country-view>
     </ng-container>
 
-    <!-- Partner Logos Section -->
     <ng-container *ngIf="section.type === 'global-view'">
-      <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable] = "section.isPartnerShowable"></app-catalysing-network-1>
+      <div *ngIf="currentComponent === 'A'" [@zoomInOut]="animationState">
+        <app-global-map-2></app-global-map-2>
+      </div>
+      <div *ngIf="currentComponent === 'B'">
+        <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable]="section.isPartnerShowable"></app-catalysing-network-1>
+      </div>
     </ng-container>
 
     <!-- Partner Logos Section -->
