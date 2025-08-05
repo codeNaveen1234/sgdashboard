@@ -6,7 +6,7 @@ from geopy.geocoders import Nominatim
 from constants import PAGE_METADATA, TABS_METADATA
 
 # Initialize geolocator
-geolocator = Nominatim(user_agent="network_mapper")
+geolocator = Nominatim(user_agent="sgdashboard_network_mapper_v1.0")
 location_cache = {}
 
 # Geocode helper
@@ -36,7 +36,7 @@ def get_coordinates(state, country):
 def excel_to_json():
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(script_dir, "suma.xlsx")
+        file_path = os.path.join(script_dir, "doc.xlsx")
         json_path = os.path.join(script_dir, "public/assets", "network-data.json")
 
         workbook = openpyxl.load_workbook(file_path, data_only=True)
