@@ -5,6 +5,8 @@ const port = process.env.PORT || 9192;
 
 const buildPath = path.join(__dirname, 'dist', 'shikshagraha-dashboard', 'browser');
 
+app.use(express.static(buildPath));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
