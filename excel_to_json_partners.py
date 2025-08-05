@@ -2,32 +2,70 @@ import openpyxl
 import json
 import os
 import re
+import requests
+import cloudinary
+import cloudinary.uploader
 from constants import PAGE_METADATA, TABS_METADATA
+
+# 🔧 Configure Cloudinary
+cloudinary.config(
+    cloud_name="dfncm107l",   # <-- Replace with yours
+    api_key="238343496614657",         # <-- Replace with yours
+    api_secret="wiv5t7TnY7cIgOFCkEHYP-GDWIo"    # <-- Replace with yours
+)
 
 
 def convert_drive_link_to_direct_url(link):
     if not isinstance(link, str):
         return ''
-    
-    # Match Google Drive file ID
     match = re.search(r"/d/([a-zA-Z0-9_-]+)", link)
+    if not match:
+        match = re.search(r"id=([a-zA-Z0-9_-]+)", link)
     if match:
         file_id = match.group(1)
         return f"https://drive.google.com/uc?export=view&id={file_id}"
     return link.strip()
 
 
+def download_image(file_id, save_path):
+    url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(save_path, 'wb') as f:
+                f.write(response.content)
+            print(f"✅ Downloaded image to {save_path}")
+            return True
+        else:
+            print(f"❌ Failed to download image for file ID {file_id}")
+            return False
+    except Exception as e:
+        print(f"❌ Exception downloading image: {e}")
+        return False
+
+
+def upload_to_cloudinary(local_path, public_id):
+    try:
+        result = cloudinary.uploader.upload(local_path, public_id=public_id, folder="partners")
+        # 🧹 Delete the file after successful upload
+        os.remove(local_path)
+        return result['secure_url']
+    except Exception as e:
+        print(f"❌ Cloudinary upload failed: {e}")
+        # 🧹 Delete the file after successful upload
+        os.remove(local_path)
+        return ""
+
+
 def excel_to_json_partners():
     try:
-        # Get the directory of the current script
         script_dir = os.path.dirname(os.path.abspath(__file__))
-
-       # Define file paths
         file_path = os.path.join(script_dir, "suma.xlsx")
         json_path = os.path.join(script_dir, "public/assets", "landing-page.json")
         network_data_path = os.path.join(script_dir, "public/assets", "network-data.json")
+        images_dir = os.path.join(script_dir, "temp_downloads")
+        os.makedirs(images_dir, exist_ok=True)
 
-        # Load Excel workbook and sheet
         workbook = openpyxl.load_workbook(file_path, data_only=True)
         try:
             sheet = workbook[PAGE_METADATA["PARTNERS"]]
@@ -36,36 +74,49 @@ def excel_to_json_partners():
             print("Available sheets:", workbook.sheetnames)
             return
 
-        # Read headers from first row
         headers = [str(cell.value).strip() if cell.value is not None else '' for cell in sheet[1]]
         expected_columns = TABS_METADATA["PARTNERS"]
 
-        # Ensure all expected columns are present
         if not all(col in headers for col in expected_columns):
             print("❌ Error: Missing required columns.")
             print("Expected:", expected_columns)
             print("Found:", headers)
             return
 
-       # Collect valid partner data from rows
         data = []
         for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
             try:
                 raw_name = row[headers.index(expected_columns[0])]
                 if not raw_name or not str(raw_name).strip():
-                    continue  # Skip row if name is missing or blank
+                    continue
 
                 raw_src = row[headers.index(expected_columns[1])] or ''
                 logo_url = convert_drive_link_to_direct_url(raw_src)
 
-                name_clean = str(raw_name).lower().replace(" ", "")
+                file_match = re.search(r"id=([a-zA-Z0-9_-]+)", logo_url)
+                if not file_match:
+                    file_match = re.search(r"/d/([a-zA-Z0-9_-]+)", raw_src)
+                file_id = file_match.group(1) if file_match else ''
+
+                name_clean = str(raw_name).strip().lower()
+                name_clean = re.sub(r'[^a-z0-9_-]', '', name_clean.replace(" ", "_"))
+                local_filename = f"{name_clean}.jpg"
+                local_path = os.path.join(images_dir, local_filename)
+
+                cloudinary_url = ""
+                if file_id:
+                    if download_image(file_id, local_path):
+                        cloudinary_url = upload_to_cloudinary(local_path, name_clean)
+                    final_src = cloudinary_url or logo_url
+                else:
+                    final_src = logo_url
+
                 row_data = {
                     'id': name_clean,
-                    'src': logo_url,
+                    'src': final_src,
                     'alt': name_clean,
                     'name': str(raw_name).strip(),
-                    'src': logo_url,
-                    'partnerState':row[headers.index(expected_columns[2])] or '',
+                    'partnerState': row[headers.index(expected_columns[2])] or '',
                     'category': row[headers.index(expected_columns[3])] or '',
                     'website': row[headers.index(expected_columns[4])] or ''
                 }
@@ -75,7 +126,6 @@ def excel_to_json_partners():
                 print(f"⚠️ Error processing row {row_idx}: {e}")
                 continue
 
-        # Update landing-page.json
         if os.path.exists(json_path):
             with open(json_path, 'r', encoding='utf-8') as f:
                 try:
@@ -93,7 +143,7 @@ def excel_to_json_partners():
             if isinstance(obj, dict) and obj.get('type', '').strip().lower() == 'partner-logos':
                 if 'partners' not in obj or not isinstance(obj['partners'], list):
                     obj['partners'] = []
-                obj['partners'].extend(data)
+                obj['partners'] = data
                 found = True
                 break
 
@@ -119,7 +169,6 @@ def excel_to_json_partners():
 
         print("✅ landing-page.json updated.")
 
-        # 🔄 Extend network-data.json with these same partners
         if os.path.exists(network_data_path):
             with open(network_data_path, 'r', encoding='utf-8') as f:
                 try:
@@ -132,13 +181,11 @@ def excel_to_json_partners():
         if 'partners' not in network_data or not isinstance(network_data['partners'], list):
             network_data['partners'] = []
 
-        # Avoid duplicate partner IDs
         existing_ids = {p['id'] for p in network_data['partners'] if 'id' in p}
         new_partners = [p for p in data if p['id'] not in existing_ids]
 
         if new_partners:
             network_data['partners'].extend(new_partners)
-
             with open(network_data_path, 'w', encoding='utf-8') as f:
                 json.dump(network_data, f, indent=2, ensure_ascii=False)
             print(f"✅ {len(new_partners)} new partners added to network-data.json.")
