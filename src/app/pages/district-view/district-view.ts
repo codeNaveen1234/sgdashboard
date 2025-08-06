@@ -24,7 +24,6 @@ export class DistrictView implements OnInit, AfterViewInit {
     this.route.paramMap.subscribe(params => {
       this.stateName = params.get('district'); // 'district' is the parameter name in app.routes.ts
       if (this.stateName) {
-        console.log(`Loading districts for state: ${this.stateName}`);
         this.fetchIndicatorData();
       }
     });

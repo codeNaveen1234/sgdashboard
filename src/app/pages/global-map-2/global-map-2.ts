@@ -69,7 +69,7 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
     getNetworkData() {
         d3.json<NetworkData>('/assets/network-data.json').then((networkData: NetworkData | undefined) => {
           this.networkData = networkData;
-          console.log(this.networkData)
+      
           if (this.networkData) {
             this.drawChoroplethMap();
           }
@@ -155,7 +155,6 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
   
         const continentMap = new Map(continentData.map((d: any) => [d.Country, d.Continent]));
   
-        console.log("All country names:", countries.map((c: any) => c.properties.name));
   
         // Draw the ocean
         svg.append('path')

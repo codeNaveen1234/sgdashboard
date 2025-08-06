@@ -38,7 +38,6 @@ export class CatalysingNetwork1 implements OnInit {
   getNetworkData() {
     d3.json('/assets/network-data.json').then((networkData: any) => {
       this.networkData = networkData;
-      console.log(this.networkData)
       if (this.networkData) {
         this.drawMap();
       }

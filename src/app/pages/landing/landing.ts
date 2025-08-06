@@ -36,18 +36,15 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPageData();
-    console.log('ngOnInit: currentComponent =', this.currentComponent, 'animationState =', this.animationState);
     setTimeout(() => {
       this.animationState = 'zoomed';
        this.onAnimationDone()
-      console.log('setTimeout: animationState set to zoomed', this.animationState);
     }, 2000); // Delay before zoom
   }
 
    onAnimationDone() {
     // Once zoom is done, switch to ComponentB
     this.currentComponent = 'B';
-    console.log('onAnimationDone: currentComponent set to B', this.currentComponent);
   }
 
   fetchPageData(): void {
