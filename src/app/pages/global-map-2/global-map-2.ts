@@ -44,7 +44,7 @@ interface NetworkData {
   templateUrl: './global-map-2.html',
   styleUrls: ['./global-map-2.css']
 })
-export class GlobalMap2 implements OnInit, AfterViewInit {
+export class GlobalMap2 implements OnInit {
   @ViewChild('mapContainer') private mapContainer!: ElementRef;
   networkData: NetworkData | undefined;
   markerConfigList: any = {
@@ -60,11 +60,6 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
       this.getNetworkData()
     }
   
-    ngAfterViewInit(): void {
-      if (this.networkData) {
-        this.drawChoroplethMap();
-      }
-    }
 
     getNetworkData() {
         d3.json<NetworkData>('/assets/network-data.json').then((networkData: NetworkData | undefined) => {
