@@ -52,10 +52,10 @@
     </ng-container>
 
     <ng-container *ngIf="section.type === 'global-view'">
-      <div *ngIf="currentComponent === 'A'" [@zoomInOut]="animationState">
+      <div *ngIf="showFirst" class="animate-container">
         <app-global-map-2></app-global-map-2>
       </div>
-      <div *ngIf="currentComponent === 'B'">
+      <div *ngIf="!showFirst">
         <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable]="section.isPartnerShowable"></app-catalysing-network-1>
       </div>
     </ng-container>
