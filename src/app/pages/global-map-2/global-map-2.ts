@@ -99,9 +99,11 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
         .append('svg')
         .attr('width', width)
         .attr('height', height);
+
+      const g = svg.append('g');
   
       // Define SVG defs for gradient and arrowhead
-      const defs = svg.append('defs');
+      const defs = g.append('defs');
 
       defs.append('linearGradient')
         .attr('id', 'line-gradient')
@@ -157,13 +159,13 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
   
   
         // Draw the ocean
-        svg.append('path')
+        g.append('path')
           .datum({ type: 'Sphere' } as any)
           .attr('class', 'ocean')
           .attr('d', path as any)
           .on('mouseover', (event: any) => {
-            tooltip.transition().style('opacity', .9);
-            tooltip.html(`<strong>Ocean</strong>`);
+            // tooltip.transition().style('opacity', .9);
+            // tooltip.html(`<strong>Ocean</strong>`);
           })
           .on('mousemove', (event: any) => {
             tooltip.style('left', (event.pageX + 10) + 'px')
@@ -173,7 +175,7 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
             tooltip.transition().style('opacity', 0);
           });
   
-        svg.append('g')
+        g.append('g')
           .selectAll('path')
           .data(countries)
           .enter().append('path')
@@ -188,9 +190,9 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
             return '#e6e3e3ff'; // Grey color for all other countries
           })
           .on('mouseover', (event, d: any) => {
-            const continent = continentMap.get(d.properties.name) || 'N/A';
-            tooltip.transition().style('opacity', .9);
-            tooltip.html(`<strong>${d.properties.name}</strong><br/>Continent: ${continent}`);
+            // const continent = continentMap.get(d.properties.name) || 'N/A';
+            // tooltip.transition().style('opacity', .9);
+            // tooltip.html(`<strong>${d.properties.name}</strong><br/>Continent: ${continent}`);
           })
           .on('mousemove', (event: any) => {
             tooltip.style('left', (event.pageX + 10) + 'px')
@@ -204,7 +206,7 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
 
         if (!this.networkData) return;
 
-        svg.selectAll('path.network-line')
+        g.selectAll('path.network-line')
         .data(this.networkData.impactData)
         .enter().append('path')
         .attr('class', 'network-line')
@@ -326,20 +328,20 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
             ];
         });
 
-        svg.selectAll('.node-icon')
+        g.selectAll('.node-icon')
           .data(iconData)
           .enter().append('image')
           .attr('class', 'node-icon')
           .attr('xlink:href', (d: any) => d.icon)
-          .attr('width', 12) // Adjust icon size as needed
-          .attr('height', 12)
+          .attr('width', 6) // Adjust icon size as needed
+          .attr('height', 6)
           .attr('x', (d: any) => {
             const coords = projection(d.coordinates);
-            return coords ? coords[0] - 12 : 0; // Center the icon
+            return coords ? coords[0] - 3 : 0; // Center the icon
           })
           .attr('y', (d: any) => {
             const coords = projection(d.coordinates);
-            return coords ? coords[1] - 12 : 0; // Center the icon
+            return coords ? coords[1] - 3 : 0; // Center the icon
           })
           .on('mouseover', (event: any, d: any) => {
             tooltip.transition().style('opacity', .9);
@@ -356,6 +358,20 @@ export class GlobalMap2 implements OnInit, AfterViewInit {
           .on('mouseout', () => {
             tooltip.transition().style('opacity', 0);
           });
+        if (india) {
+          // @ts-ignore
+          const bounds = path.bounds(india);
+          const dx = bounds[1][0] - bounds[0][0];
+          const dy = bounds[1][1] - bounds[0][1];
+          const x = (bounds[0][0] + bounds[1][0]) / 2;
+          const y = (bounds[0][1] + bounds[1][1]) / 2;
+          const scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height)));
+          const translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+          g.transition()
+            .duration(2000)
+            .attr('transform', `translate(${translate}) scale(${scale})`);
+        }
   
       }).catch(err => console.error('Error loading data:', err));
     }

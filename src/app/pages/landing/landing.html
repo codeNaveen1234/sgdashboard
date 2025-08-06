@@ -52,10 +52,10 @@
     </ng-container>
 
     <ng-container *ngIf="section.type === 'global-view'">
-      <div *ngIf="showFirst" class="animate-container">
+      <div *ngIf="isGlobalMapVisible" [@zoomFade]="animationState">
         <app-global-map-2></app-global-map-2>
       </div>
-      <div *ngIf="!showFirst">
+      <div *ngIf="!isGlobalMapVisible" [@fadeIn]>
         <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable]="section.isPartnerShowable"></app-catalysing-network-1>
       </div>
     </ng-container>
@@ -71,4 +71,3 @@
     </ng-container>
   </div>
 </div>
-

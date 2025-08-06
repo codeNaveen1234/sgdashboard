@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IndicatorCardComponent } from '../../components/indicator-card/indicator-card';
@@ -15,21 +15,28 @@ import { Global7Map } from '../global-map-7/global-map-7';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, CountryView, CatalysingNetwork1,GlobalMap2, Global7Map],
+  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, CountryView, CatalysingNetwork1, GlobalMap2, Global7Map],
   templateUrl: './landing.html',
   styleUrls: ['./landing.css'],
   animations: [
-    trigger('zoomInOut', [
-      state('start', style({ transform: 'scale(1)' })),
-      state('zoomed', style({ transform: 'scale(1.2)' })),
-      transition('start => zoomed', [animate('500ms ease-in-out')]),
+    trigger('zoomFade', [
+      state('in', style({ transform: 'scale(1)', opacity: 1 })),
+      state('out', style({ transform: 'scale(1.2)', opacity: 0 })),
+      transition('in => out', [animate('1000ms ease-out')]),
+    ]),
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0 })),
+      state('*', style({ opacity: 1 })),
+      transition('void => *', [animate('1000ms ease-in')]),
     ])
   ]
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, AfterViewInit {
 
   pageData: any = [];
-  showFirst = true;
+  
+  isGlobalMapVisible = true; 
+  animationState: 'in' | 'out' = 'in';
 
   constructor() { }
 
@@ -37,10 +44,14 @@ export class LandingComponent implements OnInit {
     this.fetchPageData();
   }
 
-   ngAfterViewInit() {
+  ngAfterViewInit() {
     setTimeout(() => {
-      this.showFirst = false;
-    }, 1000); // Switch after 2 seconds
+      this.animationState = 'out';
+    }, 1000); 
+
+    setTimeout(() => {
+      this.isGlobalMapVisible = false;
+    }, 1200);
   }
 
   fetchPageData(): void {
