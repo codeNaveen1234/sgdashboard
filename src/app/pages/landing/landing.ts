@@ -29,22 +29,18 @@ import { Global7Map } from '../global-map-7/global-map-7';
 export class LandingComponent implements OnInit {
 
   pageData: any = [];
-  currentComponent = 'A';
-  animationState = 'start';
+  showFirst = true;
 
   constructor() { }
 
   ngOnInit(): void {
     this.fetchPageData();
-    setTimeout(() => {
-      this.animationState = 'zoomed';
-       this.onAnimationDone()
-    }, 2000); // Delay before zoom
   }
 
-   onAnimationDone() {
-    // Once zoom is done, switch to ComponentB
-    this.currentComponent = 'B';
+   ngAfterViewInit() {
+    setTimeout(() => {
+      this.showFirst = false;
+    }, 1000); // Switch after 2 seconds
   }
 
   fetchPageData(): void {
