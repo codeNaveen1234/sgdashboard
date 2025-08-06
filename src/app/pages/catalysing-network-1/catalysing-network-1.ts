@@ -239,14 +239,14 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[0] - 12 : -9999;
+          return projected ? projected[0] - 9 : -9999;
         })
         .attr('y', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[1] - 12 : -9999;
+          return projected ? projected[1] - 9 : -9999;
         })
-        .attr('width', 20)
-        .attr('height', 20)
+        .attr('width',18)
+        .attr('height', 18)
         .each(function (d: any) {
           const icon = d3.select(this);
           const projected = projection(d.coordinates);
