@@ -38,7 +38,7 @@
       shell: >
         curl --location --request GET '{{ pm2_config_url }}'
         --header 'X-Vault-Token: {{ vault_token }}' |
-        jq '.data' > pm2.config.json
+        jq '.data.data' > pm2.config.json
       args:
         chdir: "{{ project_path }}"
 
