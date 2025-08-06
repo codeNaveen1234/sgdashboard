@@ -24,7 +24,7 @@
 
     - name: Clone the repo
       git:
-        repo: https://github.com/ELEVATE-Project/sgdashboard
+        repo: https://github.com/Vinod-V3/sgdashboard
         dest: "{{project_path}}"
         version: "{{gitBranch}}"
         force: yes
