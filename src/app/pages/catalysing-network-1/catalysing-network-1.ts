@@ -15,6 +15,7 @@ export class CatalysingNetwork1 implements OnInit {
   @ViewChild('networkMapContainer') private mapContainer!: ElementRef;
   @Input() showDetails: boolean = false;
   @Input() isPartnerShowable: boolean = true;
+  private isDrawing = false;
 
   networkData: any
   markerConfigList: any = {
@@ -26,7 +27,14 @@ export class CatalysingNetwork1 implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.getNetworkData()
+  }
+
+  ngAfterViewInit(): void {
+    this.getNetworkData().then(() => {
+      if (this.networkData) {
+        this.drawMap();
+      }
+    });
   }
 
   goToNetworkPage() {
@@ -35,15 +43,14 @@ export class CatalysingNetwork1 implements OnInit {
     }
   }
 
-  getNetworkData() {
-    d3.json('/assets/network-data.json').then((networkData: any) => {
-      this.networkData = networkData;
-      if (this.networkData) {
-        this.drawMap();
-      }
-    }).catch((error: any) => {
-      console.error('Error loading indicator data:', error);
-    });
+  getNetworkData(): Promise<void> {
+    return d3.json('/assets/network-data.json')
+      .then((networkData: any) => {
+        this.networkData = networkData;
+      })
+      .catch((error: any) => {
+        console.error('Error loading network data:', error);
+      });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -52,7 +59,11 @@ export class CatalysingNetwork1 implements OnInit {
   }
 
   private drawMap(): void {
-    d3.select('#network-map-container svg').remove();
+    if (this.isDrawing) return;
+    this.isDrawing = true;
+
+    // Clear existing content to prevent multiple maps on resize
+    d3.select(this.mapContainer.nativeElement).selectAll('*').remove();
 
     const container = this.mapContainer.nativeElement;
     const containerWidth = container.offsetWidth;
@@ -64,32 +75,21 @@ export class CatalysingNetwork1 implements OnInit {
       const projection = d3.geoMercator().fitSize([containerWidth, containerHeight], states);
       const path = d3.geoPath().projection(projection);
 
-      const svg = d3.select('#network-map-container')
+      const svg = d3.select(this.mapContainer.nativeElement)
         .append('svg')
         .attr('viewBox', `0 0 ${containerWidth} ${containerHeight}`)
         .attr('preserveAspectRatio', 'xMidYMid meet');
 
-      // Define a linear gradient for the running lines
       const defs = svg.append('defs');
-
       const gradient = defs.append('linearGradient')
         .attr('id', 'line-gradient')
         .attr('x1', '0%').attr('y1', '0%')
         .attr('x2', '100%').attr('y2', '0%');
 
-      gradient.append('stop')
-        .attr('offset', '0%')
-        .attr('stop-color', 'rgba(0,255,0,0)'); // Transparent green
+      gradient.append('stop').attr('offset', '0%').attr('stop-color', 'rgba(0,255,0,0)');
+      gradient.append('stop').attr('offset', '50%').attr('stop-color', 'green');
+      gradient.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(0,255,0,0)');
 
-      gradient.append('stop')
-        .attr('offset', '50%')
-        .attr('stop-color', 'green'); // Solid green
-
-      gradient.append('stop')
-        .attr('offset', '100%')
-        .attr('stop-color', 'rgba(0,255,0,0)'); // Transparent green
-
-      // Define arrowhead marker
       defs.append('marker')
         .attr('id', 'arrowhead')
         .attr('viewBox', '-5 -5 10 10')
@@ -110,40 +110,28 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('stroke', '#000')
         .attr('stroke-width', 0.5);
 
-      // Draw network lines
       const getCoords = (location: any) => {
-        if (location.coords) {
-          return location.coords;
-        }
+        if (location.coords) return location.coords;
 
         let locationName = location.stateName || location.countryName;
-
         if (locationName) {
           locationName = locationName.trim().toLowerCase();
-          if (locationName === 'india') {
-            return d3.geoCentroid(states);
-          }
+          if (locationName === 'india') return d3.geoCentroid(states);
 
-          const feature = states.features.find((f: any) => {
-            return f.properties && f.properties.st_nm && f.properties.st_nm.trim().toLowerCase() === locationName;
-          });
+          const feature = states.features.find((f: any) =>
+            f.properties && f.properties.st_nm && f.properties.st_nm.trim().toLowerCase() === locationName
+          );
+          if (feature) return d3.geoCentroid(feature);
 
-          if (feature) {
-            return d3.geoCentroid(feature);
-          }
-
-          // If the location is a country other than India, place it at the top of the map.
           if (location.countryName) {
-            return projection.invert ? projection.invert([containerWidth / 2, 0]) : [0,0];
+            return projection.invert ? projection.invert([containerWidth / 2, 0]) : [0, 0];
           }
         }
-
         console.warn(`Location not found for`, location);
         return null;
       };
 
-      const lineGenerator = d3.line()
-        .curve(d3.curveBundle.beta(0.85)); // Adjust beta for more or less curvature
+      const lineGenerator = d3.line().curve(d3.curveBundle.beta(0.85));
 
       svg.selectAll('path.network-line')
         .data(this.networkData?.impactData.filter((d: any) => d.source && d.target))
@@ -152,50 +140,36 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('d', (d: any) => {
           const sourceCoords = getCoords(d.source);
           const targetCoords = getCoords(d.target);
-
           if (!sourceCoords || !targetCoords) return null;
 
           const projectedSource = projection(sourceCoords);
           const projectedTarget = projection(targetCoords);
-
           if (!projectedSource || !projectedTarget) return null;
 
           const midX = (projectedSource[0] + projectedTarget[0]) / 2;
           const midY = (projectedSource[1] + projectedTarget[1]) / 2;
 
           let controlPoint: [number, number];
-
-          const currentCurvature = d.curvature !== undefined ? d.curvature : 0.3; // Default curvature
+          const currentCurvature = d.curvature !== undefined ? d.curvature : 0.3;
 
           if (currentCurvature === 0) {
-            // Straight line
             controlPoint = [midX, midY];
           } else {
-            // Curved line
-            const dx = projectedTarget[0] - projectedSource[0]; // Difference in X
-            const dy = projectedTarget[1] - projectedSource[1]; // Difference in Y
-
-            // Adjust the control point to always push the curve upwards
-            controlPoint = [
-              midX, // Keep the X coordinate the same as the midpoint for a symmetric curve
-              midY - Math.abs(dy) * currentCurvature // Pull the control point upwards by the magnitude of dy
-            ];
+            const dx = projectedTarget[0] - projectedSource[0];
+            const dy = projectedTarget[1] - projectedSource[1];
+            controlPoint = [midX, midY - Math.abs(dy) * currentCurvature];
           }
 
           return lineGenerator([projectedSource, controlPoint, projectedTarget]);
         })
         .attr('fill', 'none')
-        .attr('stroke', (d: any) => d.color) // Use color from data // Use gradient for dotted lines, blue for glow, purple for arrowhead, red for multi-dash
+        .attr('stroke', (d: any) => d.color)
         .attr('stroke-width', 2)
         .attr('opacity', 0.7)
         .attr('stroke-dasharray', (d: any) => {
-          if (d.lineType === 'dotted' || d.lineType === 'arrowhead') {
-            return '10,10';
-          } else if (d.lineType === 'multi-dash') {
-            return '20, 5, 10, 5'; // Example: long dash, short gap, medium dash, short gap
-          } else {
-            return '0,0';
-          }
+          if (d.lineType === 'dotted' || d.lineType === 'arrowhead') return '10,10';
+          else if (d.lineType === 'multi-dash') return '20, 5, 10, 5';
+          else return '0,0';
         })
         .attr('marker-end', (d: any) => d.lineType === 'arrowhead' ? 'url(#arrowhead)' : '')
         .each(function (d: any) {
@@ -207,46 +181,32 @@ export class CatalysingNetwork1 implements OnInit {
               pathElement
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
                 .attr('stroke-dashoffset', totalLength)
-                .transition()
-                .duration(2000) // Animation duration
-                .ease(d3.easeLinear)
+                .transition().duration(2000).ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0)
-                .on('end', repeat); // Loop the animation
+                .on('end', repeat);
             }
             repeat();
           } else if (d.lineType === 'glow') {
             const originalPath = d3.select(this);
-            const totalLength = (this as SVGPathElement).getTotalLength();
-
             function repeat() {
               originalPath
-                .attr('stroke-width', 2)
-                .attr('opacity', 0.2)
-                .transition()
-                .duration(1500) // Pulse duration
-                .ease(d3.easeLinear)
-                .attr('stroke-width', 8) // Max glow width
-                .attr('opacity', 1)
-                .transition()
-                .duration(1500) // Fade duration
-                .ease(d3.easeLinear)
-                .attr('stroke-width', 2)
-                .attr('opacity', 0.2)
-                .on('end', repeat); // Loop the animation
+                .attr('stroke-width', 2).attr('opacity', 0.2)
+                .transition().duration(1500).ease(d3.easeLinear)
+                .attr('stroke-width', 8).attr('opacity', 1)
+                .transition().duration(1500).ease(d3.easeLinear)
+                .attr('stroke-width', 2).attr('opacity', 0.2)
+                .on('end', repeat);
             }
             repeat();
           } else if (d.lineType === 'multi-dash') {
             const totalLength = (this as SVGPathElement).getTotalLength();
             const pathElement = d3.select(this);
-
             function repeat() {
               pathElement
                 .attr('stroke-dashoffset', totalLength)
-                .transition()
-                .duration(5000) // Animation duration
-                .ease(d3.easeLinear)
+                .transition().duration(5000).ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0)
-                .on('end', repeat); // Loop the animation
+                .on('end', repeat);
             }
             repeat();
           }
@@ -270,15 +230,11 @@ export class CatalysingNetwork1 implements OnInit {
       });
 
       const tooltip = d3.select('#tooltip');
-
-      svg.on('click', () => {
-        tooltip.style('display', 'none');
-      });
+      svg.on('click', () => tooltip.style('display', 'none'));
 
       svg.selectAll('image.node-icon')
         .data(iconData)
-        .enter()
-        .append('image')
+        .enter().append('image')
         .attr('class', 'node-icon')
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
@@ -313,16 +269,22 @@ export class CatalysingNetwork1 implements OnInit {
         .on('click', (event, d: any) => {
           if (this.isPartnerShowable) {
             event.stopPropagation();
-            const partnerDetails = d.partner_ids.map((id: any) => this.networkData?.partners.find((p: { id: any; }) => p.id === id));
+            const partnerDetails = d.partner_ids.map((id: any) =>
+              this.networkData?.partners.find((p: { id: any }) => p.id === id)
+            );
             tooltip.style('display', 'block')
-              .html(partnerDetails.map((p: any) => `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`).join(''))
+              .html(partnerDetails.map((p: any) =>
+                `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`
+              ).join(''))
               .style('left', (event.pageX + 10) + 'px')
               .style('top', (event.pageY - 28) + 'px');
           }
         });
 
+      this.isDrawing = false;
     }).catch((error: any) => {
       console.error('Error loading or processing the TopoJSON data:', error);
+      this.isDrawing = false;
     });
   }
 }
