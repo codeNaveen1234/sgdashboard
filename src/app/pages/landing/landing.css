@@ -206,6 +206,20 @@
   to { opacity: 1; }
 }
 
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Adjust as needed */
+}
+
+.map-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .hero-title {

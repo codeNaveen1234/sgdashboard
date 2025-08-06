@@ -19,15 +19,10 @@ import { Global7Map } from '../global-map-7/global-map-7';
   templateUrl: './landing.html',
   styleUrls: ['./landing.css'],
   animations: [
-    trigger('zoomFade', [
-      state('in', style({ transform: 'scale(1)', opacity: 1 })),
-      state('out', style({ transform: 'scale(1.2)', opacity: 0 })),
-      transition('in => out', [animate('1000ms ease-out')]),
-    ]),
-    trigger('fadeIn', [
-      state('void', style({ opacity: 0 })),
-      state('*', style({ opacity: 1 })),
-      transition('void => *', [animate('1000ms ease-in')]),
+    trigger('fade', [
+      state('visible', style({ opacity: 1 })),
+      state('hidden', style({ opacity: 0 })),
+      transition('visible <=> hidden', [animate('800ms ease-in-out')]),
     ])
   ]
 })
@@ -36,7 +31,6 @@ export class LandingComponent implements OnInit, AfterViewInit {
   pageData: any = [];
   
   isGlobalMapVisible = true; 
-  animationState: 'in' | 'out' = 'in';
 
   constructor() { }
 
@@ -46,12 +40,8 @@ export class LandingComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.animationState = 'out';
-    }, 1000); 
-
-    setTimeout(() => {
       this.isGlobalMapVisible = false;
-    }, 1200);
+    }, 1000); 
   }
 
   fetchPageData(): void {
