@@ -11,6 +11,8 @@ import { PieChartComponent } from '../../components/pie-chart/pie-chart';
 import { CountryView } from '../country-view/country-view';
 import { SliderCarouselComponent } from '../../components/slider-carousel/slider-carousel';
 import { CatalysingNetwork1 } from '../catalysing-network-1/catalysing-network-1';
+import { NETWORK_HEALTH_PAGE } from '../../../constants/urlConstants';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-network-health',
@@ -30,7 +32,7 @@ export class NetworkHealth implements OnInit {
   }
 
   fetchPageData(): void {
-    d3.json('/assets/network-health.json').then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${NETWORK_HEALTH_PAGE}`).then((data: any) => {
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {

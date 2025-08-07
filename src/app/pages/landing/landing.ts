@@ -1,24 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IndicatorCardComponent } from '../../components/indicator-card/indicator-card';
 import * as d3 from 'd3';
+import { environment } from '../../../../environments/environment';
+import { LANDING_PAGE } from '../../../constants/urlConstants';
 
 import { PartnerLogosComponent } from '../../components/partner-logos/partner-logos';
 import { CarouselComponent } from '../../components/carousel/carousel';
 import { CountryView } from '../country-view/country-view';
 import { CatalysingNetwork1 } from '../catalysing-network-1/catalysing-network-1';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { GlobalMap2 } from '../global-map-2/global-map-2';
+import { Global7Map } from '../global-map-7/global-map-7';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, CountryView, CatalysingNetwork1],
+  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, CountryView, CatalysingNetwork1, GlobalMap2, Global7Map],
   templateUrl: './landing.html',
-  styleUrls: ['./landing.css']
+  styleUrls: ['./landing.css'],
+  animations: [
+    trigger('fade', [
+      state('visible', style({ opacity: 1 })),
+      state('hidden', style({ opacity: 0 })),
+      transition('visible <=> hidden', [animate('800ms ease-in-out')]),
+    ])
+  ]
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, AfterViewInit {
 
-  pageData: any = {};
+  pageData: any = [];
+  
+  isGlobalMapVisible = true; 
 
   constructor() { }
 
@@ -26,20 +40,19 @@ export class LandingComponent implements OnInit {
     this.fetchPageData();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isGlobalMapVisible = false;
+    }, 1000); 
+  }
+
   fetchPageData(): void {
-    d3.json('/assets/landing-page.json').then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${LANDING_PAGE}`).then((data: any) => {
       this.pageData = data;
-      this.prepareLogosForScrolling();
+      console.log(data)
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });
-  }
-
-  prepareLogosForScrolling(): void {
-    const partnerLogosSection = this.pageData.sections.find((s:any) => s.type === 'partner-logos');
-    if (partnerLogosSection && partnerLogosSection.partners) {
-      this.pageData.allLogos = partnerLogosSection.partners.flatMap((p:any) => p.logos);
-    }
   }
 
 }
