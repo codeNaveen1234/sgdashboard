@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
 import { MiniIndicatorCardComponent } from '../../components/mini-indicator-card/mini-indicator-card';
+import { DISTRICT_VIEW_INDICATORS } from '../../../constants/urlConstants';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-district-view',
@@ -30,7 +32,7 @@ export class DistrictView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(): void {
-    d3.json('/assets/district-view-indicators.json').then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       if (this.stateName && data.result[this.stateName]) {
         this.indicatorData = data.result[this.stateName];
       } else {

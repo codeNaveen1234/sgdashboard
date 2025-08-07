@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener }
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment';
+import { NETWORK_DATA } from '../../../constants/urlConstants';
 
 interface Partner {
   id: string;
@@ -62,7 +64,7 @@ export class GlobalMap2 implements OnInit {
   
 
     getNetworkData() {
-        d3.json<NetworkData>('/assets/network-data.json').then((networkData: NetworkData | undefined) => {
+        d3.json<NetworkData>(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${NETWORK_DATA}`).then((networkData: NetworkData | undefined) => {
           this.networkData = networkData;
       
           if (this.networkData) {

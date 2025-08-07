@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { IndicatorCardComponent } from '../../components/indicator-card/indicator-card';
 import { MiniIndicatorCardComponent } from '../../components/mini-indicator-card/mini-indicator-card';
 import { Router } from '@angular/router'; // Import Router
+import { environment } from '../../../../environments/environment';
+import { DISTRICT_VIEW_INDICATORS, INDIA } from '../../../constants/urlConstants';
 
 @Component({
   selector: 'app-country-view',
@@ -25,7 +27,7 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(): void {
-    d3.json('/assets/district-view-indicators.json').then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const defaultData = data.result.states.default.details;
       const labels = data.result.meta.labels;
       this.indicatorData = defaultData.map((item: any) => ({
@@ -57,7 +59,7 @@ export class CountryView implements OnInit, AfterViewInit {
     const height = containerWidth * 0.6;
 
     Promise.all([
-      d3.json('/assets/india.json'),
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${INDIA}`),
       d3.json('/assets/active-states.json')
     ]).then(([india, activeStatesData]: [any, any]) => {
       const activeStates = activeStatesData.result;

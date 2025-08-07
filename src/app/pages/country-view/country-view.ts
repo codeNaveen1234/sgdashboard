@@ -7,6 +7,8 @@ import { MiniIndicatorCardComponent } from '../../components/mini-indicator-card
 import { Router } from '@angular/router'; // Import Router
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
+import { DISTRICT_VIEW_INDICATORS, INDIA } from '../../../constants/urlConstants';
 
 
 @Component({
@@ -34,7 +36,7 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
-    return d3.json('/assets/district-view-indicators.json').then((data: any) => {
+    return d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
@@ -90,8 +92,8 @@ export class CountryView implements OnInit, AfterViewInit {
     const tooltip = d3.select("#map-tooltip");
 
     Promise.all([
-      d3.json('/assets/india.json'),
-      d3.json('/assets/district-view-indicators.json')
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${INDIA}`),
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`)
     ]).then(([india, indicatorData]: [any, any]) => {
       const statesData = indicatorData.result.states;
       const labels = indicatorData.result.meta.labels;

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IndicatorCardComponent } from '../../components/indicator-card/indicator-card';
 import * as d3 from 'd3';
+import { environment } from '../../../../environments/environment';
+import { LANDING_PAGE } from '../../../constants/urlConstants';
 
 import { PartnerLogosComponent } from '../../components/partner-logos/partner-logos';
 import { CarouselComponent } from '../../components/carousel/carousel';
@@ -45,8 +47,9 @@ export class LandingComponent implements OnInit, AfterViewInit {
   }
 
   fetchPageData(): void {
-    d3.json('/assets/landing-page.json').then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${LANDING_PAGE}`).then((data: any) => {
       this.pageData = data;
+      console.log(data)
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });

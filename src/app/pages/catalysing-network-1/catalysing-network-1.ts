@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
+import { NETWORK_DATA } from '../../../constants/urlConstants';
 
 @Component({
   selector: 'app-catalysing-network-1',
@@ -44,7 +46,7 @@ export class CatalysingNetwork1 implements OnInit {
   }
 
   getNetworkData(): Promise<void> {
-    return d3.json('/assets/network-data.json')
+    return d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${NETWORK_DATA}`)
       .then((networkData: any) => {
         this.networkData = networkData;
       })
