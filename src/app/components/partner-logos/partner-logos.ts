@@ -20,16 +20,15 @@ export class PartnerLogosComponent implements OnInit {
   activeCategory: string | null = null;
 
   ngOnInit(): void {
-    this.allLogos = this.partners.flatMap(p => p.logos);
-    this.categories = this.partners.map(p => p.category);
+    this.allLogos = this.partners;
+    this.categories = [...new Set(this.partners.map(p => p.category))];
     this.filterLogos(null);
   }
 
   filterLogos(category: string | null): void {
     this.activeCategory = category;
     if (category) {
-      const selectedPartner = this.partners.find(p => p.category === category);
-      this.filteredLogos = selectedPartner ? selectedPartner.logos : [];
+      this.filteredLogos = this.allLogos.filter(logo => logo.category === category);
     } else {
       this.filteredLogos = this.allLogos;
     }

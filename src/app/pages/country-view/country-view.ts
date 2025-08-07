@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, input, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule, KeyValuePipe } from '@angular/common';
@@ -7,6 +7,8 @@ import { MiniIndicatorCardComponent } from '../../components/mini-indicator-card
 import { Router } from '@angular/router'; // Import Router
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
+import { DISTRICT_VIEW_INDICATORS, INDIA } from '../../../constants/urlConstants';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() showVariations: boolean = false;
   @Input() legends: any = [];
   @Input() selections: any = [];
+  @Output() stateSelected = new EventEmitter<string>();
   selectedIndicator: string = 'improvements_activated'; // Default to improvements_activated
 
   indicatorData: { value: number | string; label: string }[] = [];
@@ -33,7 +36,7 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
-    return d3.json('/assets/district-view-indicators.json').then((data: any) => {
+    return d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
@@ -89,8 +92,8 @@ export class CountryView implements OnInit, AfterViewInit {
     const tooltip = d3.select("#map-tooltip");
 
     Promise.all([
-      d3.json('/assets/india.json'),
-      d3.json('/assets/district-view-indicators.json')
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${INDIA}`),
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`)
     ]).then(([india, indicatorData]: [any, any]) => {
       const statesData = indicatorData.result.states;
       const labels = indicatorData.result.meta.labels;
@@ -170,12 +173,16 @@ export class CountryView implements OnInit, AfterViewInit {
         .on('click', (event: any, d: any) => {
           const stateCode = d.properties.st_code;
           const stateInfo = statesData[stateCode];
-          if (stateInfo) {
+          if (this.showDetails && stateInfo) {
             this.fetchIndicatorData(stateCode);
             const stateName = stateInfo.label;
             if (stateName) {
+              this.stateSelected.emit(stateInfo.label);
               this.router.navigate(['/state-view', stateName]);
             }
+          }else if(!this.showDetails){
+            this.stateSelected.emit(stateInfo.label);
+            this.router.navigate(['/dashboard']);
           }
         });
 

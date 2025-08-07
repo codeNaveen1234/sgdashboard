@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener }
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
+import { INDIA } from '../../../constants/urlConstants';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-catalysing-networks',
@@ -56,7 +58,7 @@ export class CatalysingNetworks implements OnInit, AfterViewInit {
     const containerWidth = container.offsetWidth;
     const height = containerWidth * 0.8; // Adjust height as needed
 
-    d3.json('/assets/india.json').then((india: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${INDIA}`).then((india: any) => {
       const states = topojson.feature(india, india.objects.states) as any;
       
       const projection = d3.geoMercator().fitSize([containerWidth, height], states);

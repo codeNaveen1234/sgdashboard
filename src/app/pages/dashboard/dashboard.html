@@ -38,9 +38,18 @@
       </section>
     </ng-container>
 
-    <!-- Partner Logos Section -->
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" *ngIf="selectedState">
+      <a [routerLink]="['/dashboard']">Dashboard</a> / {{ selectedState }}
+    </div>
     <ng-container *ngIf="section.type === 'country-view'">
-      <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
+      <app-country-view 
+        [showVariations]="section.showVariations" 
+        [showDetails]="section.showDetails" 
+        [legends]="section.legends" 
+        [selections]="section.selections" 
+        (stateSelected)="onStateSelected($event)">
+      </app-country-view>
     </ng-container>
 
     <!-- Data Indicators Section -->

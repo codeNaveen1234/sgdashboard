@@ -170,94 +170,238 @@
     "showFilters": false,
     "partners": [
       {
-        "category": "Strategic Partners",
-        "logos": [
-          {
-            "src": "assets/partners/alohomora.svg",
-            "alt": "alohomora",
-            "name": "alohomora"
-          },
-          {
-            "src": "assets/partners/amansa.svg",
-            "alt": "amansa",
-            "name": "amansa"
-          },
-          {
-            "src": "assets/partners/aws.svg",
-            "alt": "aws",
-            "name": "aws"
-          },
-          {
-            "src": "assets/partners/axisbank.svg",
-            "alt": "axisbank",
-            "name": "axisbank"
-          },
-          {
-            "src": "assets/partners/hdfc.svg",
-            "alt": "hdfc",
-            "name": "hdfc"
-          },
-          {
-            "src": "assets/partners/c4ec.svg",
-            "alt": "c4ec",
-            "name": "c4ec"
-          },
-          {
-            "src": "assets/partners/colab.svg",
-            "alt": "colab",
-            "name": "colab"
-          },
-          {
-            "src": "assets/partners/gnothi.svg",
-            "alt": "gnothi",
-            "name": "gnothi"
-          },
-          {
-            "src": "assets/partners/ifet.svg",
-            "alt": "ifet",
-            "name": "ifet"
-          },
-          {
-            "src": "assets/partners/mj.svg",
-            "alt": "mj",
-            "name": "mj"
-          }
-        ]
+        "id": "alohomora",
+        "src": "https://drive.google.com/uc?export=view&id=1YV597Ak1vil6GdWrCbFwxsX-cgIirnXj",
+        "alt": "alohomora",
+        "name": "Alohomora",
+        "partnerState": "Haryana",
+        "category": "Momentum ",
+        "website": "https://drive.google.com/file/d/1YV597Ak1vil6GdWrCbFwxsX-cgIirnXj/view?usp=drive_link"
       },
       {
-        "category": "Collaborators",
-        "logos": [
-          {
-            "src": "assets/partners/orf.svg",
-            "alt": "orf",
-            "name": "orf"
-          },
-          {
-            "src": "assets/partners/paypal.svg",
-            "alt": "paypal",
-            "name": "paypal"
-          }
-        ]
+        "id": "alokit",
+        "src": "https://drive.google.com/uc?export=view&id=1yVp1XSp-skyV6qbjGusmie9gRvzaNyBf",
+        "alt": "alokit",
+        "name": "Alokit",
+        "partnerState": "Telangana",
+        "category": "Momentum ",
+        "website": "https://www.mantra4change.org/"
       },
       {
-        "category": "Momentum Partners",
-        "logos": [
-          {
-            "src": "assets/partners/vv.svg",
-            "alt": "vv",
-            "name": "vv"
-          },
-          {
-            "src": "assets/partners/sms.svg",
-            "alt": "sms",
-            "name": "sms"
-          },
-          {
-            "src": "assets/partners/tekdi.svg",
-            "alt": "tekdi",
-            "name": "tekdi"
-          }
-        ]
+        "id": "eduweave",
+        "src": "https://drive.google.com/uc?export=view&id=11bF90hN9jZmEGVOVoXevI2vUimSSZCFr",
+        "alt": "eduweave",
+        "name": "EduWeave",
+        "partnerState": "Chhattisgarh",
+        "category": "Momentum ",
+        "website": "https://eduweavefoundation.org/"
+      },
+      {
+        "id": "eduweave",
+        "src": "https://drive.google.com/uc?export=view&id=11bF90hN9jZmEGVOVoXevI2vUimSSZCFr",
+        "alt": "eduweave",
+        "name": "EduWeave",
+        "partnerState": "Jammu and Kashmir",
+        "category": "Momentum ",
+        "website": "https://eduweavefoundation.org/"
+      },
+      {
+        "id": "ifet",
+        "src": "https://drive.google.com/uc?export=view&id=1YV597Ak1vil6GdWrCbFwxsX-cgIirnXj",
+        "alt": "ifet",
+        "name": "IFET",
+        "partnerState": "Arunachal Pradesh",
+        "category": "Momentum ",
+        "website": "https://www.ifet.org.in/"
+      },
+      {
+        "id": "involve",
+        "src": "https://drive.google.com/uc?export=view&id=1IlQSQX31wbC-i59akX22QXzY9DXxInWf",
+        "alt": "involve",
+        "name": "Involve",
+        "partnerState": "Uttar Pradesh",
+        "category": "Momentum ",
+        "website": "https://involveedu.com/"
+      },
+      {
+        "id": "involve",
+        "src": "https://drive.google.com/uc?export=view&id=1IlQSQX31wbC-i59akX22QXzY9DXxInWf",
+        "alt": "involve",
+        "name": "Involve",
+        "partnerState": "Bihar",
+        "category": "Momentum ",
+        "website": "https://involveedu.com/"
+      },
+      {
+        "id": "involve",
+        "src": "https://drive.google.com/uc?export=view&id=1IlQSQX31wbC-i59akX22QXzY9DXxInWf",
+        "alt": "involve",
+        "name": "Involve",
+        "partnerState": "Karnataka",
+        "category": "Momentum ",
+        "website": "https://involveedu.com/"
+      },
+      {
+        "id": "karunodaya",
+        "src": "https://drive.google.com/uc?export=view&id=1Sgs9ThPqA3YQ0TfJNdr5QVatmrGe17Un",
+        "alt": "karunodaya",
+        "name": "Karunodaya",
+        "partnerState": "Bihar",
+        "category": "Momentum ",
+        "website": "https://karunodaya.in/"
+      },
+      {
+        "id": "makkala_jagriti",
+        "src": "https://drive.google.com/uc?export=view&id=1o8IOUg8oRb_c6i53KOaD-Qeds3kQN_pj",
+        "alt": "makkala_jagriti",
+        "name": "Makkala Jagriti",
+        "partnerState": "Karnataka",
+        "category": "Momentum ",
+        "website": "https://makkalajagriti.org/"
+      },
+      {
+        "id": "mantra4change",
+        "src": "https://drive.google.com/uc?export=view&id=1v1l17-Vx5eKFXnyWzIfrC_lm_Jf_bHkL",
+        "alt": "mantra4change",
+        "name": "Mantra4Change",
+        "partnerState": "Karnataka",
+        "category": "Momentum ",
+        "website": "https://www.mantra4change.org/"
+      },
+      {
+        "id": "nagaed",
+        "src": "",
+        "alt": "nagaed",
+        "name": "NagaEd",
+        "partnerState": "Nagaland",
+        "category": "Momentum ",
+        "website": "https://www.nagaed.com/"
+      },
+      {
+        "id": "neaid",
+        "src": "https://drive.google.com/uc?export=view&id=12kcvuBxCoIJpV6_P0tHU8nBlYE-AzzG8",
+        "alt": "neaid",
+        "name": "NEAID",
+        "partnerState": "Assam",
+        "category": "Momentum ",
+        "website": "https://neaid.org/"
+      },
+      {
+        "id": "neaid",
+        "src": "https://drive.google.com/uc?export=view&id=12kcvuBxCoIJpV6_P0tHU8nBlYE-AzzG8",
+        "alt": "neaid",
+        "name": "NEAID",
+        "partnerState": "Meghalaya",
+        "category": "Momentum ",
+        "website": "https://neaid.org/"
+      },
+      {
+        "id": "odhisha_rising",
+        "src": "https://drive.google.com/uc?export=view&id=1rvCkpbr0Ebl724izpUSSM-VrwZP4scLE",
+        "alt": "odhisha_rising",
+        "name": "Odhisha Rising",
+        "partnerState": "Odisha",
+        "category": "Momentum ",
+        "website": "https://odisharising.in/"
+      },
+      {
+        "id": "prajayatna",
+        "src": "https://drive.google.com/uc?export=view&id=14as8HZ468k7rfkZ48IZiCoXNjJTXZCEf",
+        "alt": "prajayatna",
+        "name": "Prajayatna",
+        "partnerState": "Jharkhand",
+        "category": "Momentum ",
+        "website": "https://prajayatna.in/"
+      },
+      {
+        "id": "sanjhi_sikhiya",
+        "src": "https://drive.google.com/uc?export=view&id=1vAuXpCKa6jZbmupmFbJ13vxMRNdXX2yX",
+        "alt": "sanjhi_sikhiya",
+        "name": "Sanjhi Sikhiya",
+        "partnerState": "Punjab",
+        "category": "Momentum ",
+        "website": "https://sanjhi-sikhiya.danamojo.org/"
+      },
+      {
+        "id": "shiksharth",
+        "src": "https://drive.google.com/uc?export=view&id=1nLDvamaAhkGbltVo6xh65RuYfMrBGsSS",
+        "alt": "shiksharth",
+        "name": "Shiksharth",
+        "partnerState": "Chhattisgarh",
+        "category": "Momentum ",
+        "website": "https://shiksharth.in/"
+      },
+      {
+        "id": "slam_out_loud",
+        "src": "https://drive.google.com/uc?export=view&id=14DBmRW__qJ4cw-LesnTGfCuw64uyvBa_",
+        "alt": "slam_out_loud",
+        "name": "Slam Out Loud",
+        "partnerState": "Punjab",
+        "category": "Momentum ",
+        "website": "https://slamoutloud.org/"
+      },
+      {
+        "id": "vidhya_vidhai",
+        "src": "https://drive.google.com/uc?export=view&id=1YC9z_xeObFYM8Ga-e3rvxb65DhcLQFSV",
+        "alt": "vidhya_vidhai",
+        "name": "Vidhya Vidhai",
+        "partnerState": "Tamil Nadu",
+        "category": "Momentum ",
+        "website": "https://vidhyavidhai.org/"
+      },
+      {
+        "id": "jyoti_mahila_samakhya",
+        "src": "https://drive.google.com/uc?export=view&id=1Pxf7HK0hEGcTVADbKK3n8W5mU2q2p8Uq",
+        "alt": "jyoti_mahila_samakhya",
+        "name": "Jyoti Mahila Samakhya",
+        "partnerState": "Bihar",
+        "category": "Momentum ",
+        "website": ""
+      },
+      {
+        "id": "srishti_mahila_samakhya",
+        "src": "https://drive.google.com/uc?export=view&id=1M7Waj0ewEiKk-Yb-B9kZw_DNKDzIRzEV",
+        "alt": "srishti_mahila_samakhya",
+        "name": "Srishti Mahila Samakhya",
+        "partnerState": "Bihar",
+        "category": "Momentum ",
+        "website": ""
+      },
+      {
+        "id": "bharat_dekho",
+        "src": "https://drive.google.com/uc?export=view&id=1nwMIq0MoGLduGFFdA6L0gg-wTen6bskz",
+        "alt": "bharat_dekho",
+        "name": "Bharat Dekho",
+        "partnerState": "Telangana",
+        "category": "Momentum ",
+        "website": "https://www.bharatdekho.org/"
+      },
+      {
+        "id": "ltts",
+        "src": "https://drive.google.com/uc?export=view&id=1lGgMxYYOs0ho41qZdmBmUC6y0o_G59aK",
+        "alt": "ltts",
+        "name": "LTTS",
+        "partnerState": "",
+        "category": "Stategic",
+        "website": "https://www.ltts.com/"
+      },
+      {
+        "id": "hdfc",
+        "src": "https://drive.google.com/uc?export=view&id=1olEIOoCMr1Y1n71MXy36WlESaSzP3pDa",
+        "alt": "hdfc",
+        "name": "HDFC",
+        "partnerState": "",
+        "category": "Stategic",
+        "website": "https://www.hdfcbank.com/"
+      },
+      {
+        "id": "axis",
+        "src": "https://drive.google.com/uc?export=view&id=19rRyIA0UA6VPGX3XMKPwYhenkHpmTLLk",
+        "alt": "axis",
+        "name": "AXIS",
+        "partnerState": "",
+        "category": "Stategic",
+        "website": "https://www.axisbank.com/"
       }
     ],
     "styles": {

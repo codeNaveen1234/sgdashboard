@@ -206,6 +206,20 @@
   to { opacity: 1; }
 }
 
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Adjust as needed */
+}
+
+.map-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .hero-title {
@@ -246,4 +260,40 @@
   .app-header .nav-links a {
     margin: 0 0.8rem;
   }
+}
+
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.animate-container {
+  animation: zoomAndFade 1s ease-in-out forwards;
+}
+
+@keyframes zoomAndFade {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Optional: Style the child components for visibility */
+:host ::ng-deep app-global-map-2,
+:host ::ng-deep app-catalysing-network-1 {
+  display: block;
+  padding: 20px;
+  font-size: 24px;
+  text-align: center;
 }
