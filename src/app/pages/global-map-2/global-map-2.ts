@@ -49,6 +49,8 @@ interface NetworkData {
 export class GlobalMap2 implements OnInit {
   @ViewChild('mapContainer') private mapContainer!: ElementRef;
   networkData: NetworkData | undefined;
+  isLoading = true;
+  loadError: string | null = null;
   markerConfigList: any = {
     momentum: { hqIcon: "./assets/marker-icons/hq-circle.svg", icon: "./assets/marker-icons/circle.svg", color: "#572E91" },
     strategic: { hqIcon: "./assets/marker-icons/hq-square.svg", icon: "./assets/marker-icons/square.svg", color: "orange" },
@@ -72,6 +74,8 @@ export class GlobalMap2 implements OnInit {
           }
         }).catch((error: any) => {
           console.error('Error loading indicator data:', error);
+          this.loadError = 'Failed to load network data. Please try again later.';
+          this.isLoading = false;
         });
       }
   
@@ -357,7 +361,7 @@ export class GlobalMap2 implements OnInit {
           });
         if (india) {
           // @ts-ignore
-          const bounds = path.bounds(india);
+          const bounds = path.bounds(india as any) as [[number, number], [number, number]];
           const dx = bounds[1][0] - bounds[0][0];
           const dy = bounds[1][1] - bounds[0][1];
           const x = (bounds[0][0] + bounds[1][0]) / 2;
