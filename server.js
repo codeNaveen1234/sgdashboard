@@ -8,7 +8,12 @@ const buildPath = path.join(__dirname, 'dist', 'shikshagraha-dashboard', 'browse
 app.use(express.static(buildPath));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
+  res.sendFile(path.join(buildPath, 'index.html'), (err) => {
+    if (err) {
+      console.error('Error serving index.html:', err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 });
 
 app.listen(port, () => {
