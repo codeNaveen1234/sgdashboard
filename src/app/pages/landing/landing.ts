@@ -31,7 +31,7 @@ import { Global7Map } from '../global-map-7/global-map-7';
 export class LandingComponent implements OnInit, AfterViewInit {
 
   pageData: any = [];
-  
+  window: any = window;
   isGlobalMapVisible = true; 
 
   constructor() { }
