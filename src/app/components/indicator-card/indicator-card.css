@@ -11,6 +11,10 @@
   display: flex;
 }
 
+img {
+  width: 100px;
+}
+
 .indicator-container {
   padding-left: 1rem;
   border-left: 3px solid;
