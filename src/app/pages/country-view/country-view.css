@@ -5,7 +5,7 @@
 
 .main-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 2rem;
 }
 
@@ -31,9 +31,6 @@
 
 /* Medium screens (tablets): 1 card per row, side-by-side with map */
 @media (min-width: 768px) {
-  .main-container {
-    flex-direction: row;
-  }
 
   #india-map-container {
     flex: 3;
@@ -134,3 +131,20 @@
   stroke-width: 0.1px !important;
 }
 
+.filter-selection{
+  display: flex;
+  justify-content: flex-end;
+  height: fit-content;
+}
+
+mat-form-field{
+  min-width: 300px;
+  max-width: 350px;
+  font-size: 14px;
+}
+
+@media (min-width: 1020px) {
+  .main-container {
+    flex-direction: row;
+  }
+}

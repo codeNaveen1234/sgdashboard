@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CountryView } from '../../pages/country-view/country-view';
 import { CarouselComponent } from '../carousel/carousel';
 import { IndicatorCardComponent } from '../indicator-card/indicator-card';
@@ -8,25 +8,40 @@ import { PartnerLogosComponent } from '../partner-logos/partner-logos';
 import { LineChartComponent } from '../../components/line-chart/line-chart';
 import { PieChartComponent } from '../../components/pie-chart/pie-chart';
 import * as d3 from 'd3';
+import { StateView } from '../../pages/state-view/state-view';
 
 @Component({
   selector: 'app-stete-improvements',
   standalone:true,
-  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView],
+  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, StateView],
   templateUrl: './stete-improvements.component.html',
   styleUrls: ['./stete-improvements.component.css']
 })
 export class StateImprovementsComponent implements OnInit {
   pageData: any = {};
+  stateName: string | null = null;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.fetchPageData();
+    // Subscribe to route parameter changes to reload data when the state changes
+    this.route.paramMap.subscribe(params => {
+      this.stateName = params.get('state');
+    });
+     this.fetchPageData();
   }
 
   fetchPageData(): void {
-    d3.json('/assets/community-led-improvement-state-details.json').then((data: any) => {
+    if (!this.stateName) {
+      console.error('State name is missing from the route.');
+      return;
+    }
+
+    // Format the state name to match the JSON file name convention (e.g., "Uttar pradesh" -> "uttar-pradesh")
+    const formattedStateName = this.stateName.toLowerCase().replace(/\s+/g, '-');
+    const dataUrl = `/assets/districts/${formattedStateName}.json`;
+
+     d3.json('/assets/community-led-improvement-state-details.json').then((data: any) => {
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {
@@ -34,7 +49,7 @@ export class StateImprovementsComponent implements OnInit {
     });
   }
 
-  prepareLogosForScrolling(): void {
+prepareLogosForScrolling(): void {
     const partnerLogosSection = this.pageData.sections.find((s:any) => s.type === 'partner-logos');
     if (partnerLogosSection && partnerLogosSection.partners) {
       this.pageData.allLogos = partnerLogosSection.partners.flatMap((p:any) => p.logos);

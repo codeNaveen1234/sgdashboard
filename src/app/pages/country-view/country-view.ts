@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, input, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule, KeyValuePipe } from '@angular/common';
@@ -7,6 +7,8 @@ import { MiniIndicatorCardComponent } from '../../components/mini-indicator-card
 import { Router } from '@angular/router'; // Import Router
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
+import { DISTRICT_VIEW_INDICATORS, INDIA } from '../../../constants/urlConstants';
 
 
 @Component({
@@ -22,9 +24,11 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() showVariations: boolean = false;
   @Input() legends: any = [];
   @Input() selections: any = [];
-  selectedIndicator: string = 'improvements_activated'; // Default to improvements_activated
+  @Output() stateSelected = new EventEmitter<string>();
+  selectedIndicator: string = 'Micro Improvements Initiated';
 
   indicatorData: { value: number | string; label: string }[] = [];
+  baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
 
   constructor(private router: Router) { } // Inject Router
 
@@ -33,7 +37,7 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
-    return d3.json('/assets/district-view-indicators.json').then((data: any) => {
+    return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
@@ -89,8 +93,8 @@ export class CountryView implements OnInit, AfterViewInit {
     const tooltip = d3.select("#map-tooltip");
 
     Promise.all([
-      d3.json('/assets/india.json'),
-      d3.json('/assets/district-view-indicators.json')
+      d3.json(`${this.baseUrl}/${INDIA}`),
+      d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`)
     ]).then(([india, indicatorData]: [any, any]) => {
       const statesData = indicatorData.result.states;
       const labels = indicatorData.result.meta.labels;
@@ -138,13 +142,13 @@ export class CountryView implements OnInit, AfterViewInit {
               this.fetchIndicatorData(stateCode);
             }
             if (this.showVariations) {
-              const selectedDetail = stateInfo.details.find((detail: any) => detail.code === this.selectedIndicator);
+              const selectedDetail = stateInfo.details.find((detail: any) => detail.code.toLowerCase() === this.selectedIndicator.toLowerCase());
               if (selectedDetail) {
                 tooltip.transition().duration(200).style("opacity", .9);
                 // let tooltipHtml = `<strong>${stateInfo.label}</strong><br/>`;
                 // let tooltipHtml = `${labels[selectedDetail.code]}: ${selectedDetail.value}`;
                 let tooltipHtml = `<div style="padding: 8px 12px;border-radius: 6px;text-align: center;font-family: Arial, sans-serif;">
-                <div style="font-size: 14px; color: #333; font-weight: 500;">${labels[selectedDetail.code] || ''}</div>
+                <div style="font-size: 14px; color: #333; font-weight: 500; text-transform:capitalize">${selectedDetail.code || ''}</div>
                 <div style="font-size: 20px; color: #e6007a; font-weight: bold;">${selectedDetail.value}</div></div>`;
                 tooltip.html(tooltipHtml)
               } else {
@@ -170,12 +174,16 @@ export class CountryView implements OnInit, AfterViewInit {
         .on('click', (event: any, d: any) => {
           const stateCode = d.properties.st_code;
           const stateInfo = statesData[stateCode];
-          if (stateInfo) {
+          if (this.showDetails && stateInfo) {
             this.fetchIndicatorData(stateCode);
             const stateName = stateInfo.label;
             if (stateName) {
+              this.stateSelected.emit(stateInfo.label);
               this.router.navigate(['/state-view', stateName]);
             }
+          }else if(!this.showDetails){
+            this.stateSelected.emit(stateInfo.label);
+            this.router.navigate(['/dashboard']);
           }
         });
 

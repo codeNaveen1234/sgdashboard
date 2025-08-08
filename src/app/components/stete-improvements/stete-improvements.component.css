@@ -321,3 +321,19 @@
     align-items: center;
     height: 100%;
   }
+
+.breadcrumb {
+  padding: 1rem 0;
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.breadcrumb span {
+  cursor: pointer;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.breadcrumb span:hover {
+  text-decoration: underline;
+}
