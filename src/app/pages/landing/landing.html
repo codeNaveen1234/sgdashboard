@@ -1,34 +1,21 @@
 <div class="landing-container">
-  <div *ngFor="let section of pageData" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
-    <section class="position-width-container">
-      <!-- Main Section -->
-      <ng-container *ngIf="section.type === 'hero'">
-        <section [ngClass]="section.styles.section">
-          <div class="container">
-            <h1 [ngClass]="section.styles.title">{{ section.title }}</h1>
-            <p [ngClass]="section.styles.tagline">{{ section.tagline }}</p>
-            <div [ngClass]="section.styles.summary">
-              <p [innerHTML]="section.summary.text"></p>
-              <ul>
-                <li *ngFor="let point of section.summary.points" [innerHTML]="point"></li>
-              </ul>
-              <p [innerHTML]="section.summary.goal"></p>
-            </div>
-          </div>
-        </section>
-      </ng-container>
-
-      <ng-container *ngIf="section.type === 'global-view'" class="position-width-container">
-        <div class="map-container">
-          <div class="map-wrapper" [@fade]="isGlobalMapVisible ? 'visible' : 'hidden'">
-            <app-global-map-2></app-global-map-2>
-          </div>
-          <div class="map-wrapper" [@fade]="!isGlobalMapVisible ? 'visible' : 'hidden'">
-            <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable]="section.isPartnerShowable"></app-catalysing-network-1>
+  <div *ngFor="let section of pageData"  [style.width]="(window.innerWidth <= 768 ? '100%' : section.width)" [ngClass]="'section-position-' + section.position">
+    <!-- Main Section -->
+    <ng-container *ngIf="section.type === 'hero'">
+      <section [ngClass]="section.styles.section">
+        <div class="container">
+          <h1 [ngClass]="section.styles.title">{{ section.title }}</h1>
+          <p [ngClass]="section.styles.tagline">{{ section.tagline }}</p>
+          <div [ngClass]="section.styles.summary">
+            <p [innerHTML]="section.summary.text"></p>
+            <ul>
+              <li *ngFor="let point of section.summary.points" [innerHTML]="point"></li>
+            </ul>
+            <p [innerHTML]="section.summary.goal"></p>
           </div>
         </div>
-      </ng-container>
-    </section>
+      </section>
+    </ng-container>
 
     <!-- CTA Section -->
     <ng-container *ngIf="section.type === 'cta'">
@@ -40,8 +27,9 @@
         </div>
       </section>
     </ng-container>
+
     <!-- Data Indicators Section -->
-    <ng-container *ngIf="section.type === 'data-indicators'" class="position-width-container">
+    <ng-container *ngIf="section.type === 'data-indicators'">
       <section [ngClass]="section.styles.section">
         <div class="container">
           <h2 [ngClass]="section.styles.title">{{ section.title }}</h2>
@@ -63,13 +51,24 @@
       <app-country-view [showVariations]="section.showVariations" [legends]="section.legends" [selections]="section.selections"></app-country-view>
     </ng-container>
 
+    <ng-container *ngIf="section.type === 'global-view'">
+      <div class="map-container">
+        <div class="map-wrapper" [@fade]="isGlobalMapVisible ? 'visible' : 'hidden'">
+          <app-global-map-2></app-global-map-2>
+        </div>
+        <div class="map-wrapper" [@fade]="!isGlobalMapVisible ? 'visible' : 'hidden'">
+          <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable]="section.isPartnerShowable"></app-catalysing-network-1>
+        </div>
+      </div>
+    </ng-container>
+
     <!-- Partner Logos Section -->
-    <ng-container *ngIf="section.type === 'partner-logos'" class="position-width-container">
+    <ng-container *ngIf="section.type === 'partner-logos'">
       <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title" [showFilters]="section.showFilters"></app-partner-logos>
     </ng-container>
 
     <!-- Carousel Section -->
-    <ng-container *ngIf="section.type === 'carousel'" class="position-width-container">
+    <ng-container *ngIf="section.type === 'carousel'">
       <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
     </ng-container>
   </div>
