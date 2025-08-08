@@ -31,9 +31,9 @@
         <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
       </div>
     </div>
-    <div *ngIf="showVariations">
+    <div *ngIf="showVariations" class="filter-selection">
       <mat-form-field>
-        <mat-label>Select Improvement</mat-label>
+        <!-- <mat-label>Select</mat-label> -->
         <mat-select [(ngModel)]="selectedIndicator">
           <mat-option [value]="option.value" *ngFor="let option of selections" >{{option.label}}</mat-option>
         </mat-select>

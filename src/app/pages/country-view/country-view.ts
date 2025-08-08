@@ -25,9 +25,10 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() legends: any = [];
   @Input() selections: any = [];
   @Output() stateSelected = new EventEmitter<string>();
-  selectedIndicator: string = 'improvements_activated'; // Default to improvements_activated
+  selectedIndicator: string = 'Micro Improvements Initiated';
 
   indicatorData: { value: number | string; label: string }[] = [];
+  baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
 
   constructor(private router: Router) { } // Inject Router
 
@@ -36,7 +37,7 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
-    return d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
+    return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
@@ -92,8 +93,8 @@ export class CountryView implements OnInit, AfterViewInit {
     const tooltip = d3.select("#map-tooltip");
 
     Promise.all([
-      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${INDIA}`),
-      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DISTRICT_VIEW_INDICATORS}`)
+      d3.json(`${this.baseUrl}/${INDIA}`),
+      d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`)
     ]).then(([india, indicatorData]: [any, any]) => {
       const statesData = indicatorData.result.states;
       const labels = indicatorData.result.meta.labels;
@@ -141,13 +142,13 @@ export class CountryView implements OnInit, AfterViewInit {
               this.fetchIndicatorData(stateCode);
             }
             if (this.showVariations) {
-              const selectedDetail = stateInfo.details.find((detail: any) => detail.code === this.selectedIndicator);
+              const selectedDetail = stateInfo.details.find((detail: any) => detail.code.toLowerCase() === this.selectedIndicator.toLowerCase());
               if (selectedDetail) {
                 tooltip.transition().duration(200).style("opacity", .9);
                 // let tooltipHtml = `<strong>${stateInfo.label}</strong><br/>`;
                 // let tooltipHtml = `${labels[selectedDetail.code]}: ${selectedDetail.value}`;
                 let tooltipHtml = `<div style="padding: 8px 12px;border-radius: 6px;text-align: center;font-family: Arial, sans-serif;">
-                <div style="font-size: 14px; color: #333; font-weight: 500;">${labels[selectedDetail.code] || ''}</div>
+                <div style="font-size: 14px; color: #333; font-weight: 500; text-transform:capitalize">${selectedDetail.code || ''}</div>
                 <div style="font-size: 20px; color: #e6007a; font-weight: bold;">${selectedDetail.value}</div></div>`;
                 tooltip.html(tooltipHtml)
               } else {
