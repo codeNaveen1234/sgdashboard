@@ -37,7 +37,7 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
-    return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
+return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta.labels;
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
@@ -142,7 +142,11 @@ export class CountryView implements OnInit, AfterViewInit {
               this.fetchIndicatorData(stateCode);
             }
             if (this.showVariations) {
-              const selectedDetail = stateInfo.details.find((detail: any) => detail.code.toLowerCase() === this.selectedIndicator.toLowerCase());
+              const selectedDetail = stateInfo.details.find((detail: any) => {
+                const detailCode = detail.code?.toLowerCase().replace(/\s+/g, ''); // removes spaces & \n
+                const selectedCode = this.selectedIndicator?.toLowerCase().replace(/\s+/g, '');
+                return detailCode === selectedCode;
+              });
               if (selectedDetail) {
                 tooltip.transition().duration(200).style("opacity", .9);
                 // let tooltipHtml = `<strong>${stateInfo.label}</strong><br/>`;

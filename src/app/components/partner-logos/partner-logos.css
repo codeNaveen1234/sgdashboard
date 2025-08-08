@@ -52,7 +52,7 @@ h2 {
 .scroller[data-animated="true"] .scroller__inner {
   width: max-content;
   flex-wrap: nowrap;
-  animation: scroll 40s linear infinite;
+  animation: scroll 100s linear infinite;
 }
 
 @keyframes scroll {
@@ -65,4 +65,8 @@ h2 {
   max-width: 100px;
   height: 100px;
   transition: filter 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+}
+
+.scroller[data-animated="true"] .scroller__inner:hover { /* pause the scroll whenever your mouse is over the scrolling track. */
+  animation-play-state: paused;
 }
