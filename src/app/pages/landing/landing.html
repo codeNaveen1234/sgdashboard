@@ -1,35 +1,37 @@
 <div class="landing-container">
   <div *ngFor="let section of pageData" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
-    <!-- Main Section -->
-    <ng-container *ngIf="section.type === 'hero'">
-      <section [ngClass]="section.styles.section">
-        <div class="container">
-          <h1 [ngClass]="section.styles.title">{{ section.title }}</h1>
-          <p [ngClass]="section.styles.tagline">{{ section.tagline }}</p>
-          <div [ngClass]="section.styles.summary">
-            <p [innerHTML]="section.summary.text"></p>
-            <ul>
-              <li *ngFor="let point of section.summary.points" [innerHTML]="point"></li>
-            </ul>
-            <p [innerHTML]="section.summary.goal"></p>
+    <section class="position-width-container">
+      <!-- Main Section -->
+      <ng-container *ngIf="section.type === 'hero'">
+        <section [ngClass]="section.styles.section">
+          <div class="container">
+            <h1 [ngClass]="section.styles.title">{{ section.title }}</h1>
+            <p [ngClass]="section.styles.tagline">{{ section.tagline }}</p>
+            <div [ngClass]="section.styles.summary">
+              <p [innerHTML]="section.summary.text"></p>
+              <ul>
+                <li *ngFor="let point of section.summary.points" [innerHTML]="point"></li>
+              </ul>
+              <p [innerHTML]="section.summary.goal"></p>
+            </div>
           </div>
-        </div>
-      </section>
-    </ng-container>
+        </section>
+      </ng-container>
 
-    <!-- CTA Section -->
-    <ng-container *ngIf="section.type === 'cta'">
-      <section [ngClass]="section.styles.section">
-        <div *ngFor="let card of section.cards" [ngClass]="section.styles.card">
-          <h3>{{ card.title }}</h3>
-          <p>{{ card.text }}</p>
-          <a [routerLink]="card.button.link" [ngClass]="section.styles.button">{{ card.button.text }}</a>
-        </div>
-      </section>
-    </ng-container>
+      <!-- CTA Section -->
+      <ng-container *ngIf="section.type === 'cta'">
+        <section [ngClass]="section.styles.section">
+          <div *ngFor="let card of section.cards" [ngClass]="section.styles.card">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+            <a [routerLink]="card.button.link" [ngClass]="section.styles.button">{{ card.button.text }}</a>
+          </div>
+        </section>
+      </ng-container>
+    </section>
 
     <!-- Data Indicators Section -->
-    <ng-container *ngIf="section.type === 'data-indicators'">
+    <ng-container *ngIf="section.type === 'data-indicators'" class="position-width-container">
       <section [ngClass]="section.styles.section">
         <div class="container">
           <h2 [ngClass]="section.styles.title">{{ section.title }}</h2>
@@ -52,17 +54,17 @@
     </ng-container>
 
     <!-- Partner Logos Section -->
-    <ng-container *ngIf="section.type === 'global-view'">
+    <ng-container *ngIf="section.type === 'global-view'" class="position-width-container">
       <app-catalysing-network-1 [showDetails]="section.showDetails" [isPartnerShowable] = "section.isPartnerShowable"></app-catalysing-network-1>
     </ng-container>
 
     <!-- Partner Logos Section -->
-    <ng-container *ngIf="section.type === 'partner-logos'">
+    <ng-container *ngIf="section.type === 'partner-logos'" class="position-width-container">
       <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title" [showFilters]="section.showFilters"></app-partner-logos>
     </ng-container>
 
     <!-- Carousel Section -->
-    <ng-container *ngIf="section.type === 'carousel'">
+    <ng-container *ngIf="section.type === 'carousel'" class="position-width-container">
       <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
     </ng-container>
   </div>
