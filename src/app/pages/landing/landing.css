@@ -5,6 +5,11 @@
   flex-wrap: wrap;
 }
 
+.position-width-container {
+  width: 90%;
+  margin: auto;
+}
+
 .landing-container > div {
   box-sizing: border-box;
 }
