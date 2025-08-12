@@ -1,9 +1,9 @@
 <div class="landing-container">
-  <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
+  <div *ngFor="let section of pageData" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
     <!-- Main Section -->
     <ng-container *ngIf="section.type === 'dashboard-main'">
       <section [ngClass]="section.styles.section">
-        <div class="container">
+        <div class="container paragraph">
           <h3 class="">{{ section.header }}</h3>
           <h4 class="">{{ section.subHeader }}</h4>
           <p class="">{{ section.description }}</p>
@@ -43,11 +43,11 @@
       <a [routerLink]="['/dashboard']">Dashboard</a> / {{ selectedState }}
     </div>
     <ng-container *ngIf="section.type === 'country-view'">
-      <app-country-view 
-        [showVariations]="section.showVariations" 
-        [showDetails]="section.showDetails" 
-        [legends]="section.legends" 
-        [selections]="section.selections" 
+      <app-country-view
+        [showVariations]="section.showVariations"
+        [showDetails]="section.showDetails"
+        [legends]="section.legends"
+        [selections]="section.selections"
         (stateSelected)="onStateSelected($event)">
       </app-country-view>
     </ng-container>

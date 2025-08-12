@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class PieChartComponent {
   @Input() pieData:any = [];
 
-  view: [number, number] = [500, 400]; // width x height
+  view: [number, number] = [700, 500]; // width x height
 
   // options
   showLegend = true;

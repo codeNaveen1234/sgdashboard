@@ -22,6 +22,11 @@ mat-card {
   margin: 10px 0;
 }
 
-.legend-labels {
-  width: auto !important;
+::ng-deep .chart-legend {
+  width: max-content !important;
+  background: none !important;
+}
+::ng-deep .legend-labels {
+  width: max-content !important;
+  background: none !important;
 }

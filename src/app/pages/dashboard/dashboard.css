@@ -202,7 +202,6 @@
   font-size: 1.5rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
 }
 
 .container h4 {
@@ -214,6 +213,10 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
+}
+
+.paragraph {
+  margin-left: 5%;
 }
 
 .dashboard-container p {
@@ -320,4 +323,5 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-right: 5%;
 }
