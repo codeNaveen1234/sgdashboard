@@ -52,3 +52,10 @@
 .app-content {
   padding-top: 80px; /* Add padding to account for fixed header height */
 }
+
+.app-header .nav-links a.active-link {
+  color: var(--primary-color);
+  font-weight: bold;
+  position: relative;
+  text-decoration: none;
+}
