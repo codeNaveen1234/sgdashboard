@@ -25,15 +25,21 @@
   background-color: #f9f9f9;
 }
 
-.indicator-container {
+.indicator-container .indicators{
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 
-/* Mobile layout: 1 card per row */
-.indicator-container > app-mini-indicator-card {
-  flex-basis: 100%;
+.indicator-container .heading{
+  margin-left: 8px;
+  font-size: 18px;
 }
+
+/* Mobile layout: 1 card per row */
+/* .indicator-container > app-mini-indicator-card {
+  flex-basis: 100%;
+} */
 
 /* Medium screens (tablets): 1 card per row, side-by-side with map */
 @media (min-width: 768px) {
@@ -43,13 +49,13 @@
   }
 
   .indicator-container {
-    flex: 1;
+    flex: 2;
     /* flex-direction: column is already set above */
   }
 
-  .indicator-container > app-mini-indicator-card {
-    flex-basis: 100%; /* 1 card per row */
-  }
+  /* .indicator-container > app-mini-indicator-card {
+    flex-basis: 100%;
+  } */
 
   .filter-selection {
     position: absolute;
@@ -69,9 +75,9 @@
 }
 /* Large screens (desktops): 1 card per row */
 @media (min-width: 1200px) {
-  .indicator-container > app-mini-indicator-card {
-    flex-basis: 100%; /* 1 card per row */
-  }
+  /* .indicator-container > app-mini-indicator-card {
+    flex-basis: 100%;
+  } */
 }
 
 .legend-container {

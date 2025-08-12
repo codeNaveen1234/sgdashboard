@@ -320,4 +320,9 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-right: 10%;
+}
+
+.section-container{
+  margin-left: 10%;
 }
