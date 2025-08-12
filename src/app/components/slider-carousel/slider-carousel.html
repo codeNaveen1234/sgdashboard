@@ -3,11 +3,11 @@
     Hear from our <br /> partners
   </div>
 
-  <div class="carousel-container">
+  <div class="carousel-container" #carousel>
     <button class="nav left" (click)="prevSlide()">&#10094;</button>
 
     <div class="carousel">
-      <div class="carousel-track" [style.transform]="getTransform()">
+      <div class="carousel-track" #carouselTrack [style.transform]="getTransform()">
         <div class="carousel-slide" *ngFor="let slide of slides; let i = index">
           <div class="card" [style.--cardColor]="colors[i % colors.length]">
             <div class="message-container">

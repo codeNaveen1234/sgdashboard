@@ -4,18 +4,22 @@
   padding: 3rem;
   align-items: center;
   justify-content: center;
+  flex-direction: row; /* Default to row for larger screens */
+  flex-wrap: nowrap; /* Prevent wrapping by default */
 
   .side-header {
     color: white;
     font-size: 1.5rem;
     font-weight: bold;
-    width: 200px;
-    margin-right: 2rem;
+    flex-basis: 200px; /* Use flex-basis instead of width */
+    flex-shrink: 0; /* Prevent shrinking */
+    margin-right: 3rem; /* Increased margin */
     line-height: 1.3;
+    text-align: right; /* Align text to the right */
   }
 }
 
-.message-container{
+.message-container {
   display: flex;
   flex-direction: row;
   margin: 20px;
@@ -25,6 +29,8 @@
   display: flex;
   align-items: center;
   position: relative;
+  flex-grow: 1; /* Allow container to grow */
+  max-width: 100%; /* Ensure it doesn't overflow */
 
   .nav {
     background: white;
@@ -36,6 +42,18 @@
     z-index: 1;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: background 0.2s;
+    position: absolute; /* Position navigation buttons absolutely */
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.left {
+      left: -25px; /* Adjust as needed */
+    }
+
+    &.right {
+      right: -25px; /* Adjust as needed */
+    }
+
     &:hover {
       background: #eee;
     }
@@ -43,7 +61,7 @@
 
   .carousel {
     overflow: hidden;
-    width: 960px;
+    width: 100%; /* Make carousel width fluid */
 
     .carousel-track {
       display: flex;
@@ -51,8 +69,9 @@
     }
 
     .carousel-slide {
-      min-width: 320px;
+      flex: 0 0 33.33%; /* Show 3 slides by default, flexing to fill space */
       padding: 0 0.5rem;
+      box-sizing: border-box; /* Include padding in width calculation */
 
       .card {
         background: white;
@@ -75,19 +94,19 @@
         }
 
         .wave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  color: var(--cardColor);
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100px;
+          color: var(--cardColor);
 
-  svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-}
+          svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
 
 
         .avatar {
@@ -123,5 +142,47 @@
         }
       }
     }
+  }
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and smaller desktops */
+@media (max-width: 1024px) {
+  .carousel-wrapper {
+    padding: 2rem;
+    flex-direction: column; /* Stack side-header and carousel */
+  }
+
+  .carousel-wrapper .side-header {
+    width: 100%;
+    flex-basis: 50px; /* Use flex-basis instead of width */
+    text-align: center;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .carousel-container {
+    width: 100%;
+  }
+
+  .carousel-container .carousel .carousel-slide {
+    flex: 0 0 50%; /* Show 2 slides on tablets */
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    padding: 1rem;
+  }
+
+  .carousel-container .carousel .carousel-slide {
+    flex: 0 0 100%; /* Show 1 slide on mobile */
+  }
+
+  .carousel-container .nav {
+    padding: 0.3rem 0.6rem;
+    font-size: 1.2rem;
   }
 }

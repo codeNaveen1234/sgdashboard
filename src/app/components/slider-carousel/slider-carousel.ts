@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-slider-carousel',
@@ -8,7 +8,10 @@ import { Component } from '@angular/core';
   templateUrl: './slider-carousel.html',
   styleUrls: ['./slider-carousel.scss']
 })
-export class SliderCarouselComponent {
+export class SliderCarouselComponent implements AfterViewInit {
+  @ViewChild('carouselTrack') carouselTrack!: ElementRef;
+  @ViewChild('carousel') carousel!: ElementRef;
+
   slides = [
     {
       message:
@@ -49,9 +52,45 @@ export class SliderCarouselComponent {
 
   colors = ['#00c853', '#aa00ff', '#2979ff']; // Green, Purple, Blue
   currentIndex = 0;
+  visibleSlides = 3; // Default for desktop
+
+  ngAfterViewInit() {
+    this.updateVisibleSlides();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateVisibleSlides();
+  }
+
+  updateVisibleSlides() {
+    if (this.carousel) {
+      const carouselWidth = this.carousel.nativeElement.offsetWidth;
+      // Assuming a slide has a padding of 0.5rem on each side (1rem total)
+      // and a base width that scales with flex-basis.
+      // We can approximate the slide width or get it more accurately if needed.
+      // For now, let's use breakpoints similar to CSS.
+      if (carouselWidth <= 768) {
+        this.visibleSlides = 1;
+      } else if (carouselWidth <= 1024) {
+        this.visibleSlides = 2;
+      } else {
+        this.visibleSlides = 3;
+      }
+      // Ensure currentIndex doesn't go out of bounds after resize
+      if (this.currentIndex > this.slides.length - this.visibleSlides) {
+        this.currentIndex = Math.max(0, this.slides.length - this.visibleSlides);
+      }
+    }
+  }
 
   getTransform() {
-    return `translateX(-${this.currentIndex * 320}px)`;
+    if (this.carouselTrack && this.slides.length > 0) {
+      // Calculate the width of a single slide including its padding
+      const slideWidth = this.carouselTrack.nativeElement.children[0].offsetWidth;
+      return `translateX(-${this.currentIndex * slideWidth}px)`;
+    }
+    return 'translateX(0)';
   }
 
   prevSlide() {
@@ -61,7 +100,7 @@ export class SliderCarouselComponent {
   }
 
   nextSlide() {
-    if (this.currentIndex < this.slides.length - 3) {
+    if (this.currentIndex < this.slides.length - this.visibleSlides) {
       this.currentIndex++;
     }
   }
