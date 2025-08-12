@@ -1,52 +1,57 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-slider-carousel',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './slider-carousel.html',
   styleUrls: ['./slider-carousel.scss']
 })
 export class SliderCarouselComponent {
-
   slides = [
     {
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      name: 'Namium Ipsium',
+      message:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet,',
+      name: 'Namium Ipsum',
+      designation:'Designation',
       org: 'Org Name/Link'
     },
     {
-      message: 'Ut enim ad minim veniam, quis nostrud exercitation...',
-      name: 'Namium Ipsium',
+      message:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet,',
+      name: 'Namium Ipsum',
+      designation:'Designation',
       org: 'Org Name/Link'
     },
     {
-      message: 'Sed do eiusmod tempor incididunt ut labore et dolore...',
-      name: 'Namium Ipsium',
+      message:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet,',
+      name: 'Namium Ipsum',
+      designation:'Designation',
+      org: 'Org Name/Link'
+    },
+        {
+      message:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet,',
+      name: 'Namium Ipsum',
+      designation:'Designation',
       org: 'Org Name/Link'
     },
     {
-      message: 'New slide content...',
-      name: 'Namium Ipsium',
-      org: 'Org Name/Link'
-    },
-    {
-      message: 'New slide content...',
-      name: 'Namium Ipsium',
-      org: 'Org Name/Link'
-    },
-    {
-      message: 'New slide content...',
-      name: 'Namium Ipsium',
+      message:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet,',
+      name: 'Namium Ipsum',
+      designation:'Designation',
       org: 'Org Name/Link'
     }
   ];
 
+  colors = ['#00c853', '#aa00ff', '#2979ff']; // Green, Purple, Blue
   currentIndex = 0;
 
   getTransform() {
-    return `translateX(-${this.currentIndex * 300}px)`;
+    return `translateX(-${this.currentIndex * 320}px)`;
   }
 
   prevSlide() {
