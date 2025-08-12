@@ -55,7 +55,7 @@ return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) =
         } else {
           processedData = details.map((item: any) => ({
             value: item.value,
-            label: item.code
+            label: labels[item.code] ?? item.code
           }));
         }
       }
