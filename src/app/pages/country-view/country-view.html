@@ -26,8 +26,8 @@
     <div id="india-map-container" #indiaMapContainer></div>
     <div id="map-tooltip" class="map-tooltip"></div>
     <div class="indicator-container" *ngIf="showDetails">
+      <h4 class="heading">India {{hoveredState ? ( '> '+hoveredState ) : ""}}</h4>
       <div class="indicators">
-        <h4>Details</h4>
         <app-mini-indicator-card *ngFor="let indicator of indicatorData" [value]="indicator.value" [label]="indicator.label"></app-mini-indicator-card>
       </div>
     </div>

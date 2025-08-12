@@ -339,4 +339,9 @@
 .arrow {
   padding-left: .5rem;
   margin-bottom: -3px;
+  margin-right: 10%;
+}
+
+.section-container{
+  margin-left: 10%;
 }
