@@ -21,7 +21,6 @@ export class PieChartComponent {
       name: item.name || 'Unknown',
       value: Number(item.value) || 0 // Convert to number, default to 0 if invalid
     }));
-    console.log('Sanitized pieData:', this._pieData);
   }
 
   get pieData(): any[] {
@@ -51,21 +50,17 @@ export class PieChartComponent {
 
   // Custom label formatting to show percentage
   labelFormatting = (data: any,values:any) => {
-    console.log('labelFormatting data:', data); // Debug: Inspect data structure
     const total = this.pieData.reduce((sum, item) => sum + item.value, 0);
     const name = data;
     const value = this.pieData.find((element:any) => element.name == data);
     const percentage = total > 0 ? ((value.value / total) * 100).toFixed(1) : 0;
-    console.log(`${name} (${percentage}%)`)
     return `${name} (${percentage}%)`;
   };
 
   tooltipText = (data: any) => {
-    console.log('labelFormatting data:', data); // Debug: Inspect data structure
     const total = this.pieData.reduce((sum, item) => sum + item.value, 0);
     const name = data.data.name;
     const percentage = total > 0 ? ((data.data.value / total) * 100).toFixed(1) : 0;
-    console.log(`${name} (${percentage}%)`)
     return `${name} (${percentage}%)`;
   };
 }
