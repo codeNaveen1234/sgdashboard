@@ -26,6 +26,7 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() selections: any = [];
   @Output() stateSelected = new EventEmitter<string>();
   selectedIndicator: string = 'Micro Improvements Initiated';
+  hoveredState: string = ""
 
   indicatorData: { value: number | string; label: string }[] = [];
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
@@ -39,9 +40,10 @@ export class CountryView implements OnInit, AfterViewInit {
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
 return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
-      const labels = data.result.meta.labels;
+      const labels = data.result.meta?.labels || {};
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
       let processedData: { value: number | string; label: string }[] = [];
+      this.hoveredState = stateCode? statesData[stateCode].label : ""
 
       if (details) {
         if (forTooltip && this.showVariations && this.selectedIndicator) {
@@ -53,7 +55,7 @@ return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) =
         } else {
           processedData = details.map((item: any) => ({
             value: item.value,
-            label: labels[item.code]
+            label: labels[item.code] ?? item.code
           }));
         }
       }

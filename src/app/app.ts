@@ -13,9 +13,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard';
       <nav class="container">
         <a href="https://shikshagraha.org/" target="_blank" class="logo"><img src='assets/icons/main_logo.svg'></a>
         <div class="nav-links">
-          <a routerLink="/">Home</a>
-          <a routerLink="/dashboard">Dashboard</a>
-          <a routerLink="/network-health">Network Health</a>
+          <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+          <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+          <a routerLink="/network-health" routerLinkActive="active-link">Network Health</a>
         </div>
       </nav>
     </header>
