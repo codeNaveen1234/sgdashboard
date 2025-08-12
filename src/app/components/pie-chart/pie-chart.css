@@ -1,6 +1,8 @@
 .chart-card {
   width: 600px;
-  margin: 20px auto;
+  max-width: 700px;
+  margin: 0 auto;
+  margin-top: 2rem;
 }
 
 mat-card-title {
@@ -31,12 +33,6 @@ mat-card {
   background: none !important;
 }
 
-.chart-card {
-  /* Ensure the chart fits well */
-  max-width: 700px;
-  margin: 0 auto;
-  margin-top: 2rem;
-}
 
 .chart-card mat-card-content {
   /* Padding around the chart */
