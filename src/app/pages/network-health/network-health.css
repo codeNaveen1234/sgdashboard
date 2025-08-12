@@ -272,3 +272,34 @@
 app-slider-carousel {
   width: 100%;
 }
+
+
+
+.network-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.network-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a; /* Dark navy */
+  margin-bottom: 8px;
+}
+
+.network-subtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.network-description {
+  font-size: 14px;
+  font-weight: 400;
+  color: #64748b; /* Soft gray-blue */
+  line-height: 1.5;
+}
+
