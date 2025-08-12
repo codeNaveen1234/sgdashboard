@@ -1,8 +1,42 @@
 
 <div class="catalysing-networks-container" (click)="goToNetworkPage()">
-  <div id="network-map-container" #networkMapContainer></div>
+  <div class="legend" *ngIf="showDetails">
+    <!-- Momentum Impact -->
+    <div class="legend-item">
+      <div class="legend-line momentum-line"></div>
+      <span>Momentum Impact</span>
+    </div>
+  
+    <!-- Strategy Impact -->
+    <div class="legend-item">
+      <div class="legend-line strategy-line"></div>
+      <span>Strategy Impact</span>
+    </div>
+  
+    <!-- Momentum Partners -->
+    <div class="legend-item">
+      <div class="legend-circle momentum-circle">
+        <div class="legend-inner"></div>
+      </div>
+      <span>Momentum Partners</span>
+    </div>
+  
+    <!-- Strategic Partners -->
+    <div class="legend-item">
+      <div class="legend-circle strategy-circle">
+        <div class="legend-inner"></div>
+      </div>
+      <span>Strategic Partners</span>
+    </div>
+  
+    <!-- Note -->
+    <div class="legend-note">
+      *Click on the state to explore further
+    </div>
+  </div>
+  <div id="network-map-container" #networkMapContainer class="catalysing-networks-svg"></div>
   <div id="tooltip"
-    style="position: absolute; background-color: white; padding: 5px; border: 1px solid black; display: none;"></div>
+    style="position: absolute; display: none;"></div>
 </div>
 
 

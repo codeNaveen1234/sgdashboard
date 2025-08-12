@@ -20,6 +20,7 @@ export class CatalysingNetwork1 implements OnInit {
   private isDrawing = false;
 
   networkData: any
+  partnersByState: { [key: string]: any[] } = {};
   markerConfigList: any = {
     momentum: { hqIcon: "./assets/marker-icons/hq-circle.svg", icon: "./assets/marker-icons/circle.svg", color: "#572E91" },
     strategic: { hqIcon: "./assets/marker-icons/hq-square.svg", icon: "./assets/marker-icons/square.svg", color: "orange" },
@@ -46,9 +47,20 @@ export class CatalysingNetwork1 implements OnInit {
   }
 
   getNetworkData(): Promise<void> {
-    return d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${NETWORK_DATA}`)
+    return d3.json('./assets/network-data.json')
       .then((networkData: any) => {
         this.networkData = networkData;
+        // Aggregate partners by state
+        this.partnersByState = networkData.partners.reduce((acc: any, partner: any) => {
+          const state = partner.partnerState;
+          if (state) {
+            if (!acc[state]) {
+              acc[state] = [];
+            }
+            acc[state].push(partner);
+          }
+          return acc;
+        }, {});
       })
       .catch((error: any) => {
         console.error('Error loading network data:', error);
@@ -133,6 +145,35 @@ export class CatalysingNetwork1 implements OnInit {
         return null;
       };
 
+      const tooltip = d3.select('#tooltip');
+      svg.on('click', () => tooltip.style('display', 'none'));
+
+      // Consolidated State Icons
+      const stateIcons = Object.keys(this.partnersByState).map(stateName => {
+        const partnersInState = this.partnersByState[stateName];
+        const representativePartner = partnersInState[0]; // Take the first partner as representative
+        const coords = getCoords({ stateName: stateName });
+        if (coords && representativePartner) {
+          return {
+            iconUrl: this.markerConfigList.momentum.icon, // Always use momentum icon for state
+            coordinates: coords,
+            stateName: stateName,
+            partners: partnersInState
+          };
+        }
+        return null;
+      }).filter(d => d !== null);
+
+      // Use a modified getCoords for lines to ensure they connect to state icons
+      const getLineCoords = (location: any) => {
+        if (location.stateName) {
+          const stateIcon = stateIcons.find(icon => icon.stateName.toLowerCase() === location.stateName.toLowerCase());
+          if (stateIcon) return stateIcon.coordinates;
+        }
+        // Fallback to original getCoords if not a state or state icon not found
+        return getCoords(location);
+      };
+
       const lineGenerator = d3.line().curve(d3.curveBundle.beta(0.85));
 
       svg.selectAll('path.network-line')
@@ -140,8 +181,8 @@ export class CatalysingNetwork1 implements OnInit {
         .enter().append('path')
         .attr('class', 'network-line')
         .attr('d', (d: any) => {
-          const sourceCoords = getCoords(d.source);
-          const targetCoords = getCoords(d.target);
+          const sourceCoords = getLineCoords(d.source);
+          const targetCoords = getLineCoords(d.target);
           if (!sourceCoords || !targetCoords) return null;
 
           const projectedSource = projection(sourceCoords);
@@ -183,7 +224,7 @@ export class CatalysingNetwork1 implements OnInit {
               pathElement
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
                 .attr('stroke-dashoffset', totalLength)
-                .transition().duration(2000).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0)
                 .on('end', repeat);
             }
@@ -193,9 +234,9 @@ export class CatalysingNetwork1 implements OnInit {
             function repeat() {
               originalPath
                 .attr('stroke-width', 2).attr('opacity', 0.2)
-                .transition().duration(1500).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-width', 8).attr('opacity', 1)
-                .transition().duration(1500).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-width', 2).attr('opacity', 0.2)
                 .on('end', repeat);
             }
@@ -206,7 +247,7 @@ export class CatalysingNetwork1 implements OnInit {
             function repeat() {
               pathElement
                 .attr('stroke-dashoffset', totalLength)
-                .transition().duration(5000).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0)
                 .on('end', repeat);
             }
@@ -214,41 +255,21 @@ export class CatalysingNetwork1 implements OnInit {
           }
         });
 
-      const iconData = this.networkData.impactData.flatMap((d: any) => {
-        const icons = [];
-        if (d.source) {
-          const coords = getCoords(d.source);
-          if (coords) {
-            icons.push({ iconUrl: this.markerConfigList[d.source.icon].icon, coordinates: coords, partner_ids: d.source.partner_id });
-          }
-        }
-        if (d.target) {
-          const coords = getCoords(d.target);
-          if (coords) {
-            icons.push({ iconUrl: this.markerConfigList[d.target.icon].icon, coordinates: coords, partner_ids: d.target.partner_id });
-          }
-        }
-        return icons;
-      });
-
-      const tooltip = d3.select('#tooltip');
-      svg.on('click', () => tooltip.style('display', 'none'));
-
-      svg.selectAll('image.node-icon')
-        .data(iconData)
+      svg.selectAll('image.state-node-icon')
+        .data(stateIcons)
         .enter().append('image')
-        .attr('class', 'node-icon')
+        .attr('class', 'state-node-icon')
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[0] - 9 : -9999;
+          return projected ? projected[0] - 9 : -9999; // Adjust size for state logos
         })
         .attr('y', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[1] - 9 : -9999;
+          return projected ? projected[1] - 9 : -9999; // Adjust size for state logos
         })
-        .attr('width',18)
-        .attr('height', 18)
+        .attr('width', 18) // Larger size for state logos
+        .attr('height', 18) // Larger size for state logos
         .each(function (d: any) {
           const icon = d3.select(this);
           const projected = projection(d.coordinates);
@@ -271,16 +292,137 @@ export class CatalysingNetwork1 implements OnInit {
         .on('click', (event, d: any) => {
           if (this.isPartnerShowable) {
             event.stopPropagation();
-            const partnerDetails = d.partner_ids.map((id: any) =>
-              this.networkData?.partners.find((p: { id: any }) => p.id === id)
-            );
-            tooltip.style('display', 'block')
-              .html(partnerDetails.map((p: any) =>
-                `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`
-              ).join(''))
-              .style('left', (event.pageX + 10) + 'px')
-              .style('top', (event.pageY - 28) + 'px');
+            // const partnersHtml = d.partners.map((p: any) =>
+            //   `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="20" height="20" style="vertical-align: middle; margin-right: 5px;" /><span> ${p.name}</span></li></ul></a>`
+            // ).join('');
+//           
+
+
+const partnersHtml = `
+<div style="
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 0;
+  width: 250px;
+  border: 1px solid #000000ff;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+">
+  <!-- Pointer arrow on left, near top -->
+  <div style="
+    position: absolute;
+    left: -8px;
+    top: 20px; /* adjust this value to move arrow up/down */
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+    filter: drop-shadow(-1px 0px 1px rgba(0,0,0,0.05));
+  "></div>
+
+  ${d.partners.map((p: any, index: number) => `
+    <a href="${p.website}" target="_blank" style="
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    ">
+      <div style="
+        display: grid;
+        grid-template-columns: 36px 1fr; /* fixed icon column + text column */
+        align-items: center;
+        padding: 8px 12px;
+        ${index !== d.partners.length - 1 ? 'border-bottom: 1px solid #f0f0f0;' : ''}
+      ">
+        <!-- fixed icon cell -->
+        <div style="
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        ">
+          <img src="${p.src}" alt="${p.name}" style="
+            display: block;
+            width: 24px;        /* force same visible size */
+            height: 24px;
+            object-fit: contain;/* keeps logo aspect ratio and centers it */
+          ">
+        </div>
+
+        <!-- text cell -->
+        <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
+          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+            ${p.name}
+          </div>
+          <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
+            ${p.category} partner
+          </div>
+        </div>
+      </div>
+    </a>
+  `).join('')}
+</div>
+`;
+
+tooltip.style('display', 'block')
+  .html(partnersHtml)
+  .style('left', (event.pageX + 10) + 'px')
+  .style('top', (event.pageY - 28) + 'px');
+
+
           }
+        });
+
+      // Draw source icons
+      svg.selectAll('image.source-node-icon')
+        .data(this.networkData.impactData.filter((d: any) => d.source && d.source.icon))
+        .enter().append('image')
+        .attr('class', 'source-node-icon')
+        .attr('xlink:href', (d: any) => {
+          const iconType = d.source.icon;
+          if (this.markerConfigList[iconType]) {
+            return this.markerConfigList[iconType].icon;
+          }
+          return ''; // or a default icon
+        })
+        .attr('x', (d: any) => {
+          const coords = getCoords(d.source);
+          if (!coords) return -9999;
+          const projected = projection(coords);
+          return projected ? projected[0] - 9 : -9999;
+        })
+        .attr('y', (d: any) => {
+          const coords = getCoords(d.source);
+          if (!coords) return -9999;
+          const projected = projection(coords);
+          return projected ? projected[1] - 9 : -9999;
+        })
+        .attr('width', 18)
+        .attr('height', 18)
+        .each(function (d: any) {
+          const icon = d3.select(this);
+          const coords = getCoords(d.source);
+          if (!coords) return;
+          const projected = projection(coords);
+          if (!projected) return;
+          const x = projected[0];
+          const y = projected[1];
+
+          function rotate() {
+            icon.transition()
+              .duration(2000)
+              .ease(d3.easeLinear)
+              .attrTween('transform', () => {
+                const i = d3.interpolate(0, 360);
+                return (t) => `rotate(${i(t)}, ${x}, ${y})`;
+              })
+              .on('end', rotate);
+          }
+          rotate();
         });
 
       this.isDrawing = false;
@@ -289,4 +431,5 @@ export class CatalysingNetwork1 implements OnInit {
       this.isDrawing = false;
     });
   }
+
 }
