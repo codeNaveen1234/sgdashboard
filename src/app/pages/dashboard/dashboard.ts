@@ -11,11 +11,13 @@ import { PieChartComponent } from '../../components/pie-chart/pie-chart';
 import { CountryView } from '../country-view/country-view';
 import { DASHBOARD_PAGE } from '../../../constants/urlConstants';
 import { environment } from '../../../../environments/environment';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView],
+  imports: [CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, MatIconModule
+  ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
@@ -31,7 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchPageData(): void {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${DASHBOARD_PAGE}`).then((data: any) => {
+    d3.json('./assets/dashboard.json').then((data: any) => {
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {

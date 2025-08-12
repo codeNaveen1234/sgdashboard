@@ -30,3 +30,40 @@ mat-card {
   width: max-content !important;
   background: none !important;
 }
+
+.chart-card {
+  /* Ensure the chart fits well */
+  max-width: 700px;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.chart-card mat-card-content {
+  /* Padding around the chart */
+  padding: 20px !important;
+}
+
+/* Style for chart labels to improve readability */
+::ng-deep .pie-label {
+  font-size: 12px !important;
+  fill: #000000 !important;
+  font-weight: bold;
+}
+
+/* Style for tooltips with increased padding */
+::ng-deep .ngx-charts-tooltip {
+  padding: 12px !important; /* Increased padding for tooltips */
+  font-size: 14px !important;
+  background: #333 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+/* Alternative selector for tooltip in case ::ng-deep fails */
+:host ::ng-deep .ngx-charts-tooltip-content {
+  padding: 12px !important;
+  font-size: 14px !important;
+  background: #333 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}

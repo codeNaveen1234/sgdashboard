@@ -7,6 +7,8 @@
           <h3 class="">{{ section.header }}</h3>
           <h4 class="">{{ section.subHeader }}</h4>
           <p class="">{{ section.description }}</p>
+          <button class="community-button">Know more about Community Led Improvements<img src="assets/icons/arrow.svg" class="arrow">
+          </button>
         </div>
       </section>
     </ng-container>
@@ -84,7 +86,7 @@
       <app-line-chart [allData]="section.data"></app-line-chart>
     </ng-container>
 
-    <ng-container *ngIf="section.type === 'pie-chart'">
+    <ng-container *ngIf="section.type === 'pie-chart'" class="pie-chart">
       <app-pie-chart [pieData]="section.data"></app-pie-chart>
     </ng-container>
   </div>

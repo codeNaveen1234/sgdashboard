@@ -103,7 +103,7 @@
     "data": [
       {
         "name": "Infrastructure and resources",
-        "value": ""
+        "value": 0
       },
       {
         "name": "School structure and practices",
@@ -114,12 +114,12 @@
         "value": 69348
       },
       {
-        "name": " Pedagogy ",
+        "name": "Pedagogy",
         "value": 368382
       },
       {
         "name": "Assessment and Evaluation",
-        "value": ""
+        "value": 0
       },
       {
         "name": "Community Engagement",
