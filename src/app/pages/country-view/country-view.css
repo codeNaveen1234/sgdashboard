@@ -11,7 +11,7 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   flex: 1;
   min-width: 200px;
 }
@@ -107,7 +107,6 @@
   display: flex;
   justify-content: flex-end;
   height: fit-content;
-  right: 10%;
   flex: 1;
 }
 
