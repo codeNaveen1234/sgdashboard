@@ -34,7 +34,6 @@ export class NetworkHealth implements OnInit {
 
   fetchPageData(): void {
     d3.json(`${this.baseUrl}/${NETWORK_HEALTH_PAGE}`).then((data: any) => {
-       console.log(data)
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {

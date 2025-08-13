@@ -188,7 +188,6 @@ export class CatalysingNetwork1 implements OnInit {
       // Use a modified getCoords for lines to ensure they connect to state icons
       const getLineCoords = (location: any) => {
         if (location.partner_id && location.partner_id.length > 0) {
-           console.log(location)
             let partnerId = location.partner_id[0];
           const partner = this.networkData.partnersWithCoords.find((p: any) =>
             p.id?.toLowerCase().replace(/[\s_]/g, '') === partnerId?.toLowerCase().replace(/[\s_]/g, '')
