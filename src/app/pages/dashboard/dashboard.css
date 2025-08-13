@@ -1,5 +1,4 @@
 .landing-container {
-  font-family: 'Roboto', sans-serif;
   color: var(--text-color);
   display: flex;
   flex-wrap: wrap;
@@ -12,6 +11,22 @@
 
 .section-position-left {
   margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .section-position-left {
+    width: 100% !important;
+  }
+
+  .section-position-container {
+    margin-right: 10% !important;
+  }
+
+
+  .goal-values {
+    margin-left: 2rem;
+  }
+
 }
 
 .section-position-right {
@@ -201,13 +216,14 @@
 .container h3 {
   font-size: 1.5rem;
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  font-family: Urbanist !important;
+  margin-bottom: 1.5rem;
 }
 
 .container h4 {
   font-size: 1.1rem;
-  margin-bottom: 1rem;
-
+  font-family: Urbanist !important;
+  margin-bottom: 1.5rem;
 }
 
 .dashboard-container {
@@ -323,7 +339,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-right: 5%;
+  margin-right: 10%;
 }
 
 .community-button {
@@ -334,12 +350,16 @@
   padding: 0.5rem;
   text-decoration: underline;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .arrow {
   padding-left: .5rem;
   margin-bottom: -3px;
-  margin-right: 10%;
+}
+
+.flag {
+  margin-right: 1.5rem;
 }
 
 .section-container{

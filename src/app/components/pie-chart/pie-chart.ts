@@ -27,8 +27,6 @@ export class PieChartComponent {
     return this._pieData;
   }
 
-  view: [number, number] = [700, 500]; // width x height
-
   // options
   showLegend = true;
   showLabels = true;
