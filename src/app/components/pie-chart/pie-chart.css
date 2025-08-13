@@ -1,9 +1,8 @@
 .chart-card {
   min-width: 300px;
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
   margin-top: 2rem;
-  overflow-x: scroll;
 }
 
 mat-card-title {
@@ -38,6 +37,17 @@ mat-card {
 .chart-card mat-card-content {
   /* Padding around the chart */
   padding: 20px !important;
+}
+
+.outer-container {
+  width: 100%;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .chart-card {
+    overflow-x: scroll;
+  }
 }
 
 /* Style for chart labels to improve readability */

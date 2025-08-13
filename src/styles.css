@@ -33,7 +33,7 @@ html.dark-theme {
 }
 
 body {
-  font-family: 'Roboto', sans-serif; /* Using Roboto as a common Google font */
+  font-family: Manrope !important; /* Using Roboto as a common Google font */
   margin: 0;
   padding: 0;
   background-color: var(--background-color);

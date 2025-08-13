@@ -3,7 +3,7 @@
     <!-- Main Section -->
     <ng-container *ngIf="section.type === 'dashboard-main'">
       <section [ngClass]="section.styles.section">
-        <div class="container section-container paragraph">
+        <div class="container section-container paragraph section-position-container">
           <h3 class="">{{ section.header }}</h3>
           <h4 class="">{{ section.subHeader }}</h4>
           <p class="">{{ section.description }}</p>
@@ -15,9 +15,9 @@
 
     <!-- Main Section -->
     <ng-container *ngIf="section.type === 'dashboard-metrics'">
-      <section [ngClass]="section.styles.section" class="metrics-container">
+      <section [ngClass]="section.styles.section" class="metrics-container section-position-container">
         <div class="dashboard-container">
-          <h3 class="">{{ section.header }}</h3>
+          <h3 class=""><img src="assets/icons/flag.svg" class="flag" alt="" aria-hidden="true">{{ section.header }}</h3>
           <h4 class="">{{ section.subHeader }}</h4>
           <div class="dashboard-indicator">
             <div *ngFor="let item of section.indicators" class="goal-values">
