@@ -3,10 +3,10 @@
     <!-- Main Section -->
     <ng-container *ngIf="section.type === 'hero'">
       <section [ngClass]="section.styles.section">
-        <div class="container">
-          <h3 class="">{{ section.header }}</h3>
-          <h4 class="">{{ section.subHeader }}</h4>
-          <p class="">{{ section.description }}</p>
+        <div class="network-section">
+          <h1 class="network-title">{{ section.header }}</h1>
+          <h2 class="network-subtitle">{{ section.subHeader }}</h2>
+          <p class="network-description">{{ section.description }}</p>
         </div>
       </section>
     </ng-container>

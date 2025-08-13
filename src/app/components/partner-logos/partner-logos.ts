@@ -21,7 +21,9 @@ export class PartnerLogosComponent implements OnInit {
 
   ngOnInit(): void {
     this.allLogos = this.partners;
-    this.categories = [...new Set(this.partners.map(p => p.category))];
+    this.categories = [
+  ...new Set(
+    this.partners.map(p => p.category).filter(category => category && category.trim() !== ""))];
     this.filterLogos(null);
   }
 
