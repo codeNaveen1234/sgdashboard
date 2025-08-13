@@ -24,6 +24,7 @@ import { environment } from '../../../../environments/environment';
 export class NetworkHealth implements OnInit {
 
   pageData: any = {};
+  baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
 
   constructor() { }
 
@@ -32,7 +33,8 @@ export class NetworkHealth implements OnInit {
   }
 
   fetchPageData(): void {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${NETWORK_HEALTH_PAGE}`).then((data: any) => {
+    d3.json(`${this.baseUrl}/${NETWORK_HEALTH_PAGE}`).then((data: any) => {
+       console.log(data)
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {
