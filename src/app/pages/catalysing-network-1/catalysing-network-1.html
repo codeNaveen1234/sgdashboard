@@ -15,16 +15,16 @@
   
     <!-- Momentum Partners -->
     <div class="legend-item">
-      <div class="legend-circle momentum-circle">
-        <div class="legend-inner"></div>
+      <div class="legend-circle">
+        <img src="./assets/marker-icons/circle.svg" alt="">
       </div>
       <span>Momentum Partners</span>
     </div>
   
     <!-- Strategic Partners -->
     <div class="legend-item">
-      <div class="legend-circle strategy-circle">
-        <div class="legend-inner"></div>
+      <div class="legend-circle">
+         <img src="./assets/marker-icons/square.svg" alt="">
       </div>
       <span>Strategic Partners</span>
     </div>
@@ -37,6 +37,13 @@
   <div id="network-map-container" #networkMapContainer class="catalysing-networks-svg"></div>
   <div id="tooltip"
     style="position: absolute; display: none;"></div>
+
+
+     <div class="map-note" *ngIf="!showDetails">
+     <p><i>*Click on the map to see our network</i></p>
+    </div>
+
+   
 </div>
 
 
