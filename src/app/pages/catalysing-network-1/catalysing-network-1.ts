@@ -4,7 +4,7 @@ import * as topojson from 'topojson-client';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { NETWORK_DATA } from '../../../constants/urlConstants';
+import { INDIA, NETWORK_DATA } from '../../../constants/urlConstants';
 
 @Component({
   selector: 'app-catalysing-network-1',
@@ -18,8 +18,10 @@ export class CatalysingNetwork1 implements OnInit {
   @Input() showDetails: boolean = false;
   @Input() isPartnerShowable: boolean = true;
   private isDrawing = false;
+  baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
 
   networkData: any
+  partnersByState: { [key: string]: any[] } = {};
   markerConfigList: any = {
     momentum: { hqIcon: "./assets/marker-icons/hq-circle.svg", icon: "./assets/marker-icons/circle.svg", color: "#572E91" },
     strategic: { hqIcon: "./assets/marker-icons/hq-square.svg", icon: "./assets/marker-icons/square.svg", color: "orange" },
@@ -46,9 +48,29 @@ export class CatalysingNetwork1 implements OnInit {
   }
 
   getNetworkData(): Promise<void> {
-    return d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${NETWORK_DATA}`)
+    return d3.json(`${this.baseUrl}/${NETWORK_DATA}`)
       .then((networkData: any) => {
         this.networkData = networkData;
+        const partnersWithCoords: any[] = [];
+        const partnersByState: { [key: string]: any[] } = {};
+        const countryLevelPartners: any[] = [];
+
+        networkData.partners.forEach((p: any) => {
+          if (p.coordinates && p.coordinates.length === 2 && p.coordinates[0] && p.coordinates[1]) {
+            partnersWithCoords.push({ ...p, coordinates: [p.coordinates[1], p.coordinates[0]] });
+          } else if (p.partnerState) {
+            if (!partnersByState[p.partnerState]) {
+              partnersByState[p.partnerState] = [];
+            }
+            partnersByState[p.partnerState].push(p);
+          } else {
+            // countryLevelPartners.push(p);
+          }
+        });
+
+        this.networkData.partnersWithCoords = partnersWithCoords;
+        this.partnersByState = partnersByState;
+        this.networkData.countryLevelPartners = countryLevelPartners;
       })
       .catch((error: any) => {
         console.error('Error loading network data:', error);
@@ -71,10 +93,23 @@ export class CatalysingNetwork1 implements OnInit {
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
 
-    d3.json('/assets/india.json').then((india: any) => {
+    d3.json(`${this.baseUrl}/${INDIA}`).then((india: any) => {
       const states = topojson.feature(india, india.objects.states) as any;
 
-      const projection = d3.geoMercator().fitSize([containerWidth, containerHeight], states);
+      const stateGeometries = states.features.map((f: any) => f.geometry);
+      const partnerGeometries = this.networkData.partnersWithCoords.map((partner: any) => {
+        return {
+          type: 'Point',
+          coordinates: partner.coordinates
+        };
+      });
+
+      const allGeometries = {
+        type: 'GeometryCollection',
+        geometries: stateGeometries.concat(partnerGeometries)
+      };
+
+      const projection = d3.geoMercator().fitSize([containerWidth, containerHeight], allGeometries);
       const path = d3.geoPath().projection(projection);
 
       const svg = d3.select(this.mapContainer.nativeElement)
@@ -113,8 +148,6 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('stroke-width', 0.5);
 
       const getCoords = (location: any) => {
-        if (location.coords) return location.coords;
-
         let locationName = location.stateName || location.countryName;
         if (locationName) {
           locationName = locationName.trim().toLowerCase();
@@ -133,6 +166,45 @@ export class CatalysingNetwork1 implements OnInit {
         return null;
       };
 
+      const tooltip = d3.select('#tooltip');
+      svg.on('click', () => tooltip.style('display', 'none'));
+
+      // Consolidated State Icons
+      const stateIcons = Object.keys(this.partnersByState).map(stateName => {
+        const partnersInState = this.partnersByState[stateName];
+        const representativePartner = partnersInState[0]; // Take the first partner as representative
+        const coords = getCoords({ stateName: stateName });
+        if (coords && representativePartner) {
+          return {
+            iconUrl: this.markerConfigList.momentum.icon, // Always use momentum icon for state
+            coordinates: coords,
+            stateName: stateName,
+            partners: partnersInState
+          };
+        }
+        return null;
+      }).filter(d => d !== null);
+
+      // Use a modified getCoords for lines to ensure they connect to state icons
+      const getLineCoords = (location: any) => {
+        if (location.partner_id && location.partner_id.length > 0) {
+            let partnerId = location.partner_id[0];
+          const partner = this.networkData.partnersWithCoords.find((p: any) =>
+            p.id?.toLowerCase().replace(/[\s_]/g, '') === partnerId?.toLowerCase().replace(/[\s_]/g, '')
+          );
+
+            if (partner) {
+                return partner.coordinates;
+            }
+        }
+        if (location.stateName) {
+          const stateIcon = stateIcons.find(icon => icon.stateName.toLowerCase() === location.stateName.toLowerCase());
+          if (stateIcon) return stateIcon.coordinates;
+        }
+        // Fallback to original getCoords if not a state or state icon not found
+        return getCoords(location);
+      };
+
       const lineGenerator = d3.line().curve(d3.curveBundle.beta(0.85));
 
       svg.selectAll('path.network-line')
@@ -140,8 +212,8 @@ export class CatalysingNetwork1 implements OnInit {
         .enter().append('path')
         .attr('class', 'network-line')
         .attr('d', (d: any) => {
-          const sourceCoords = getCoords(d.source);
-          const targetCoords = getCoords(d.target);
+          const sourceCoords = getLineCoords(d.source);
+          const targetCoords = getLineCoords(d.target);
           if (!sourceCoords || !targetCoords) return null;
 
           const projectedSource = projection(sourceCoords);
@@ -183,7 +255,7 @@ export class CatalysingNetwork1 implements OnInit {
               pathElement
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
                 .attr('stroke-dashoffset', totalLength)
-                .transition().duration(2000).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0)
                 .on('end', repeat);
             }
@@ -193,9 +265,9 @@ export class CatalysingNetwork1 implements OnInit {
             function repeat() {
               originalPath
                 .attr('stroke-width', 2).attr('opacity', 0.2)
-                .transition().duration(1500).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-width', 8).attr('opacity', 1)
-                .transition().duration(1500).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-width', 2).attr('opacity', 0.2)
                 .on('end', repeat);
             }
@@ -206,7 +278,7 @@ export class CatalysingNetwork1 implements OnInit {
             function repeat() {
               pathElement
                 .attr('stroke-dashoffset', totalLength)
-                .transition().duration(5000).ease(d3.easeLinear)
+                .transition().duration(15000).ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0)
                 .on('end', repeat);
             }
@@ -214,30 +286,10 @@ export class CatalysingNetwork1 implements OnInit {
           }
         });
 
-      const iconData = this.networkData.impactData.flatMap((d: any) => {
-        const icons = [];
-        if (d.source) {
-          const coords = getCoords(d.source);
-          if (coords) {
-            icons.push({ iconUrl: this.markerConfigList[d.source.icon].icon, coordinates: coords, partner_ids: d.source.partner_id });
-          }
-        }
-        if (d.target) {
-          const coords = getCoords(d.target);
-          if (coords) {
-            icons.push({ iconUrl: this.markerConfigList[d.target.icon].icon, coordinates: coords, partner_ids: d.target.partner_id });
-          }
-        }
-        return icons;
-      });
-
-      const tooltip = d3.select('#tooltip');
-      svg.on('click', () => tooltip.style('display', 'none'));
-
-      svg.selectAll('image.node-icon')
-        .data(iconData)
+      svg.selectAll('image.state-node-icon')
+        .data(stateIcons)
         .enter().append('image')
-        .attr('class', 'node-icon')
+        .attr('class', 'state-node-icon')
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
           const projected = projection(d.coordinates);
@@ -247,7 +299,7 @@ export class CatalysingNetwork1 implements OnInit {
           const projected = projection(d.coordinates);
           return projected ? projected[1] - 9 : -9999;
         })
-        .attr('width',18)
+        .attr('width', 18)
         .attr('height', 18)
         .each(function (d: any) {
           const icon = d3.select(this);
@@ -271,17 +323,331 @@ export class CatalysingNetwork1 implements OnInit {
         .on('click', (event, d: any) => {
           if (this.isPartnerShowable) {
             event.stopPropagation();
-            const partnerDetails = d.partner_ids.map((id: any) =>
-              this.networkData?.partners.find((p: { id: any }) => p.id === id)
-            );
+            const partnersHtml = `
+<div style="
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 0;
+  width: 250px;
+  border: 1px solid #000000ff;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+">
+  <!-- Pointer arrow on left, near top -->
+  <div style="
+    position: absolute;
+    left: -8px;
+    top: 20px; /* adjust this value to move arrow up/down */
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+    filter: drop-shadow(-1px 0px 1px rgba(0,0,0,0.05));
+  "></div>
+
+  ${d.partners.map((p: any, index: number) => `
+    <a href="${p.website}" target="_blank" style="
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    ">
+      <div style="
+        display: grid;
+        grid-template-columns: 36px 1fr; /* fixed icon column + text column */
+        align-items: center;
+        padding: 8px 12px;
+        ${index !== d.partners.length - 1 ? 'border-bottom: 1px solid #f0f0f0;' : ''}
+      ">
+        <!-- fixed icon cell -->
+        <div style="
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        ">
+          <img src="${p.src}" alt="${p.name}" style="
+            display: block;
+            width: 24px;        /* force same visible size */
+            height: 24px;
+            object-fit: contain;/* keeps logo aspect ratio and centers it */
+          ">
+        </div>
+
+        <!-- text cell -->
+        <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
+          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+            ${p.name}
+          </div>
+          <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
+            ${p.category} partner
+          </div>
+        </div>
+      </div>
+    </a>
+  `).join('')}
+</div>
+`;
             tooltip.style('display', 'block')
-              .html(partnerDetails.map((p: any) =>
-                `<a href="${p.website}" target="_blank"><ul style="list-style-type: none; padding: 0; margin: 0; cursor: pointer;"><li><img src="${p.src}" width="12" height="12" /><span> ${p.name}</span></li></ul></a>`
-              ).join(''))
+              .html(partnersHtml)
               .style('left', (event.pageX + 10) + 'px')
               .style('top', (event.pageY - 28) + 'px');
           }
         });
+
+      const partnerIcons = this.networkData.partnersWithCoords.map((partner: any) => {
+        let iconType = 'momentum'; // default
+        if (partner.category) {
+            let category = partner.category.trim().toLowerCase();
+            if (category === 'stategic') {
+                category = 'strategic';
+            }
+            if (this.markerConfigList[category]) {
+                iconType = category;
+            }
+        }
+        return {
+            iconUrl: this.markerConfigList[iconType].icon,
+            coordinates: partner.coordinates,
+            partner: partner
+        };
+      });
+
+      svg.selectAll('image.partner-node-icon')
+        .data(partnerIcons)
+        .enter().append('image')
+        .attr('class', 'partner-node-icon')
+        .attr('xlink:href', (d: any) => d.iconUrl)
+        .attr('x', (d: any) => {
+          const projected = projection(d.coordinates);
+          return projected ? projected[0] - 9 : -9999;
+        })
+        .attr('y', (d: any) => {
+          const projected = projection(d.coordinates);
+          return projected ? projected[1] - 9 : -9999;
+        })
+        .attr('width', 18)
+        .attr('height', 18)
+        .each(function (d: any) {
+          const icon = d3.select(this);
+          const projected = projection(d.coordinates);
+          if (!projected) return;
+          const x = projected[0];
+          const y = projected[1];
+
+          function rotate() {
+            icon.transition()
+              .duration(2000)
+              .ease(d3.easeLinear)
+              .attrTween('transform', () => {
+                const i = d3.interpolate(0, 360);
+                return (t) => `rotate(${i(t)}, ${x}, ${y})`;
+              })
+              .on('end', rotate);
+          }
+          rotate();
+        })
+        .on('click', (event: any, d: any) => {
+          if (this.isPartnerShowable) {
+            event.stopPropagation();
+            const p = d.partner;
+            const partnersHtml = `
+<div style="
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 0;
+  width: 250px;
+  border: 1px solid #000000ff;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+">
+  <!-- Pointer arrow on left, near top -->
+  <div style="
+    position: absolute;
+    left: -8px;
+    top: 20px; /* adjust this value to move arrow up/down */
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+    filter: drop-shadow(-1px 0px 1px rgba(0,0,0,0.05));
+  "></div>
+
+    <a href="${p.website}" target="_blank" style="
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    ">
+      <div style="
+        display: grid;
+        grid-template-columns: 36px 1fr; /* fixed icon column + text column */
+        align-items: center;
+        padding: 8px 12px;
+      ">
+        <!-- fixed icon cell -->
+        <div style="
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        ">
+          <img src="${p.src}" alt="${p.name}" style="
+            display: block;
+            width: 24px;        /* force same visible size */
+            height: 24px;
+            object-fit: contain;/* keeps logo aspect ratio and centers it */
+          ">
+        </div>
+
+        <!-- text cell -->
+        <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
+          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+            ${p.name}
+          </div>
+          <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
+            ${p.category} partner
+          </div>
+        </div>
+      </div>
+    </a>
+</div>
+`;
+            tooltip.style('display', 'block')
+              .html(partnersHtml)
+              .style('left', (event.pageX + 10) + 'px')
+              .style('top', (event.pageY - 28) + 'px');
+          }
+        });
+
+      if (this.networkData.countryLevelPartners.length > 0) {
+        const countryIcon = {
+          iconUrl: this.markerConfigList.strategic.icon, // Or some other icon
+          coordinates: d3.geoCentroid(states),
+          partners: this.networkData.countryLevelPartners
+        };
+
+        svg.selectAll('image.country-node-icon')
+          .data([countryIcon])
+          .enter().append('image')
+          .attr('class', 'country-node-icon')
+          .attr('xlink:href', (d: any) => d.iconUrl)
+          .attr('x', (d: any) => {
+            const projected = projection(d.coordinates);
+            return projected ? projected[0] - 9 : -9999;
+          })
+          .attr('y', (d: any) => {
+            const projected = projection(d.coordinates);
+            return projected ? projected[1] - 9 : -9999;
+          })
+          .attr('width', 18)
+          .attr('height', 18)
+          .each(function (d: any) {
+            const icon = d3.select(this);
+            const projected = projection(d.coordinates);
+            if (!projected) return;
+            const x = projected[0];
+            const y = projected[1];
+
+            function rotate() {
+              icon.transition()
+                .duration(2000)
+                .ease(d3.easeLinear)
+                .attrTween('transform', () => {
+                  const i = d3.interpolate(0, 360);
+                  return (t) => `rotate(${i(t)}, ${x}, ${y})`;
+                })
+                .on('end', rotate);
+            }
+            rotate();
+          })
+          .on('click', (event, d: any) => {
+            if (this.isPartnerShowable) {
+              event.stopPropagation();
+              const partnersHtml = `
+<div style="
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 0;
+  width: 250px;
+  border: 1px solid #000000ff;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+">
+  <!-- Pointer arrow on left, near top -->
+  <div style="
+    position: absolute;
+    left: -8px;
+    top: 20px; /* adjust this value to move arrow up/down */
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+    filter: drop-shadow(-1px 0px 1px rgba(0,0,0,0.05));
+  "></div>
+
+  ${d.partners.map((p: any, index: number) => `
+    <a href="${p.website}" target="_blank" style="
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    ">
+      <div style="
+        display: grid;
+        grid-template-columns: 36px 1fr; /* fixed icon column + text column */
+        align-items: center;
+        padding: 8px 12px;
+        ${index !== d.partners.length - 1 ? 'border-bottom: 1px solid #f0f0f0;' : ''}
+      ">
+        <!-- fixed icon cell -->
+        <div style="
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        ">
+          <img src="${p.src}" alt="${p.name}" style="
+            display: block;
+            width: 24px;        /* force same visible size */
+            height: 24px;
+            object-fit: contain;/* keeps logo aspect ratio and centers it */
+          ">
+        </div>
+
+        <!-- text cell -->
+        <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
+          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+            ${p.name}
+          </div>
+          <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
+            ${p.category} partner
+          </div>
+        </div>
+      </div>
+    </a>
+  `).join('')}
+</div>
+`;
+              tooltip.style('display', 'block')
+                .html(partnersHtml)
+                .style('left', (event.pageX + 10) + 'px')
+                .style('top', (event.pageY - 28) + 'px');
+            }
+          });
+      }
 
       this.isDrawing = false;
     }).catch((error: any) => {
@@ -289,4 +655,5 @@ export class CatalysingNetwork1 implements OnInit {
       this.isDrawing = false;
     });
   }
+
 }
