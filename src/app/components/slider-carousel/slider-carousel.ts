@@ -16,6 +16,7 @@ export class SliderCarouselComponent implements AfterViewInit {
   colors = ['#00c853', '#aa00ff', '#2979ff']; // Green, Purple, Blue
   currentIndex = 0;
   visibleSlides = 3; // Default for desktop
+  defaultAvatar = 'assets/partners/default-avatar.jpeg';
 
   ngAfterViewInit() {
     this.updateVisibleSlides();
@@ -65,6 +66,13 @@ export class SliderCarouselComponent implements AfterViewInit {
   nextSlide() {
     if (this.currentIndex < this.testimonials.length - this.visibleSlides) {
       this.currentIndex++;
+    }
+  }
+
+  onImgError(evt: Event) {
+    const img = evt.target as HTMLImageElement;
+    if (img && img.src !== this.defaultAvatar) {
+      img.src = this.defaultAvatar;
     }
   }
 }

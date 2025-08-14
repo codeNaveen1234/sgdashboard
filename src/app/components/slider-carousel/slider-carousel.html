@@ -25,12 +25,8 @@
 
             <!-- Avatar -->
             <!-- <div class="avatar"></div> -->
-            <img 
-  class="avatar" 
-  [src]="slide?.image || 'assets/partners/default-avatar.jpeg'" 
-  alt="User Avatar"
-  onerror="this.onerror=null;this.src='assets/default-avatar.jpeg';"
-/>
+                      <img class="avatar" [src]="slide?.image || defaultAvatar"
+                        [attr.alt]="slide?.name ? 'Photo of ' + slide.name : 'User avatar'" (error)="onImgError($event)" />
 
 
             <!-- Details -->

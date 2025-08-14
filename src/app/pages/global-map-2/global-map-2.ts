@@ -119,6 +119,7 @@ export class GlobalMap2 implements OnInit {
     if (!this.networkData) return;
 
     d3.select('#map-container-2 svg').remove();
+    d3.select(this.mapContainer.nativeElement).select('svg').remove();
 
     const container = this.mapContainer.nativeElement;
     const width = container.offsetWidth;
@@ -215,7 +216,7 @@ export class GlobalMap2 implements OnInit {
         if (location.partner_id && location.partner_id.length > 0) {
           let partnerId = location.partner_id[0];
           const partner = this.partnersWithCoords?.find((p: any) =>
-            p.id?.toLowerCase().replace(/[s_]/g, '') === partnerId?.toLowerCase().replace(/[s_]/g, '')
+            p.id?.toLowerCase().replace(/[\s_]/g, '') === partnerId?.toLowerCase().replace(/[\s_]/g, '')
           );
 
           if (partner) {
