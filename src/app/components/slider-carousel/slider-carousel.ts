@@ -48,7 +48,7 @@ export class SliderCarouselComponent implements AfterViewInit {
   }
 
   getTransform() {
-    if (this.carouselTrack && this.testimonials.length > 0) {
+    if (this.carouselTrack && this.carouselTrack.nativeElement.children.length > 0 && this.testimonials.length > 0) {
       // Calculate the width of a single slide including its padding
       const slideWidth = this.carouselTrack.nativeElement.children[0].offsetWidth;
       return `translateX(-${this.currentIndex * slideWidth}px)`;
