@@ -82,7 +82,12 @@ export class GlobalMap2 implements OnInit {
         const partnersByCountry: { [key: string]: any[] } = {};
 
         this.networkData.partners.forEach((p: any) => {
-          if (p.coordinates && p.coordinates.length === 2 && p.coordinates[0] && p.coordinates[1]) {
+          if (
+            Array.isArray(p.coordinates) &&
+            p.coordinates.length === 2 &&
+            Number.isFinite(p.coordinates[0]) &&
+            Number.isFinite(p.coordinates[1])
+          ) {
             partnersWithCoords.push({ ...p, coordinates: [p.coordinates[1], p.coordinates[0]] });
           } else if (p.partnerState) {
             if (!partnersByState[p.partnerState]) {
@@ -104,8 +109,9 @@ export class GlobalMap2 implements OnInit {
         this.drawChoroplethMap();
       }
     }).catch((error: any) => {
-      console.error('Error loading indicator data:', error);
+      console.error('Error loading network data:', error);
       this.loadError = 'Failed to load network data. Please try again later.';
+    }).finally(() => {
       this.isLoading = false;
     });
   }
