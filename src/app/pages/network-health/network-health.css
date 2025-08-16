@@ -25,10 +25,9 @@
 /* Main Section */
 .hero-section {
   background-color: var(--hero-background-color);
-  padding: 5rem 0;
+  padding: 4rem 0;
   color: var(--text-color);
   animation: fadeIn 1s ease-in-out;
-  border-bottom: 1px solid #e0e0e0; /* Subtle separator */
 }
 
 .hero-title {

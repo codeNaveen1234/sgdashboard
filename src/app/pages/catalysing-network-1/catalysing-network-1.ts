@@ -17,6 +17,7 @@ export class CatalysingNetwork1 implements OnInit {
   @ViewChild('networkMapContainer') private mapContainer!: ElementRef;
   @Input() showDetails: boolean = false;
   @Input() isPartnerShowable: boolean = true;
+  @Input() iconSize:number =18
   private isDrawing = false;
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
 
@@ -123,7 +124,7 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('x1', '0%').attr('y1', '0%')
         .attr('x2', '100%').attr('y2', '0%');
 
-      gradient.append('stop').attr('offset', '0%').attr('stop-color', 'rgba(0,255,0,0)');
+      gradient.append('stop').attr('offset', '0%').attr('stop-color', 'rgba(99, 172, 99, 0)');
       gradient.append('stop').attr('offset', '50%').attr('stop-color', 'green');
       gradient.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(0,255,0,0)');
 
@@ -293,14 +294,14 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[0] - 9 : -9999;
+          return projected ? projected[0] - (this.iconSize/2)  : -9999;
         })
         .attr('y', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[1] - 9 : -9999;
+          return projected ? projected[1] - (this.iconSize/2) : -9999;
         })
-        .attr('width', 18)
-        .attr('height', 18)
+        .attr('width', this.iconSize)
+        .attr('height', this.iconSize)
         .each(function (d: any) {
           const icon = d3.select(this);
           const projected = projection(d.coordinates);
@@ -424,14 +425,14 @@ export class CatalysingNetwork1 implements OnInit {
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[0] - 9 : -9999;
+          return projected ? projected[0] - (this.iconSize/2)  : -9999;
         })
         .attr('y', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[1] - 9 : -9999;
+          return projected ? projected[1] - (this.iconSize/2)  : -9999;
         })
-        .attr('width', 18)
-        .attr('height', 18)
+        .attr('width', this.iconSize)
+        .attr('height', this.iconSize)
         .each(function (d: any) {
           const icon = d3.select(this);
           const projected = projection(d.coordinates);
@@ -542,14 +543,14 @@ export class CatalysingNetwork1 implements OnInit {
           .attr('xlink:href', (d: any) => d.iconUrl)
           .attr('x', (d: any) => {
             const projected = projection(d.coordinates);
-            return projected ? projected[0] - 9 : -9999;
+            return projected ? projected[0] - (this.iconSize/2)  : -9999;
           })
           .attr('y', (d: any) => {
             const projected = projection(d.coordinates);
-            return projected ? projected[1] - 9 : -9999;
+            return projected ? projected[1] - (this.iconSize/2)  : -9999;
           })
-          .attr('width', 18)
-          .attr('height', 18)
+          .attr('width', this.iconSize)
+          .attr('height', this.iconSize)
           .each(function (d: any) {
             const icon = d3.select(this);
             const projected = projection(d.coordinates);

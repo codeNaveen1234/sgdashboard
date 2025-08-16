@@ -8,7 +8,7 @@
 
     <div class="carousel">
       <div class="carousel-track" #carouselTrack [style.transform]="getTransform()">
-        <div class="carousel-slide" *ngFor="let slide of slides; let i = index">
+        <div class="carousel-slide" *ngFor="let slide of testimonials; let i = index">
           <div class="card" [style.--cardColor]="colors[i % colors.length]">
             <div class="message-container">
               <div class="quote" [style.color]="colors[i % colors.length]">❝</div>
@@ -24,7 +24,14 @@
             </div>
 
             <!-- Avatar -->
-            <div class="avatar">👤</div>
+            <!-- <div class="avatar"></div> -->
+            <img 
+  class="avatar" 
+  [src]="slide?.image || 'assets/partners/default-avatar.jpeg'" 
+  alt="User Avatar"
+  onerror="this.onerror=null;this.src='assets/default-avatar.jpeg';"
+/>
+
 
             <!-- Details -->
             <div class="details">
