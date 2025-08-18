@@ -61,8 +61,8 @@ export class GlobalMap2 implements OnInit {
   partnersByState: { [key: string]: any[] } = {};
   partnersByCountry: { [key: string]: any[] } = {};
   markerConfigList: any = {
-    momentum: { hqIcon: "./assets/marker-icons/hq-circle.svg", icon: "./assets/marker-icons/circle.svg", color: "#572E91" },
-    strategic: { hqIcon: "./assets/marker-icons/hq-square.svg", icon: "./assets/marker-icons/square.svg", color: "orange" },
+    momentum: { hqIcon: "./assets/marker-icons/momentum-partners.svg", icon: "./assets/marker-icons/momentum-partners.svg", color: "#572E91" },
+    strategic: { hqIcon: "./assets/marker-icons/strategic-partners.svg", icon: "./assets/marker-icons/strategic-partners.svg", color: "orange" },
     collaborator: { hqIcon: "./assets/marker-icons/hq-triangle.svg", icon: "./assets/marker-icons/triangle.svg", color: "red" },
     anchor: { hqIcon: "./assets/marker-icons/hq-diamond.svg", icon: "./assets/marker-icons/diamond.svg", color: "pink" }
   }
@@ -274,7 +274,7 @@ export class GlobalMap2 implements OnInit {
         .attr('fill', 'none')
         .attr('stroke', (d: any) => d.color)
         .attr('stroke-width', 1)
-        .attr('opacity', 0.7)
+        .attr('opacity', 0.9)
         .attr('stroke-dasharray', (d: any) => {
           if (d.lineType === 'dotted' || d.lineType === 'arrowhead') return '10,10';
           else if (d.lineType === 'multi-dash') return '20, 5, 10, 5';
@@ -299,11 +299,11 @@ export class GlobalMap2 implements OnInit {
             const originalPath = d3.select(this);
             function repeat() {
               originalPath
-                .attr('stroke-width', 2).attr('opacity', 0.2)
+                .attr('stroke-width', 1).attr('opacity', 0.9)
                 .transition().duration(15000).ease(d3.easeLinear)
-                .attr('stroke-width', 8).attr('opacity', 1)
+                .attr('stroke-width', 1).attr('opacity', 0.9)
                 .transition().duration(15000).ease(d3.easeLinear)
-                .attr('stroke-width', 2).attr('opacity', 0.2)
+                .attr('stroke-width', 1).attr('opacity', 0.9)
                 .on('end', repeat);
             }
             repeat();
@@ -353,14 +353,14 @@ export class GlobalMap2 implements OnInit {
         .attr('xlink:href', (d: any) => d.iconUrl)
         .attr('x', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[0] - 4 : -9999;
+          return projected ? projected[0] - 2 : -9999;
         })
         .attr('y', (d: any) => {
           const projected = projection(d.coordinates);
-          return projected ? projected[1] - 4 : -9999;
+          return projected ? projected[1] - 2 : -9999;
         })
-        .attr('width', 8)
-        .attr('height', 8)
+        .attr('width', 4)
+        .attr('height', 4)
         .each(function (d: any) {
           const icon = d3.select(this);
           const projected = projection(d.coordinates);
