@@ -49,7 +49,7 @@ export class CatalysingNetwork1 implements OnInit {
   }
 
   getNetworkData(): Promise<void> {
-    return d3.json('./assets/network-data.json')
+    return d3.json(`${this.baseUrl}/${NETWORK_DATA}`)
       .then((networkData: any) => {
         this.networkData = networkData;
         const partnersWithCoords: any[] = [];
