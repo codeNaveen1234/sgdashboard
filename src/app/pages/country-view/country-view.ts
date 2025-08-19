@@ -22,9 +22,11 @@ export class CountryView implements OnInit, AfterViewInit {
   @ViewChild('indiaMapContainer') private mapContainer!: ElementRef;
   @Input() showDetails: boolean = false;
   @Input() showVariations: boolean = false;
-  @Input() legends: any = [];
+  @Input() legends:any = [];
   @Input() selections: any = [];
   @Output() stateSelected = new EventEmitter<string>();
+  @Input() resourcePath:string = '';
+  @Input() notes:any = [];
   selectedIndicator: string = 'Micro Improvements Initiated';
   hoveredState: string = ""
 
@@ -38,9 +40,10 @@ export class CountryView implements OnInit, AfterViewInit {
   }
 
   fetchIndicatorData(stateCode?: string, forTooltip: boolean = false): Promise<any> {
-return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
+return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta?.labels || {};
+      this.notes = data.result.meta?.notes || [];
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
       let processedData: { value: number | string; label: string }[] = [];
       this.hoveredState = stateCode? statesData[stateCode].label : ""
@@ -96,7 +99,7 @@ return d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) =
 
     Promise.all([
       d3.json(`${this.baseUrl}/${INDIA}`),
-      d3.json(`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`)
+      d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`)
     ]).then(([india, indicatorData]: [any, any]) => {
       const statesData = indicatorData.result.states;
       const labels = indicatorData.result.meta.labels;

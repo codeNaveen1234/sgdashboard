@@ -1,5 +1,5 @@
 <div class="landing-container">
-    <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
+    <div *ngFor="let section of pageData" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
       <!-- Main Section -->
       <ng-container *ngIf="section.type === 'dashboard-main'">
         <section [ngClass]="section.styles.section">
@@ -40,7 +40,7 @@
 
       <!-- Partner Logos Section -->
       <ng-container *ngIf="section.type === 'country-view'">
-        <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
+        <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections" [resourcePath]="section.path"></app-country-view>
       </ng-container>
 
       <!-- Data Indicators Section -->
