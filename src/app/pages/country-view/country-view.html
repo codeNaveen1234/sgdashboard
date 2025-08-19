@@ -17,6 +17,13 @@
       <span>Yet to start</span>
     </div>
     <div class="note">*Click on the map to access the main dashboard</div>
+    <!-- <div *ngIf="notes.length > 0">
+      <div class="note" *ngFor="let note of notes">*{{note}}</div>
+    </div> -->
+    <!-- <div class="legend-item" *ngFor="let legend of legends">
+      <div class="color-box both"></div>
+      <span>{{legend.label}}</span>
+    </div> -->
   </div>
   <div id="india-map-container" #indiaMapContainer></div>
   <div id="map-tooltip" class="map-tooltip"></div>

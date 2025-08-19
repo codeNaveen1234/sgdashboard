@@ -67,14 +67,14 @@
     justify-content: end;
     margin-bottom: 10%;
     position:absolute;
-    bottom: -50%; 
+    bottom: -50%;
     left: 5%;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: .5rem;
   color: black;
 }
 
