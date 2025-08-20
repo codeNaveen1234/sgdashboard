@@ -1,0 +1,15 @@
+<div class="metrics-container">
+  @for(item of finalData; track $index){
+    <div class="metrics-card">
+      <div class="icon-heading-section">
+        <img [src]="item.icon" alt="icon" />
+        <div class="label-value-section">
+          <div class="label">{{ item.label }}</div>
+          <div class="value">{{ item.value }}</div>
+        </div>
+      </div>
+      <div class="description">{{ item.description }}</div>
+      <div class="link">*{{ item.linkText }}</div>
+    </div>
+  }
+</div>

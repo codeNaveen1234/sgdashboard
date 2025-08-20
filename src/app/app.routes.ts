@@ -29,7 +29,7 @@ export const routes: Routes = [
     { path: 'national-view', component: NationalView },
     { path: 'network-health', component: NetworkHealth },
     { path: 'community-led-improvements', component: ImprovementDetailsComponent},
-    { path: 'state-view/:state', component: StateImprovementsComponent },
+    { path: 'state-view/:state/:code', component: StateImprovementsComponent },
     { path: 'community-led-district-improvements', component: DistrictImprovementsComponent,data:{filePath:'/assets/leaders-improvement-district-details.json'}},
     { path: 'state-led-district-improvements', component: DistrictImprovementsComponent,data:{filePath:`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${COMMUNITY_LED_IMPROVEMENT}`}},
     { path: 'community-program-details', component: CommunityProgramDetailsComponent},
