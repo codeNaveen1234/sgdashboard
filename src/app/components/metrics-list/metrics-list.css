@@ -1,0 +1,44 @@
+.metrics-container{
+  max-width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;  
+}
+
+.metrics-card{
+  max-width: 510px;
+  margin: 18px;
+}
+
+.icon-heading-section{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+}
+
+.label-value-section{
+  align-self: center;
+  margin-left: 16px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.value{
+  margin-top: 4px;
+  color: var(--secondary-color-light); 
+}
+
+.description{
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px 0px;
+}
+
+.link{
+  font-size: 14px;
+  font-weight: 700;
+  color: #0051FF;
+  cursor: pointer;
+  width: fit-content;
+}

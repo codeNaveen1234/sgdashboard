@@ -49,7 +49,8 @@
 
       <!-- app-state-view -->
       <ng-container *ngIf="section.type === 'state-view'">
-        <app-state-view></app-state-view>
+        <app-state-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [selections]="section.selections"
+        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode"></app-state-view>
       </ng-container>
 
       <!-- Data Indicators Section -->
@@ -85,7 +86,11 @@
       </ng-container>
 
       <ng-container *ngIf="section.type === 'pie-chart'">
-        <app-pie-chart [pieData]="section.data"></app-pie-chart>
+        <app-pie-chart [pieData]="section.data" [path]="section.path" [replaceCode] = "stateCode"></app-pie-chart>
+      </ng-container>
+
+      <ng-container *ngIf="section.type === 'state-metrics'">
+        <app-metrics-list [data]="section.data" [path]="section.path" [replaceCode] = "stateCode"></app-metrics-list>
       </ng-container>
     </div>
   </div>

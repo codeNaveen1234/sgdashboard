@@ -3,6 +3,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import * as d3 from 'd3';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-pie-chart',
@@ -13,6 +15,19 @@ import { Color, ScaleType } from '@swimlane/ngx-charts';
 })
 export class PieChartComponent {
   private _pieData: any[] = [];
+  baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
+  dataFetchPath:any
+  @Input() path?:any
+  @Input() replaceCode?:any
+
+  constructor(){}
+
+  ngOnInit(){
+    if(this.path){
+      this.dataFetchPath = this.replaceCode ? this.path.replace('{code}', this.replaceCode.toString()) : this.path
+      this.fetchData()
+    }
+  }
 
   @Input()
   set pieData(value: any[]) {
@@ -61,4 +76,12 @@ export class PieChartComponent {
     const percentage = total > 0 ? ((data.data.value / total) * 100).toFixed(1) : 0;
     return `${name} (${percentage}%)`;
   };
+
+  fetchData(){
+    d3.json(`${this.baseUrl}${this.dataFetchPath}`).then((data:any)=>{
+      this.pieData = data.data
+    }).catch((err:any)=>{
+      console.error("Error loading pie-chart data ",err)
+    })
+  }
 }

@@ -188,7 +188,7 @@ return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl
             const stateName = stateInfo.label;
             if (stateName) {
               this.stateSelected.emit(stateInfo.label);
-              this.router.navigate(['/state-view', stateName]);
+              this.router.navigate(['/state-view', stateName, stateCode]);
             }
           }else if(!this.showDetails){
             this.stateSelected.emit(stateInfo.label);
