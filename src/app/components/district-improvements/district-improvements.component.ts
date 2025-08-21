@@ -10,11 +10,12 @@ import { PieChartComponent } from '../../components/pie-chart/pie-chart';
 import * as d3 from 'd3';
 import { environment } from '../../../../environments/environment';
 import { COMMUNITY_LED_IMPROVEMENT } from '../../../constants/urlConstants';
+import { ProgramsReportListComponent } from '../programs-report-list/programs-report-list.component';
 
 @Component({
   selector: 'app-district-improvements',
   standalone:true,
-  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView],
+  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, ProgramsReportListComponent],
   templateUrl: './district-improvements.component.html',
   styleUrls: ['./district-improvements.component.css']
 })

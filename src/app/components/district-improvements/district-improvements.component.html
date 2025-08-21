@@ -39,10 +39,9 @@
     </ng-container>
 
     <!-- country view -->
-    <ng-container *ngIf="section.type === 'country-view'">
-      <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections"></app-country-view>
+    <ng-container *ngIf="section.type === 'program-reports'">
+      <app-programs-report-list></app-programs-report-list>
     </ng-container>
-
     <!-- Data Indicators Section -->
     <ng-container *ngIf="section.type === 'data-indicators'">
       <section [ngClass]="section.styles.section">
@@ -61,16 +60,6 @@
       </section>
     </ng-container>
 
-    <!-- Partner Logos Section -->
-    <ng-container *ngIf="section.type === 'partner-logos'">
-      <app-partner-logos [partners]="section.partners" [styles]="section.styles" [title]="section.title"></app-partner-logos>
-    </ng-container>
-
-    <!-- Carousel Section -->
-    <ng-container *ngIf="section.type === 'carousel'">
-      <app-carousel [slides]="section.slides" [styles]="section.styles" [title]="section.title"></app-carousel>
-    </ng-container>
-
     <ng-container *ngIf="section.type === 'line-chart'">
       <app-line-chart [allData]="section.data"></app-line-chart>
     </ng-container>
@@ -80,3 +69,4 @@
     </ng-container>
   </div>
 </div>
+<app-programs-report-list></app-programs-report-list>
