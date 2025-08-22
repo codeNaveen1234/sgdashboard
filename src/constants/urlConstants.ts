@@ -6,3 +6,4 @@ export const DISTRICT_VIEW_INDICATORS = 'district-view-indicators.json'
 export const DASHBOARD_PAGE = 'dashboard.json'
 export const NETWORK_HEALTH_PAGE = 'network-health.json'
 export const STATE_DETAILS_PAGE = "state-details-page.json"
+export const COMMUNITY_DETAILS_PAGE = "community-details-page.json"

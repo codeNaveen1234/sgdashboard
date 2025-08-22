@@ -2,12 +2,15 @@
   <!-- Breadcrumb -->
   <div class="breadcrumb">
     <a [routerLink]="['/dashboard']">Dashboard</a> / <span>{{ stateName }}</span>
+    @if(pageConfig.type == "communityDetails"){
+      <span> / Community Led Improvements-</span> <span>{{ stateName }}</span>
+    }
   </div>
     <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
       <!-- Main Section -->
       <ng-container *ngIf="section.type === 'dashboard-main'">
         <section [ngClass]="section.styles.section">
-          <div class="container">
+          <div class="dashboard-main-container">
             <h3 class="">{{ section.header }}</h3>
             <h4 class="">{{ section.subHeader }}</h4>
             <p class="">{{ section.description }}</p>
@@ -50,7 +53,7 @@
       <!-- app-state-view -->
       <ng-container *ngIf="section.type === 'state-view'">
         <app-state-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [selections]="section.selections"
-        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode"></app-state-view>
+        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode" [notes]="section.notes"></app-state-view>
       </ng-container>
 
       <!-- Data Indicators Section -->

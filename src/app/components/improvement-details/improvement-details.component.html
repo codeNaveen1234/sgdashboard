@@ -40,7 +40,8 @@
 
       <!-- Partner Logos Section -->
       <ng-container *ngIf="section.type === 'country-view'">
-        <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections" [resourcePath]="section.path"></app-country-view>
+        <app-country-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [legends]="section.legends" [selections]="section.selections" [resourcePath]="section.path"
+        [redirectPath]="'community-view'"></app-country-view>
       </ng-container>
 
       <!-- Data Indicators Section -->
