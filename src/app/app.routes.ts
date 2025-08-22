@@ -20,6 +20,7 @@ import { LeadersProgramDetailsComponent } from './components/leaders-program-det
 import { ImprovementDetailsComponent } from './components/improvement-details/improvement-details.component';
 import { environment } from '../../environments/environment';
 import { COMMUNITY_LED_IMPROVEMENT } from '../constants/urlConstants';
+import { ProgramDetails } from './components/program-details/program-details';
 import { pageDataConfig } from '../config/pageDataConfig';
 
 export const routes: Routes = [
@@ -42,6 +43,7 @@ export const routes: Routes = [
     { path: 'global-map-10', component:  GlobalMap10 },
     { path: 'global-map-11', component:  GlobalMap11 },
     { path: 'catalysing-network-1', component: CatalysingNetwork1 },
+    { path: 'program-details', component: ProgramDetails },
     { path: 'community-view/:state/:code', component: StateImprovementsComponent, data: pageDataConfig.communityDetails },
 
 ];
