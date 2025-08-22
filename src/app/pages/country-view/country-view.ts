@@ -26,6 +26,7 @@ export class CountryView implements OnInit, AfterViewInit {
   @Input() selections: any = [];
   @Output() stateSelected = new EventEmitter<string>();
   @Input() resourcePath:string = '';
+  @Input() redirectPath?:any = ''
   @Input() notes:any = [];
   selectedIndicator: string = 'Micro Improvements Initiated';
   hoveredState: string = ""
@@ -187,8 +188,9 @@ return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl
             this.fetchIndicatorData(stateCode);
             const stateName = stateInfo.label;
             if (stateName) {
+              let path = this.redirectPath ? this.redirectPath : "state-view"
               this.stateSelected.emit(stateInfo.label);
-              this.router.navigate(['/state-view', stateName, stateCode]);
+              this.router.navigate([path, stateName, stateCode]);
             }
           }else if(!this.showDetails){
             this.stateSelected.emit(stateInfo.label);

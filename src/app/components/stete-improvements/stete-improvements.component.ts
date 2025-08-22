@@ -26,8 +26,13 @@ export class StateImprovementsComponent implements OnInit {
   stateName: string = "";
   stateCode: any
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
+  pageConfig:any
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+    route.data.subscribe((data:any)=>{
+      this.pageConfig = data
+    })
+  }
 
   ngOnInit(): void {
     // Subscribe to route parameter changes to reload data when the state changes
@@ -45,7 +50,7 @@ export class StateImprovementsComponent implements OnInit {
       return;
     }
 
-     d3.json(`${this.baseUrl}/${STATE_DETAILS_PAGE}`).then((data: any) => {
+     d3.json(`${this.baseUrl}/${this.pageConfig.jsonPath}`).then((data: any) => {
       this.pageData = data;
       this.prepareLogosForScrolling();
     }).catch((error: any) => {

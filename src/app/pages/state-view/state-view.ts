@@ -24,17 +24,23 @@ export class StateView implements OnInit, AfterViewInit {
   @Input() legends: any = {};
   @Input() path: any
   @Input() replaceCode?: any
+  @Input() notes?: any = []
   selectedIndicator: string = 'Micro Improvements Initiated';
   hoveredDistrict: string = ""
   indicatorData: { value: number | string; label: string }[] = [];
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
   country: string = "India"
   dataFetchPath: any
+  displayLegends:any = []
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.dataFetchPath = this.replaceCode ? this.path.replace('{code}', this.replaceCode.toString()) : this.path
+    this.displayLegends = Object.values(this.legends).map((item:any) => ({
+      label: item.label,
+      color: item.color
+    }));
     this.fetchIndicatorData();
   }
 
