@@ -43,12 +43,31 @@ export class ProgramDetails {
 
   @ViewChild('galleryTrack') galleryTrack!: ElementRef;
 
-  constructor(private location: Location) { }
+  constructor(private location: Location) { 
+    this.onResize();
+  }
   currentSlide = 0;
   public displayImages: string[] = [];
   private transitionEndListener: any;
   visibleSlides = 4; // how many images visible at once
   partnerDetails: any
+
+  @HostListener('window:resize', ['$event']) 
+  onResize(event?: any) {
+    const width = window.innerWidth;
+    if (width < 576) {
+      this.visibleSlides = 1;
+    } else if (width < 768) {
+      this.visibleSlides = 2;
+    } else if (width < 992) {
+      this.visibleSlides = 2;
+    } else if (width < 1200) {
+      this.visibleSlides = 3;
+    } else {
+      this.visibleSlides = 4;
+    }
+    this.updateSlidePosition(false); // Update position without animation on resize
+  }
 
   ngOnInit(): void {
     this.displayImages = this.programData.logo_urls || [];
@@ -56,8 +75,10 @@ export class ProgramDetails {
   }
 
   ngAfterViewInit(): void {
-    this.transitionEndListener = () => this.onTransitionEnd();
-    this.galleryTrack.nativeElement.addEventListener('transitionend', this.transitionEndListener);
+    if (this.galleryTrack) {
+      this.transitionEndListener = () => this.onTransitionEnd();
+      this.galleryTrack.nativeElement.addEventListener('transitionend', this.transitionEndListener);
+    }
   }
 
   getPartnerDetails() {
@@ -111,10 +132,12 @@ export class ProgramDetails {
   }
 
   updateSlidePosition(animate = true): void {
-    const track = this.galleryTrack.nativeElement;
-    track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
-    const slideWidth = 100 / this.visibleSlides; // 25% in CSS
-    track.style.transform = `translateX(-${this.currentSlide * slideWidth}%)`;
+    if (this.galleryTrack) {
+      const track = this.galleryTrack.nativeElement;
+      track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+      const slideWidth = 100 / this.visibleSlides;
+      track.style.transform = `translateX(-${this.currentSlide * slideWidth}%)`;
+    }
   }
 
   goBack(): void {
