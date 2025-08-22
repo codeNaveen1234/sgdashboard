@@ -3,6 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: auto;
+    overflow-x: hidden;
   }
 
   .landing-container > div {
@@ -319,4 +320,9 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+  }
+  .breadcrumb {
+    background: none !important;
+    position: absolute !important;
+    top: 20% !important;
   }

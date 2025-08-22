@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CountryView } from '../../pages/country-view/country-view';
 import { CarouselComponent } from '../carousel/carousel';
 import { IndicatorCardComponent } from '../indicator-card/indicator-card';
@@ -21,26 +21,67 @@ import { ProgramsReportListComponent } from '../programs-report-list/programs-re
 })
 export class DistrictImprovementsComponent implements OnInit {
   pageData: any = {};
+  district:string = '';
+  districtCode:string = '';
+  metrics:any = [];
+  pieChart:any = [];
+  stateName:string ='';
+  stateCode:string = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.fetchPageData();
+  constructor(private route:ActivatedRoute) {
+    this.route.paramMap.subscribe((params:any) => {
+      this.district = params.get('district') || "";
+      this.districtCode = params.get("dt-code")
+      this.stateName = params.get('state');
+      this.stateCode = params.get('st-code')
+    });
   }
 
-  fetchPageData(): void {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${COMMUNITY_LED_IMPROVEMENT}`).then((data: any) => {
-      this.pageData = data;
-      this.prepareLogosForScrolling();
+  ngOnInit(): void {
+    this.getImprovementsData();
+  }
+
+  getImprovementsData() {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/metrics.json`).then((data: any) => {
+      this.metrics = data.metrics
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/pie-chart.json`).then((data: any) => {
+        this.pieChart = data.data;
+        this.getProgramsList()
+        this.fetchPageData();
+      }).catch((error: any) => {
+        console.error('Error loading page data:', error);
+      });
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });
   }
 
-  prepareLogosForScrolling(): void {
-    const partnerLogosSection = this.pageData.sections.find((s:any) => s.type === 'partner-logos');
-    if (partnerLogosSection && partnerLogosSection.partners) {
-      this.pageData.allLogos = partnerLogosSection.partners.flatMap((p:any) => p.logos);
-    }
+  getProgramsList() {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/SLC.json`).then((data: any) => {
+      console.log(data);
+    }).catch((error: any) => {
+      console.error('Error loading page data:', error);
+    });
+  }
+
+  fetchPageData(): void {
+    d3.json('/assets/leaders-improvement-district-details.json').then((data: any) => {
+      this.pageData = data;
+      this.pageData.forEach((element:any) => {
+        if(element.type == "data-indicators") {
+          this.metrics.map((metric:any) => {
+            element.indicators.push(
+              {...{"icon":"assets/icons/group.svg"},...metric}
+            )
+          })
+        }
+        if(element.type == "pie-chart") {
+          element.data = this.pieChart
+        }
+      });
+      console.log(this.pageData);
+    }).catch((error: any) => {
+      console.error('Error loading page data:', error);
+    });
   }
 }

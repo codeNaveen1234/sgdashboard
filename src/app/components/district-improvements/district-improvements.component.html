@@ -1,5 +1,8 @@
+<div class="breadcrumb">
+  <a [routerLink]="['/dashboard']" class="mr-1">Dashboard</a> / <a [routerLink]="['/state-view',stateName,stateCode]" class="mx-1">{{stateName}}</a> / <span class="ml-1">{{ district }}</span>
+</div>
 <div class="landing-container">
-  <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
+  <div *ngFor="let section of pageData" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
     <!-- dashboard main -->
     <ng-container *ngIf="section.type === 'dashboard-main'">
       <section [ngClass]="section.styles.section">
@@ -27,20 +30,9 @@
       </section>
     </ng-container>
 
-    <!-- CTA Section -->
-    <ng-container *ngIf="section.type === 'cta'">
-      <section [ngClass]="section.styles.section">
-        <div *ngFor="let card of section.cards" [ngClass]="section.styles.card">
-          <h3>{{ card.title }}</h3>
-          <p>{{ card.text }}</p>
-          <a [routerLink]="card.button.link" [ngClass]="section.styles.button">{{ card.button.text }}</a>
-        </div>
-      </section>
-    </ng-container>
-
     <!-- country view -->
-    <ng-container *ngIf="section.type === 'program-reports'">
-      <app-programs-report-list></app-programs-report-list>
+    <ng-container *ngIf="section.type === 'programs-list'" class="program-list">
+      <app-programs-report-list [headerText]="'Ongoing District Missions'" [CommunityButton]="true"></app-programs-report-list>
     </ng-container>
     <!-- Data Indicators Section -->
     <ng-container *ngIf="section.type === 'data-indicators'">
@@ -69,4 +61,3 @@
     </ng-container>
   </div>
 </div>
-<app-programs-report-list></app-programs-report-list>

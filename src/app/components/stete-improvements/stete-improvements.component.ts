@@ -36,6 +36,7 @@ export class StateImprovementsComponent implements OnInit {
       this.stateCode = params.get("code")
     });
      this.fetchPageData();
+     this.getProgramsList();
   }
 
   fetchPageData(): void {
@@ -52,7 +53,15 @@ export class StateImprovementsComponent implements OnInit {
     });
   }
 
-prepareLogosForScrolling(): void {
+  getProgramsList() {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/states/${this.stateCode}/state.json`).then((data: any) => {
+      console.log(data);
+    }).catch((error: any) => {
+      console.error('Error loading page data:', error);
+    });
+  }
+
+  prepareLogosForScrolling(): void {
     const partnerLogosSection = this.pageData.sections.find((s:any) => s.type === 'partner-logos');
     if (partnerLogosSection && partnerLogosSection.partners) {
       this.pageData.allLogos = partnerLogosSection.partners.flatMap((p:any) => p.logos);

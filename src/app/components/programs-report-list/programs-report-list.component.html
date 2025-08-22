@@ -1,23 +1,30 @@
-<section class="row d-flex justify-content-center">
-    <mat-card class="example-card col-sm-3 mx-4 my-3 py-2" appearance="outlined" *ngFor="let report of programs">
-        <mat-card-header>
-            <mat-card-title>{{ report.name_of_the_program }}</mat-card-title>
-        </mat-card-header>
+<section class="main-section">
+    <section class="d-flex justify-content-between header-section pt-5 pb-3">
+        <h3>{{headerText}}</h3>
+        <button class="community-button" (click)="openCommunityDetails()" *ngIf="CommunityButton">Community Led Improvements<img src="assets/icons/arrow.svg" class="arrow ml-2" alt="" aria-hidden="true">
+        </button>
+    </section>
+    <section class="row d-flex justify-content-center">
+        <mat-card class="example-card col-sm-3 my-3 mr-3 py-2" appearance="outlined" *ngFor="let report of programs">
+            <mat-card-header>
+                <mat-card-title>{{ report.name_of_the_program }}</mat-card-title>
+            </mat-card-header>
 
-        <div class="carousel">
-            <button class="nav left" (click)="scrollLeft($event)">&#10094;</button>
-            <div class="carousel-track">
-              <img *ngFor="let img of report.logo_urls" [src]="img" alt="Program image">
+            <div class="carousel">
+                <button class="nav left" (click)="scrollLeft($event)">&#10094;</button>
+                <div class="carousel-track">
+                  <img *ngFor="let img of report.logo_urls" [src]="img" alt="Program image">
+                </div>
+                <button class="nav right" (click)="scrollRight($event)">&#10095;</button>
             </div>
-            <button class="nav right" (click)="scrollRight($event)">&#10095;</button>
-        </div>
 
-        <mat-card-content class="px-0">
-        <p class="report-description">{{ report.about_the_program_objective }}</p>
-        </mat-card-content>
+            <mat-card-content class="px-0">
+            <p class="report-description">{{ report.about_the_program_objective }}</p>
+            </mat-card-content>
 
-        <div class="partners">
-        <!-- <img mat-card-image [src]="report.partner_logo" alt="Partner logo"> -->
-        </div>
-    </mat-card>
+            <div class="partners">
+            <!-- <img mat-card-image [src]="report.partner_logo" alt="Partner logo"> -->
+            </div>
+        </mat-card>
+    </section>
 </section>

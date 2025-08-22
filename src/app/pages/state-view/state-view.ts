@@ -103,12 +103,12 @@ export class StateView implements OnInit, AfterViewInit {
       // const labels = indicatorData.result.meta.labels;
       // const legends = indicatorData.result.meta.legends;
       // this.legends = legends;
-      
+
       const states = topojson.feature(india, india.objects.states) as any;
       const districts = topojson.feature(india, india.objects.districts) as any;
 
       // Find the selected state
-      const selectedStateFeature = states.features.find((state: any) => 
+      const selectedStateFeature = states.features.find((state: any) =>
         state.properties.st_nm?.toLowerCase() === this.selectedState?.toLowerCase()
       );
 
@@ -117,11 +117,11 @@ export class StateView implements OnInit, AfterViewInit {
         return;
       }
 
-      const selectedStateCode = selectedStateFeature.properties.st_code;
+      const selecteddistrictCode = selectedStateFeature.properties.st_code;
 
       // Filter districts that belong to the selected state
-      const stateDistricts = districts.features.filter((district: any) => 
-        district.properties.st_code === selectedStateCode
+      const stateDistricts = districts.features.filter((district: any) =>
+        district.properties.st_code === selecteddistrictCode
       );
 
       // Create a feature collection for the selected state districts
@@ -209,6 +209,23 @@ export class StateView implements OnInit, AfterViewInit {
             tooltip.transition().duration(500).style("opacity", 0);
           }
         })
+        .on('click', (event: any, d: any) => {
+          const districtCode = d.properties.dt_code;
+          const distInfo = districtsData[districtCode];
+          console.log(d.properties, event);
+          if (this.showDetails && distInfo) {
+            this.fetchIndicatorData(districtCode);
+            const stateName = distInfo.label;
+            if (stateName) {
+              debugger;
+              // this.districtSelected.emit(distInfo.label);
+              this.router.navigate(['/state-led-district-improvements',d.properties.st_nm,d.properties.st_code, d.properties.district,  d.properties.dt_code]);
+            }
+          }else if(!this.showDetails){
+            // this.districtSelected.emit(distInfo.label);
+            this.router.navigate(['/dashboard']);
+          }
+        });
 
     }).catch((error: any) => {
       console.error('Error loading or processing data:', error);

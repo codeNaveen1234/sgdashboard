@@ -84,3 +84,16 @@ h1, h2, h3, h4, h5, h6 {
 .india {
   /* fill: #572e91; Keep India's highlight color */
 }
+
+
+.breadcrumb {
+  padding: 20px;
+  font-size: 18px;
+  color: #6c757d;
+  margin-left: 20px;
+}
+
+.breadcrumb span {
+  color: var(--primary-color);
+  font-weight: 700;
+}

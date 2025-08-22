@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-programs-report-list',
@@ -10,6 +11,11 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './programs-report-list.component.css'
 })
 export class ProgramsReportListComponent {
+
+  @Input() headerText:string = 'Programs List';
+  @Input() CommunityButton:boolean = false;
+
+  constructor(private router:Router) {}
 
   programs = [
     {
@@ -106,5 +112,9 @@ export class ProgramsReportListComponent {
   scrollRight(event: any) {
     const container = (event.target as HTMLElement).parentElement!.querySelector('.carousel-track');
     container!.scrollBy({ left: 300, behavior: 'smooth' });
+  }
+
+  openCommunityDetails() {
+    this.router.navigate(['/community-led-improvements']);
   }
 }
