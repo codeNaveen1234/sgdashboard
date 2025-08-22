@@ -12,12 +12,13 @@ import { StateView } from '../../pages/state-view/state-view';
 import { MetricsListComponent } from '../metrics-list/metrics-list';
 import { environment } from '../../../../environments/environment';
 import { STATE_DETAILS_PAGE } from '../../../constants/urlConstants';
+import { ProgramsReportListComponent } from '../programs-report-list/programs-report-list.component';
 
 
 @Component({
   selector: 'app-stete-improvements',
   standalone:true,
-  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, StateView, MetricsListComponent],
+  imports:[CommonModule, RouterModule, IndicatorCardComponent, PartnerLogosComponent, CarouselComponent, LineChartComponent, PieChartComponent,CountryView, StateView, MetricsListComponent,ProgramsReportListComponent],
   templateUrl: './stete-improvements.component.html',
   styleUrls: ['./stete-improvements.component.css']
 })
@@ -26,11 +27,13 @@ export class StateImprovementsComponent implements OnInit {
   stateName: string = "";
   stateCode: any
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
-  pageConfig:any
+  pageConfig:any;
+  programsList:any = [];
 
   constructor(private route: ActivatedRoute) {
     route.data.subscribe((data:any)=>{
       this.pageConfig = data
+      console.log(this.pageConfig)
     })
   }
 
@@ -59,8 +62,9 @@ export class StateImprovementsComponent implements OnInit {
   }
 
   getProgramsList() {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/states/${this.stateCode}/state.json`).then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/states/${this.stateCode}/state-program.json`).then((data: any) => {
       console.log(data);
+      this.programsList= data
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });

@@ -86,6 +86,10 @@ mat-card-header {
     margin: auto;
 }
 
+.program-images {
+  height: 180px !important;
+}
+
 h3 {
     font-weight: 700;
   }

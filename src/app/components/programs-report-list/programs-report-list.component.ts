@@ -14,10 +14,11 @@ export class ProgramsReportListComponent {
 
   @Input() headerText:string = 'Programs List';
   @Input() CommunityButton:boolean = false;
+  @Input() pageConfig:any;
 
   constructor(private router:Router) {}
 
-  programs = [
+  @Input() programs:any = [
     {
       "state_name": "Bihar",
       "district_name": "Banka",
@@ -107,6 +108,15 @@ export class ProgramsReportListComponent {
   scrollLeft(event: any) {
     const container = (event.target as HTMLElement).parentElement!.querySelector('.carousel-track');
     container!.scrollBy({ left: -300, behavior: 'smooth' });
+  }
+
+  openReport(report:any) {
+    if(report.report_link) {
+      window.open(report.report_link,'_blank')
+    }
+    else {
+
+    }
   }
 
   scrollRight(event: any) {

@@ -53,7 +53,7 @@
       <!-- app-state-view -->
       <ng-container *ngIf="section.type === 'state-view'">
         <app-state-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [selections]="section.selections"
-        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode" [notes]="section.notes"></app-state-view>
+        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode" [notes]="section.notes" [pageConfig]="pageConfig"></app-state-view>
       </ng-container>
 
       <!-- Data Indicators Section -->
@@ -72,6 +72,10 @@
             </div>
           </div>
         </section>
+      </ng-container>
+
+      <ng-container *ngIf="section.type === 'programs-list' && programsList.length > 0" class="program-list">
+        <app-programs-report-list [headerText]="'Ongoing State Missions'" [CommunityButton]="false" [programs]="programsList"></app-programs-report-list>
       </ng-container>
 
       <!-- Partner Logos Section -->

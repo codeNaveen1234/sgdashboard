@@ -27,6 +27,8 @@ export class DistrictImprovementsComponent implements OnInit {
   pieChart:any = [];
   stateName:string ='';
   stateCode:string = '';
+  programsList:any = [];
+  pageConfig:any = '';
 
   constructor(private route:ActivatedRoute) {
     this.route.paramMap.subscribe((params:any) => {
@@ -35,6 +37,9 @@ export class DistrictImprovementsComponent implements OnInit {
       this.stateName = params.get('state');
       this.stateCode = params.get('st-code')
     });
+    route.data.subscribe((data:any)=>{
+      this.pageConfig = data
+    })
   }
 
   ngOnInit(): void {
@@ -47,7 +52,6 @@ export class DistrictImprovementsComponent implements OnInit {
       d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/pie-chart.json`).then((data: any) => {
         this.pieChart = data.data;
         this.getProgramsList()
-        this.fetchPageData();
       }).catch((error: any) => {
         console.error('Error loading page data:', error);
       });
@@ -57,8 +61,10 @@ export class DistrictImprovementsComponent implements OnInit {
   }
 
   getProgramsList() {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/SLC.json`).then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${this.pageConfig.type == "communityDetails" ? 'SLC.json':'WLC.json'}`).then((data: any) => {
       console.log(data);
+      this.programsList = data;
+      this.fetchPageData();
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });

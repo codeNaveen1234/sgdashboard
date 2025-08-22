@@ -25,6 +25,7 @@ export class StateView implements OnInit, AfterViewInit {
   @Input() path: any
   @Input() replaceCode?: any
   @Input() notes?: any = []
+  @Input() pageConfig:any = '';
   selectedIndicator: string = 'Micro Improvements Initiated';
   hoveredDistrict: string = ""
   indicatorData: { value: number | string; label: string }[] = [];
@@ -223,9 +224,13 @@ export class StateView implements OnInit, AfterViewInit {
             this.fetchIndicatorData(districtCode);
             const stateName = distInfo.label;
             if (stateName) {
-              debugger;
               // this.districtSelected.emit(distInfo.label);
-              this.router.navigate(['/state-led-district-improvements',d.properties.st_nm,d.properties.st_code, d.properties.district,  d.properties.dt_code]);
+              if(this.pageConfig.type == "communityDetails") {
+                this.router.navigate(['/community-led-district-improvements/',d.properties.st_nm,d.properties.st_code, d.properties.district,  d.properties.dt_code]);
+              }
+              else {
+                this.router.navigate(['/state-led-district-improvements',d.properties.st_nm,d.properties.st_code, d.properties.district,  d.properties.dt_code]);
+              }
             }
           }else if(!this.showDetails){
             // this.districtSelected.emit(distInfo.label);

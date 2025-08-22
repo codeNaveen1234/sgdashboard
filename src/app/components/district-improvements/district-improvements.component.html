@@ -32,7 +32,7 @@
 
     <!-- country view -->
     <ng-container *ngIf="section.type === 'programs-list'" class="program-list">
-      <app-programs-report-list [headerText]="'Ongoing District Missions'" [CommunityButton]="true"></app-programs-report-list>
+      <app-programs-report-list [headerText]="'Ongoing District Missions'" [CommunityButton]="true" [programs]="programsList" [pageConfig]="pageConfig"></app-programs-report-list>
     </ng-container>
     <!-- Data Indicators Section -->
     <ng-container *ngIf="section.type === 'data-indicators'">

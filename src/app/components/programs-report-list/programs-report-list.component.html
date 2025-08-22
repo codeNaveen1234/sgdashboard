@@ -5,21 +5,24 @@
         </button>
     </section>
     <section class="row d-flex justify-content-center">
-        <mat-card class="example-card col-sm-3 my-3 mr-3 py-2" appearance="outlined" *ngFor="let report of programs">
+        <mat-card class="example-card col-sm-3 my-3 mr-3 py-2" appearance="outlined" *ngFor="let report of programs" (click)="openReport(report)">
             <mat-card-header>
-                <mat-card-title>{{ report.name_of_the_program }}</mat-card-title>
+                <mat-card-title (click)="openReport(report)">{{ report.name_of_the_program }}</mat-card-title>
             </mat-card-header>
 
             <div class="carousel">
                 <button class="nav left" (click)="scrollLeft($event)">&#10094;</button>
-                <div class="carousel-track">
-                  <img *ngFor="let img of report.logo_urls" [src]="img" alt="Program image">
+                <div class="carousel-track" *ngIf=" report.logo_urls.length > 0">
+                  <img *ngFor="let img of report.logo_urls" [src]="img" class="program-images" alt="Program image">
+                </div>
+                <div class="carousel-track" *ngIf=" report.logo_urls.length == 0">
+                  <img src="img" class="program-images" alt="Program image">
                 </div>
                 <button class="nav right" (click)="scrollRight($event)">&#10095;</button>
             </div>
 
             <mat-card-content class="px-0">
-            <p class="report-description">{{ report.about_the_program_objective }}</p>
+            <p class="report-description" (click)="openReport(report)">{{ report.about_the_program_objective }}</p>
             </mat-card-content>
 
             <div class="partners">
