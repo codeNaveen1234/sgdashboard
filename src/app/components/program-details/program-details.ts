@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import * as d3 from 'd3';
 import { LANDING_PAGE } from '../../../constants/urlConstants';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-program-details',
@@ -13,14 +13,17 @@ import { RouterModule } from '@angular/router';
   styleUrl: './program-details.css'
 })
 export class ProgramDetails {
-  @Input() programData :any
+  programData :any
   baseUrl: any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
 
 
   @ViewChild('galleryTrack') galleryTrack!: ElementRef;
 
-  constructor(private location: Location) {
+  constructor(private location: Location,private router: Router) {
     this.onResize();
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { report: any };
+    this.programData = state?.report;  
   }
   currentSlide = 0;
   public displayImages: string[] = [];
@@ -46,6 +49,7 @@ export class ProgramDetails {
   }
 
   ngOnInit(): void {
+    console.log(this.programData)
     this.displayImages = this.programData.logo_urls || [];
     this.getPartnerDetails()
   }

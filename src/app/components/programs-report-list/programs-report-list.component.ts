@@ -30,7 +30,7 @@ export class ProgramsReportListComponent {
       window.open(report.report_link,'_blank')
     }
     else {
-
+      this.router.navigate(['/program-details'], { state: { report } });
     }
   }
 
