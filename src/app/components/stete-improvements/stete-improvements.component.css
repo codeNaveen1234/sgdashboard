@@ -197,14 +197,13 @@
   }
 
 
-  .container h3 {
-    font-size: 1.5rem;
+  .dashboard-main-container h3 {
+    font-size: 2rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
   }
 
-  .container h4 {
+  .dashboard-main-container h4 {
     font-size: 1.1rem;
     margin-bottom: 1rem;
 
@@ -331,4 +330,9 @@
 .breadcrumb span {
   color: var(--primary-color);
   font-weight: 700;
+}
+
+.dashboard-main-container{
+  max-width: 90%;
+  margin: auto;
 }
