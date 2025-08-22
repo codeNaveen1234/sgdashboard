@@ -15,11 +15,11 @@ import { RouterModule } from '@angular/router';
 export class ProgramDetails {
   @Input() programData :any
   baseUrl: any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
-  
+
 
   @ViewChild('galleryTrack') galleryTrack!: ElementRef;
 
-  constructor(private location: Location) { 
+  constructor(private location: Location) {
     this.onResize();
   }
   currentSlide = 0;
@@ -28,7 +28,7 @@ export class ProgramDetails {
   visibleSlides = 4; // how many images visible at once
   partnerDetails: any
 
-  @HostListener('window:resize', ['$event']) 
+  @HostListener('window:resize', ['$event'])
   onResize(event?: any) {
     const width = window.innerWidth;
     if (width < 576) {
@@ -62,11 +62,9 @@ export class ProgramDetails {
     d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${LANDING_PAGE}`).then((data: any) => {
       this.partnerDetails = data;
       const partners = data.find((item: { type: string; }) => item.type === "partner-logos")?.partners || [];
-      console.log(partners);
       this.partnerDetails = partners.filter((p: { name: string; }) =>
         this.programData.name_of_the_partner_leading_the_program.includes(p.name)
       );
-      console.log(this.partnerDetails)
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });

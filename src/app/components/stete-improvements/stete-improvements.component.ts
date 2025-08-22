@@ -63,7 +63,6 @@ export class StateImprovementsComponent implements OnInit {
 
   getProgramsList() {
     d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/states/${this.stateCode}/state-program.json`).then((data: any) => {
-      console.log(data);
       this.programsList= data
     }).catch((error: any) => {
       console.error('Error loading page data:', error);

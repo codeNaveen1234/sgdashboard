@@ -62,7 +62,6 @@ export class DistrictImprovementsComponent implements OnInit {
 
   getProgramsList() {
     d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${this.pageConfig.type == "communityDetails" ? 'SLC.json':'WLC.json'}`).then((data: any) => {
-      console.log(data);
       this.programsList = data;
       this.fetchPageData();
     }).catch((error: any) => {
@@ -85,7 +84,6 @@ export class DistrictImprovementsComponent implements OnInit {
           element.data = this.pieChart
         }
       });
-      console.log(this.pageData);
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
     });

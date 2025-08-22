@@ -219,7 +219,6 @@ export class StateView implements OnInit, AfterViewInit {
         .on('click', (event: any, d: any) => {
           const districtCode = d.properties.dt_code;
           const distInfo = districtsData[districtCode];
-          console.log(d.properties, event);
           if (this.showDetails && distInfo) {
             this.fetchIndicatorData(districtCode);
             const stateName = distInfo.label;
