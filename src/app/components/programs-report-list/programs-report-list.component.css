@@ -59,6 +59,7 @@ mat-card {
     border-radius: 5px;
     border: 0;
     background: white;
+     cursor: pointer;
 }
 
 mat-card-title {
