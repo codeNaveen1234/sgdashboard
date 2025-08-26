@@ -139,7 +139,6 @@ export class PieChartComponent {
   };
 
   fetchData(){
-    debugger;
     d3.json(`${this.baseUrl}${this.dataFetchPath}`).then((data:any)=>{
       this.pieData = data.data
       console.log(data)
