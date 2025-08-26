@@ -1,14 +1,12 @@
 .metrics-container{
   max-width: 90%;
   margin: auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;  
 }
 
 .metrics-card{
-  max-width: 480px;
-  margin: 18px;
+  margin: 18px 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .icon-heading-section{
@@ -33,6 +31,7 @@
   font-size: 16px;
   font-weight: 700;
   margin: 8px 0px;
+  flex: 1;
 }
 
 .link{

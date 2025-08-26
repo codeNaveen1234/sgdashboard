@@ -33,6 +33,7 @@ export class CountryView implements OnInit, AfterViewInit {
 
   indicatorData: { value: number | string; label: string }[] = [];
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
+  displayLegends:any = []
 
   constructor(private router: Router) { } // Inject Router
 
@@ -44,7 +45,7 @@ export class CountryView implements OnInit, AfterViewInit {
 return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta?.labels || {};
-      this.notes = data.result.meta?.notes || [];
+      // this.notes = data.result.meta?.notes || [];
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
       let processedData: { value: number | string; label: string }[] = [];
       this.hoveredState = stateCode? statesData[stateCode].label : ""
@@ -106,6 +107,10 @@ return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl
       const labels = indicatorData.result.meta.labels;
       const legends = indicatorData.result.meta.legends;
       this.legends = legends;
+      this.displayLegends = Object.values(legends).map((item:any) => ({
+        label: item.label,
+        color: item.color
+      }));
       const activeStates = indicatorData.result.overview;
       const states = topojson.feature(india, india.objects.states) as any;
       const districts = topojson.feature(india, india.objects.districts) as any;

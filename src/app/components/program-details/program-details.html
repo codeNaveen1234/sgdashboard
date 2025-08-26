@@ -1,7 +1,7 @@
 <div class="landing-container">
     <div class="breadcrumb">
-        <a [routerLink]="['/dashboard']">Dashboard</a> / <a [routerLink]="['/dashboard']">{{
-            programData.state_name }}</a> / <span>{{ programData.district_name }}</span>
+        <a [routerLink]="['/dashboard']">Dashboard</a> / <a (click)="goBack()"  routerLinkActive="active-link">{{
+            programData.state_name }}</a>  <span *ngIf="programData.district_name">/ {{ programData.district_name }}</span>
     </div>
 
     <div class="program-container">
@@ -49,8 +49,8 @@
                     </div>
                 </div>
             </div>
-            <h3>Gallery</h3>
-            <section class="gallery-section">
+            <h3 *ngIf="displayImages.length">Gallery</h3>
+            <section class="gallery-section" *ngIf="displayImages.length">
                 <button class="arrow left" (click)="prevSlide()">&#10094;</button>
                 <div class="gallery-container">
                     <div class="gallery-track" #galleryTrack>
@@ -61,8 +61,8 @@
                 </div>
                 <button class="arrow right" (click)="nextSlide()">&#10095;</button>
             </section>
-            <h3>About Partners</h3>
-            <div class="partners">
+            <h3 *ngIf="partnerDetails">About Partners</h3>
+            <div *ngIf="partnerDetails" class="partners">
                 <div class="partners-grid">
                     <div class="partner-card" *ngFor="let partner of partnerDetails">
 
@@ -70,7 +70,7 @@
                         <img [src]="partner.src" [alt]="partner.alt" class="partner-logo" />
 
                         <!-- Partner Name -->
-                        <h3 class="partner-name">{{ partner.name }}</h3>
+                        <h5 class="partner-name">{{ partner.name }}</h5>
 
                         <!-- Know More Link -->
                         <a [href]="partner.website" target="_blank" rel="noopener noreferrer" class="know-more-btn">

@@ -21,6 +21,7 @@ export class ProgramsReportListComponent {
   @Input() programs:any = []
 
   scrollLeft(event: any) {
+    event.stopPropagation(); //Prevent a parent element’s event handler from firing
     const container = (event.target as HTMLElement).parentElement!.querySelector('.carousel-track');
     container!.scrollBy({ left: -300, behavior: 'smooth' });
   }
@@ -31,11 +32,12 @@ export class ProgramsReportListComponent {
       window.open(report.report_link,'_blank')
     }
     else {
-
+      this.router.navigate(['/program-details'], { state: { report } });
     }
   }
 
   scrollRight(event: any) {
+    event.stopPropagation();
     const container = (event.target as HTMLElement).parentElement!.querySelector('.carousel-track');
     container!.scrollBy({ left: 300, behavior: 'smooth' });
   }
