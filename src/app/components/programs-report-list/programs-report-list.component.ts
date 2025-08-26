@@ -35,7 +35,6 @@ export class ProgramsReportListComponent implements OnInit {
   }
 
   openReport(report:any) {
-    debugger;
     if(report.report_link) {
       window.open(report.report_link,'_blank')
     }

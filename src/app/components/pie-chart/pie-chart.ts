@@ -35,41 +35,7 @@ export class PieChartComponent {
   @Input() replaceCode?:any
   total = 1000;
 
-  chartOptions: EChartsOption = {
-    title: {
-      text: this.total.toString(),
-      left: 'center',
-      top: 'middle',
-      textStyle: { fontSize: 32, fontWeight: 'bold' }
-    },
-    tooltip: { trigger: 'item', formatter: '{b}<br/>{c} ({d}%)' },
-    legend: {
-      orient: 'vertical',
-      right: 20,
-      top: 'center',
-      textStyle: { fontSize: 13 },
-      data: this.pieData.map(d => d.name)
-    },
-    series: [
-      {
-        type: 'pie',
-        radius: ['55%', '75%'],
-        avoidLabelOverlap: true,
-        label: {
-          show: true,
-          position: 'outside',
-          formatter: (params: any) =>
-            `${params.name}\n{valueStyle|${params.value}}  {percentStyle|${params.percent.toFixed(2)}%}`,
-          rich: {
-            valueStyle: { fontSize: 14, fontWeight: 'bold', color: '#333' },
-            percentStyle: { fontSize: 12, color: '#666' }
-          }
-        },
-        labelLine: { length: 20, length2: 10, smooth: true },
-        data: this.pieData
-      }
-    ]
-  };
+  chartOptions: EChartsOption = this.setChartConfig();
 
   constructor(){}
 
@@ -78,6 +44,44 @@ export class PieChartComponent {
     if(this.path){
       this.dataFetchPath = this.replaceCode ? this.path.replace('{code}', this.replaceCode.toString()) : this.path
       this.fetchData()
+    }
+  }
+
+  setChartConfig():EChartsOption {
+    return {
+      title: {
+        text: this.total.toString(),
+        left: 'center',
+        top: 'middle',
+        textStyle: { fontSize: 32, fontWeight: 'bold' }
+      },
+      tooltip: { trigger: 'item', formatter: '{b}<br/>{c} ({d}%)' },
+      legend: {
+        orient: 'vertical',
+        right: 20,
+        top: 'center',
+        textStyle: { fontSize: 13 },
+        data: this.pieData.map(d => d.name)
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: ['55%', '75%'],
+          avoidLabelOverlap: true,
+          label: {
+            show: true,
+            position: 'outside',
+            formatter: (params: any) =>
+              `${params.name}\n{valueStyle|${params.value}}  {percentStyle|${params.percent.toFixed(2)}%}`,
+            rich: {
+              valueStyle: { fontSize: 14, fontWeight: 'bold', color: '#333' },
+              percentStyle: { fontSize: 12, color: '#666' }
+            }
+          },
+          labelLine: { length: 20, length2: 10, smooth: true },
+          data: this.pieData
+        }
+      ]
     }
   }
 
@@ -133,41 +137,7 @@ export class PieChartComponent {
     d3.json(`${this.baseUrl}${this.dataFetchPath}`).then((data:any)=>{
       this.pieData = data.data
       this.total = this.pieData.reduce((sum, d) => sum + d.value, 0);
-      this.chartOptions = {
-        title: {
-          text: this.total.toString(),
-          left: 'center',
-          top: 'middle',
-          textStyle: { fontSize: 32, fontWeight: 'bold' }
-        },
-        tooltip: { trigger: 'item', formatter: '{b}<br/>{c} ({d}%)' },
-        legend: {
-          orient: 'vertical',
-          right: 20,
-          top: 'center',
-          textStyle: { fontSize: 13 },
-          data: this.pieData.map(d => d.name)
-        },
-        series: [
-          {
-            type: 'pie',
-            radius: ['55%', '75%'],
-            avoidLabelOverlap: true,
-            label: {
-              show: true,
-              position: 'outside',
-              formatter: (params: any) =>
-                `${params.name}\n{valueStyle|${params.value}}  {percentStyle|${params.percent.toFixed(2)}%}`,
-              rich: {
-                valueStyle: { fontSize: 14, fontWeight: 'bold', color: '#333' },
-                percentStyle: { fontSize: 12, color: '#666' }
-              }
-            },
-            labelLine: { length: 20, length2: 10, smooth: true },
-            data: this.pieData
-          }
-        ]
-      };
+      this.chartOptions = this.setChartConfig();
     }).catch((err:any)=>{
       console.error("Error loading pie-chart data ",err)
     })
