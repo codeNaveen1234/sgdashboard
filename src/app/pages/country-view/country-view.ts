@@ -45,7 +45,7 @@ export class CountryView implements OnInit, AfterViewInit {
 return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl}/${DISTRICT_VIEW_INDICATORS}`).then((data: any) => {
       const statesData = data.result.states;
       const labels = data.result.meta?.labels || {};
-      this.notes = data.result.meta?.notes || [];
+      // this.notes = data.result.meta?.notes || [];
       let details = (stateCode && statesData[stateCode]) ? statesData[stateCode].details : data.result.overview.details;
       let processedData: { value: number | string; label: string }[] = [];
       this.hoveredState = stateCode? statesData[stateCode].label : ""
