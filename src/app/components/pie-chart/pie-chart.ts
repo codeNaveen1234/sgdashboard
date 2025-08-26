@@ -45,6 +45,11 @@ export class PieChartComponent {
       this.dataFetchPath = this.replaceCode ? this.path.replace('{code}', this.replaceCode.toString()) : this.path
       this.fetchData()
     }
+    else {
+      this.pieData = this._pieData;
+      this.total = this.pieData.reduce((sum, d) => sum + d.value, 0);
+      this.chartOptions = this.setChartConfig();
+    }
   }
 
   setChartConfig():EChartsOption {
@@ -134,8 +139,10 @@ export class PieChartComponent {
   };
 
   fetchData(){
+    debugger;
     d3.json(`${this.baseUrl}${this.dataFetchPath}`).then((data:any)=>{
       this.pieData = data.data
+      console.log(data)
       this.total = this.pieData.reduce((sum, d) => sum + d.value, 0);
       this.chartOptions = this.setChartConfig();
     }).catch((err:any)=>{
