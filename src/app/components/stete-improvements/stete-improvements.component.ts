@@ -55,6 +55,7 @@ export class StateImprovementsComponent implements OnInit {
 
      d3.json(`${this.baseUrl}/${this.pageConfig.jsonPath}`).then((data: any) => {
       this.pageData = data;
+      console.log( this.pageData)
       this.prepareLogosForScrolling();
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
