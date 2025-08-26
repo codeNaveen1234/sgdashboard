@@ -16,7 +16,9 @@
       <div class="color-box yet"></div>
       <span>Yet to start</span>
     </div>
-    <div class="note">*Click on the map to access the main dashboard</div>
+    <div *ngIf="!showDetails"  class="note">*Click on the map to access the main dashboard</div>
+    <div *ngIf="showDetails" class="note">*Click on a state to view detailed insights</div>
+    <div *ngIf="showDetails"  class="note">*Data as shared by the partners</div>
     <!-- <div *ngIf="notes.length > 0">
       <div class="note" *ngFor="let note of notes">*{{note}}</div>
     </div> -->

@@ -16,17 +16,17 @@
             <div class="program-model-container">
                 <div>
                     <div class="program-section">
-                        <h3>About the Program</h3>
+                        <h3>Program Overview</h3>
                         <p>{{ programData.about_the_program_objective }}</p>
                     </div>
 
                     <div class="info-section">
                         <div class="impact">
-                            <h3>Impact aimed</h3>
+                            <h3>Intended Impact</h3>
                             <p [innerText]="impactText"
                                 [ngStyle]="{'white-space': 'normal', 'word-wrap': 'break-word'}"></p>
 
-                            <h3>Stakeholders</h3>
+                            <h3>Key Stakeholders</h3>
                             <p>{{ programData.stakeholders_doing_the_program }}</p>
                         </div>
 
@@ -61,7 +61,7 @@
                 </div>
                 <button class="arrow right" (click)="nextSlide()">&#10095;</button>
             </section>
-            <h3 *ngIf="partnerDetails">About Partners</h3>
+            <h3 *ngIf="partnerDetails">Partners</h3>
             <div *ngIf="partnerDetails" class="partners">
                 <div class="partners-grid">
                     <div class="partner-card" *ngFor="let partner of partnerDetails">
