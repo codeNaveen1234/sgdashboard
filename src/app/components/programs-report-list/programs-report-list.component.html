@@ -25,8 +25,11 @@
             <p class="report-description" (click)="openReport(report)">{{ report.about_the_program_objective }}</p>
             </mat-card-content>
 
-            <div class="partners">
-            <!-- <img mat-card-image [src]="report.partner_logo" alt="Partner logo"> -->
+            <div class="partners row mt-2">
+                <section *ngFor="let img of getPartnerDetails(report)" class="col-sm-auto">
+                    <img mat-card-image [src]="img.src" class="partners-logo m-2"  alt="Partner logo"><br>
+                    <p class="partner-name">{{img.name}}</p>
+                </section>
             </div>
         </mat-card>
     </section>

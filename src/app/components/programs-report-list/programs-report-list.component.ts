@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
+import * as d3 from 'd3';
+import { LANDING_PAGE } from '../../../constants/urlConstants';
 
 @Component({
   selector: 'app-programs-report-list',
@@ -10,12 +13,13 @@ import { Router } from '@angular/router';
   templateUrl: './programs-report-list.component.html',
   styleUrl: './programs-report-list.component.css'
 })
-export class ProgramsReportListComponent {
+export class ProgramsReportListComponent implements OnInit {
 
   @Input() headerText:string = 'Programs List';
   @Input() CommunityButton:boolean = false;
   @Input() pageConfig:any;
 
+  partners:any = [];
   constructor(private router:Router) {}
 
   @Input() programs:any = []
@@ -24,6 +28,10 @@ export class ProgramsReportListComponent {
     event.stopPropagation(); //Prevent a parent element’s event handler from firing
     const container = (event.target as HTMLElement).parentElement!.querySelector('.carousel-track');
     container!.scrollBy({ left: -300, behavior: 'smooth' });
+  }
+
+  ngOnInit(): void {
+    this.getPartnersList();
   }
 
   openReport(report:any) {
@@ -45,4 +53,23 @@ export class ProgramsReportListComponent {
   openCommunityDetails() {
     this.router.navigate(['/community-led-improvements']);
   }
+
+
+  getPartnerDetails(programData:any) {
+    let partnerDetails:any = [];
+    const partners = this.partners.find((item: { type: string; }) => item.type === "partner-logos")?.partners || [];
+    partnerDetails = partners.filter((p: { name: string; }) =>
+      programData.name_of_the_partner_leading_the_program.includes(p.name)
+    );
+    return partnerDetails;
+  }
+
+  getPartnersList() {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/${LANDING_PAGE}`).then((data: any) => {
+      this.partners = data;
+    }).catch((error: any) => {
+      console.error('Error loading page data:', error);
+    });
+  }
+
 }
