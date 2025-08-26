@@ -33,6 +33,7 @@ export class CountryView implements OnInit, AfterViewInit {
 
   indicatorData: { value: number | string; label: string }[] = [];
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
+  displayLegends:any = []
 
   constructor(private router: Router) { } // Inject Router
 
@@ -106,6 +107,10 @@ return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl
       const labels = indicatorData.result.meta.labels;
       const legends = indicatorData.result.meta.legends;
       this.legends = legends;
+      this.displayLegends = Object.values(legends).map((item:any) => ({
+        label: item.label,
+        color: item.color
+      }));
       const activeStates = indicatorData.result.overview;
       const states = topojson.feature(india, india.objects.states) as any;
       const districts = topojson.feature(india, india.objects.districts) as any;
