@@ -93,3 +93,8 @@ mat-card-header {
 h3 {
     font-weight: 700;
   }
+
+.no-image {
+  width: 100% !important;
+  max-width: 500px !important;
+}
