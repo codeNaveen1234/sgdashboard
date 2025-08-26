@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="description">{{ item.description }}</div>
-      <div class="link">*{{ item.linkText }}</div>
+      <div class="link" [ngClass]="{'disabled': item.linkText.length == 0}" (click)="navigateToLocation(item)">{{ item.linkText }}</div>
     </div>
   }
 </div>

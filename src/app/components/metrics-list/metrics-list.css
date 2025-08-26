@@ -24,7 +24,7 @@
 
 .value{
   margin-top: 4px;
-  color: var(--secondary-color-light); 
+  color: var(--secondary-color-light);
 }
 
 .description{
@@ -40,4 +40,9 @@
   color: #0051FF;
   cursor: pointer;
   width: fit-content;
+}
+
+.disabled {
+  pointer-events: none;
+  color: lightgray !important;
 }
