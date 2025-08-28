@@ -29,6 +29,14 @@ export class DistrictImprovementsComponent implements OnInit {
   stateCode:string = '';
   programsList:any = [];
   pageConfig:any = '';
+  metricsMappingData = [
+    { icon: "assets/icons/community_leaders.svg", identifier: 1 },
+    { icon: "assets/icons/community_improvements.svg", identifier: 2 },
+    { icon: "assets/icons/mountain.svg", identifier: 3 },
+    { icon: "assets/icons/idea.svg", identifier: 4 }
+  ]
+  enableCommunityButton:boolean = false
+  isCommunityFlow:boolean = false
 
   constructor(private route:ActivatedRoute) {
     this.route.paramMap.subscribe((params:any) => {
@@ -43,13 +51,23 @@ export class DistrictImprovementsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.pageConfig.type == "communityDetails"){
+      this.enableCommunityButton = false
+      this.isCommunityFlow = true
+    }
     this.getImprovementsData();
   }
 
   getImprovementsData() {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/metrics.json`).then((data: any) => {
+    let metricsPath = "metrics.json"
+    let pieChartPath = "pie-chart.json"
+    if(this.isCommunityFlow){
+      metricsPath = "community-metrics.json"
+      pieChartPath = "community-pie-chart.json"
+    }
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${metricsPath}`).then((data: any) => {
       this.metrics = data.metrics
-      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/pie-chart.json`).then((data: any) => {
+      d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${pieChartPath}`).then((data: any) => {
         this.pieChart = data.data;
         this.getProgramsList()
       }).catch((error: any) => {
@@ -61,11 +79,12 @@ export class DistrictImprovementsComponent implements OnInit {
   }
 
   getProgramsList() {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${this.pageConfig.type == "communityDetails" ? 'WLC.json':'SLC.json'}`).then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${this.isCommunityFlow ? 'WLC.json':'SLC.json'}`).then((data: any) => {
       this.programsList = data;
       this.fetchPageData();
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
+      this.fetchPageData()
     });
   }
 
@@ -74,11 +93,20 @@ export class DistrictImprovementsComponent implements OnInit {
       this.pageData = data;
       this.pageData.forEach((element:any) => {
         if(element.type == "data-indicators") {
-          this.metrics.map((metric:any) => {
-            element.indicators.push(
-              {...{"icon":"assets/icons/group.svg"},...metric}
-            )
-          })
+          if(this.isCommunityFlow){
+            this.metrics.map((metric:any) => {
+              let icon:any = this.metricsMappingData.find(iconItem => iconItem.identifier === metric.identifier);
+              element.indicators.push(
+                { icon: icon?.icon || "",...metric}
+              )
+            })
+          }else{
+            this.metrics.map((metric:any) => {
+              element.indicators.push(
+                {...{"icon":"assets/icons/group.svg"},...metric}
+              )
+            })
+          }
         }
         if(element.type == "pie-chart") {
           element.data = this.pieChart

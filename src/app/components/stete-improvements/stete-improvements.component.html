@@ -1,10 +1,11 @@
 <div class="landing-container">
   <!-- Breadcrumb -->
   <div class="breadcrumb">
-    <a [routerLink]="['/dashboard']">Dashboard</a> / <span>{{ stateName }}</span>
+    <a [routerLink]="['/dashboard']">Dashboard &nbsp;</a>
     @if(pageConfig.type == "communityDetails"){
-      <span> / Community Led Improvements-</span> <span>{{ stateName }}</span>
+      <a [routerLink]="['/community-led-improvements']"> / Community Led Improvements &nbsp; </a>
     }
+    <span> / {{ stateName }}</span>
   </div>
     <div *ngFor="let section of pageData.sections" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
       <!-- Main Section -->
