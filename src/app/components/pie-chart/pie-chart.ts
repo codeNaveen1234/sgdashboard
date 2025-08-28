@@ -36,11 +36,20 @@ export class PieChartComponent {
   total = 1000;
 
   chartOptions: EChartsOption = this.setChartConfig();
+  theme: any = {
+    color:[
+      '#FF928A', // Infrastructure and resources
+      '#3CC3DF', // School structure and practices
+      '#537FF1', // Leadership
+      '#8979FF', // Pedagogy
+      '#FFAE4C', // Assessment and Evaluation
+      '#FFE500'  // Community Engagement
+    ]
+  };
 
   constructor(){}
 
   ngOnInit(){
-    console.log(this.pieData)
     if(this.path){
       this.dataFetchPath = this.replaceCode ? this.path.replace('{code}', this.replaceCode.toString()) : this.path
       this.fetchData()
@@ -141,7 +150,6 @@ export class PieChartComponent {
   fetchData(){
     d3.json(`${this.baseUrl}${this.dataFetchPath}`).then((data:any)=>{
       this.pieData = data.data
-      console.log(data)
       this.total = this.pieData.reduce((sum, d) => sum + d.value, 0);
       this.chartOptions = this.setChartConfig();
     }).catch((err:any)=>{

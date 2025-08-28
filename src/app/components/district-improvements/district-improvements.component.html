@@ -1,5 +1,10 @@
 <div class="breadcrumb">
-  <a [routerLink]="['/dashboard']" class="mr-1">Dashboard</a> / <a [routerLink]="['/state-view',stateName,stateCode]" class="mx-1">{{stateName}}</a> / <span class="ml-1">{{ district }}</span>
+  @if(isCommunityFlow){
+    <a [routerLink]="['/community-led-improvements']" class="mr-1">Community Led Improvements</a> / 
+    <a [routerLink]="['/community-view',stateName,stateCode]" class="mx-1">{{stateName}}</a> / <span class="ml-1">{{ district }}</span>
+  }@else{
+    <a [routerLink]="['/dashboard']" class="mr-1">Dashboard</a> / <a [routerLink]="['/state-view',stateName,stateCode]" class="mx-1">{{stateName}}</a> / <span class="ml-1">{{ district }}</span>
+  }
 </div>
 <div class="landing-container">
   <div *ngFor="let section of pageData" [style.width]="section.width" [ngClass]="'section-position-' + section.position">
@@ -32,7 +37,7 @@
 
     <!-- country view -->
     <ng-container *ngIf="section.type === 'programs-list'" class="program-list">
-      <app-programs-report-list [headerText]="pageConfig.type === 'communityDetails' ? 'Community led Initiatives' : 'District led Programs'" [CommunityButton]="true" [programs]="programsList" [pageConfig]="pageConfig"></app-programs-report-list>
+      <app-programs-report-list [headerText]="pageConfig.type === 'communityDetails' ? 'Community led Initiatives' : 'District led Programs'" [CommunityButton]="enableCommunityButton" [programs]="programsList" [pageConfig]="pageConfig"></app-programs-report-list>
     </ng-container>
     <!-- Data Indicators Section -->
     <ng-container *ngIf="section.type === 'data-indicators'">
