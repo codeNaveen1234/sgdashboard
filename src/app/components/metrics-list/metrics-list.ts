@@ -42,4 +42,13 @@ export class MetricsListComponent {
       };
     });
   }
+
+  navigateToLocation(item:any) {
+    console.log(item);
+    window.scrollBy({
+      top: 300,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }

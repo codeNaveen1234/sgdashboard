@@ -61,7 +61,7 @@ export class DistrictImprovementsComponent implements OnInit {
   }
 
   getProgramsList() {
-    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${this.pageConfig.type == "communityDetails" ? 'SLC.json':'WLC.json'}`).then((data: any) => {
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/${this.pageConfig.type == "communityDetails" ? 'WLC.json':'SLC.json'}`).then((data: any) => {
       this.programsList = data;
       this.fetchPageData();
     }).catch((error: any) => {

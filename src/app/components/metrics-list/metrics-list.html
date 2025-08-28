@@ -1,6 +1,6 @@
-<div class="metrics-container">
+<div class="metrics-container row col-12">
   @for(item of finalData; track $index){
-    <div class="metrics-card">
+    <div class="metrics-card col-md-6 col-lg-4">
       <div class="icon-heading-section">
         <img [src]="item.icon" alt="icon" />
         <div class="label-value-section">
@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="description">{{ item.description }}</div>
-      <div class="link">*{{ item.linkText }}</div>
+      <div class="link" [ngClass]="{'disabled': item.linkText.length == 0}" (click)="navigateToLocation(item)">{{ item.linkText }}</div>
     </div>
   }
 </div>

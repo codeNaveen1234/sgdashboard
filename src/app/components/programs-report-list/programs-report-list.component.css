@@ -1,5 +1,7 @@
 .main-section {
-    background-color: #e8f5ff !important;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #e8f5ff !important;
 }
 .carousel {
     position: relative;
@@ -94,3 +96,20 @@ mat-card-header {
 h3 {
     font-weight: 700;
   }
+
+.no-image {
+  width: 100% !important;
+  max-width: 500px !important;
+  display: flex;
+  justify-content: center;
+}
+
+.partners-logo {
+  height: 30px;
+}
+
+.partner-name {
+  font-size: .5rem;
+  font-weight: 700;
+  text-align: center;
+}
