@@ -8,3 +8,4 @@ export const NETWORK_HEALTH_PAGE = 'network-health.json'
 export const STATE_DETAILS_PAGE = "state-details-page.json"
 export const DISTRICT_DETAILS_PAGE = "leaders-improvement-district-details.json"
 export const COMMUNITY_DETAILS_PAGE = "community-details-page.json"
+export const COMMUNITY_DASHBOARD_PAGE = "community-led-improvements-page.json"
