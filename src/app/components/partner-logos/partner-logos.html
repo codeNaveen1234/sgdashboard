@@ -4,7 +4,7 @@
     <div class="filter-buttons" *ngIf="showFilters">
       <button (click)="filterLogos(null)" [class.active]="activeCategory === null">All</button>
       <button *ngFor="let category of categories" (click)="filterLogos(category)" [class.active]="activeCategory === category">
-        {{ category }} partners
+        {{ category }}
       </button>
     </div>
     <div class="scroller" data-animated="true">
