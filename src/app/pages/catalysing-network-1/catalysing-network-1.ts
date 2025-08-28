@@ -325,8 +325,7 @@ export class CatalysingNetwork1 implements OnInit {
           if (this.isPartnerShowable) {
             event.stopPropagation();
             const partnersHtml = `
-<div style="
-  position: relative;
+<div style="position: relative;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -335,6 +334,10 @@ export class CatalysingNetwork1 implements OnInit {
   border: 1px solid #000000ff;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
+
+  /* NEW SCROLL STYLES */
+  max-height: 300px;   /* limit tooltip height */
+  overflow-y: auto;    /* enable vertical scroll if content exceeds */
 ">
   <!-- Pointer arrow on left, near top -->
   <div style="
