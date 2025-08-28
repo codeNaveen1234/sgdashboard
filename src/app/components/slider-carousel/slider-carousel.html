@@ -10,8 +10,8 @@
       <div class="carousel-track" #carouselTrack [style.transform]="getTransform()">
         <div class="carousel-slide" *ngFor="let slide of testimonials; let i = index">
           <div class="card" [style.--cardColor]="colors[i % colors.length]">
+            <div class="quote" [style.color]="colors[i % colors.length]">❝</div>
             <div class="message-container">
-              <div class="quote" [style.color]="colors[i % colors.length]">❝</div>
               <p class="message">{{ slide.message }}</p>
             </div>
 
