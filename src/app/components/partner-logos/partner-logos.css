@@ -10,18 +10,25 @@ h2 {
 }
 
 .filter-buttons button {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 0.5rem 1.5rem;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
+  background-color: #fef7ff;
+  border: 0px solid #ccc;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .filter-buttons button.active {
   background-color: var(--primary-color);
   color: white;
-  border-color: var(--primary-color);
+  border: 0px;
+}
+
+button:focus{
+  outline: none;
 }
 
 .scroller {
@@ -94,7 +101,7 @@ h2 {
 
 .partner-name {
   text-align: center;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .partner-type {

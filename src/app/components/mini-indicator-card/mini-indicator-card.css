@@ -10,9 +10,9 @@
   align-items: center;
   min-width: 160px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  margin: 10px;
+  margin: 5px;
   max-width: 160px;
-  min-height: 90px;
+  min-height: 70px;
 }
 
 .mini-indicator-card:hover {
@@ -21,13 +21,13 @@
 }
 
 .mini-indicator-value {
-  font-size: 1.3rem; /* Larger font size */
+  font-size: 16px; /* Larger font size */
   font-weight: bold;
   color: var(--secondary-color-light); /* Subtle text shadow */
 }
 
 .mini-indicator-label {
-  font-size: .8rem;
+  font-size: 12px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for label */
   margin-top: 0.1rem;

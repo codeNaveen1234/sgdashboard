@@ -63,6 +63,7 @@ export class PieChartComponent {
 
   setChartConfig():EChartsOption {
     return {
+    baseOption: {
       title: {
         text: this.total.toString(),
         left: 'center',
@@ -72,8 +73,9 @@ export class PieChartComponent {
       tooltip: { trigger: 'item', formatter: '{b}<br/>{c} ({d}%)' },
       legend: {
         orient: 'vertical',
-        right: 20,
-        top: 'center',
+        right: 0,
+        top: 'middle',
+        align: 'left',
         textStyle: { fontSize: 13 },
         data: this.pieData.map(d => d.name)
       },
@@ -81,6 +83,7 @@ export class PieChartComponent {
         {
           type: 'pie',
           radius: ['55%', '75%'],
+          center: ['35%', '50%'],   
           avoidLabelOverlap: true,
           label: {
             show: true,
@@ -96,8 +99,30 @@ export class PieChartComponent {
           data: this.pieData
         }
       ]
-    }
+    },
+    media: [
+      {
+        query: { maxWidth: 768 },  // 🔹 for tablets & mobiles
+        option: {
+          legend: {
+            orient: 'horizontal',
+            bottom: 0,
+            left: 'center',
+            top: null,
+            right: null
+          },
+          series: [
+            {
+              center: ['50%', '45%'] // recenter chart above legend
+            }
+          ]
+        }
+      }
+    ]
   }
+}
+
+
 
   @Input()
   set pieData(value: any[]) {
