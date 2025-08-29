@@ -11,7 +11,7 @@
       <div class="description">{{ item.description }}</div>
       <div class="link" 
       [ngClass]="{'disabled-card': item.value === 0}" 
-      (click)="item.value !== 0 && navigateToLocation(item)"
+      (click)="navigateToLocation(item)"
       >{{ item.linkText }}</div>
     </div>
   }

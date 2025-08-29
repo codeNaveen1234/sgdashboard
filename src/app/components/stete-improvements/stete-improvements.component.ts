@@ -30,6 +30,7 @@ export class StateImprovementsComponent implements OnInit {
   pageConfig:any;
   programsList:any = [];
   @ViewChild('programsSection', { read: ElementRef }) programsSection!: ElementRef;
+  stateLedMission = 0
 
   constructor(private route: ActivatedRoute) {
     route.data.subscribe((data:any)=>{
@@ -81,6 +82,11 @@ export class StateImprovementsComponent implements OnInit {
     if (partnerLogosSection && partnerLogosSection.partners) {
       this.pageData.allLogos = partnerLogosSection.partners.flatMap((p:any) => p.logos);
     }
+  }
+
+  getMetricsData(data:any){
+    let stateLedProgramValue = data.find((item:any) => item.identifier == "slm")
+    this.stateLedMission = stateLedProgramValue.value
   }
 
 

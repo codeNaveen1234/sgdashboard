@@ -54,6 +54,8 @@ export class DistrictImprovementsComponent implements OnInit {
     if(this.pageConfig.type == "communityDetails"){
       this.enableCommunityButton = false
       this.isCommunityFlow = true
+    }else{
+      this.getCommunityMetrics()
     }
     this.getImprovementsData();
   }
@@ -114,6 +116,14 @@ export class DistrictImprovementsComponent implements OnInit {
       });
     }).catch((error: any) => {
       console.error('Error loading page data:', error);
+    });
+  }
+
+  getCommunityMetrics(){
+    d3.json(`${environment.storageURL}/${environment.bucketName}/${environment.folderName}/districts/${this.districtCode}/community-metrics.json`).then((data: any) => {
+      this.enableCommunityButton = true
+    }).catch((error: any) => {
+      console.error('Error loading community metrics:', error);
     });
   }
 }

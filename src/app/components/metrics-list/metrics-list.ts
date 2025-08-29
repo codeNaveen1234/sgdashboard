@@ -2,6 +2,7 @@ import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
 import { environment } from '../../../../environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-metrics-list',
@@ -18,8 +19,14 @@ export class MetricsListComponent {
   dataFetchPath:any
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
   finalData:any = []
+  @Output() metricsEvent = new EventEmitter<any>();
+  paramsData:any
 
-  constructor(){}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router){
+    this.activatedRoute.paramMap.subscribe((param:any) => {
+      this.paramsData = param.params
+    });
+  }
 
   ngOnInit(){
     this.dataFetchPath = this.replaceCode ? this.path.replace('{code}', this.replaceCode.toString()) : this.path
@@ -28,6 +35,7 @@ export class MetricsListComponent {
 
   fetchData(){
     d3.json(`${this.baseUrl}${this.dataFetchPath}`).then((data:any)=>{
+      this.metricsEvent.emit(data.metrics)
       this.updateData(data.metrics)
     }).catch((err:any)=>{
       console.error("Error loading pie-chart data ",err)
@@ -46,9 +54,13 @@ export class MetricsListComponent {
 
   navigateToLocation(item:any) {
     console.log(item);
-    if(item.label == 'State led program'){
+    if(item.value == 0) return
+    if(item.identifier == 'slm'){
       this.scrollToProgramsEvent.emit();
       return;
+    }else if(item.identifier == 'clm'){
+      this.router.navigate(['/community-view', this.paramsData.state, this.paramsData.code ]);
+      return
     }
     window.scrollBy({
       top: 300,
