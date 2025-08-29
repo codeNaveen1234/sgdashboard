@@ -1,5 +1,5 @@
 .country-view-container {
-  padding: 4rem 8rem;
+  padding: 3rem 8rem;
   background: #e6f6fe!important;
   display: flex;
   flex-direction: row;
@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: flex-end;
   flex: 1;
-  min-width: 200px;
+  min-width: 250px;
 }
 
 .legend-item {
@@ -56,7 +56,7 @@
 #india-map-container {
   width: 100%;
   position: relative;
-  flex: 4;
+  flex: 3.8;
 }
 
 #india-map-container svg {
@@ -84,7 +84,10 @@
 }
 
 .indicator-container{
-  flex: 2;
+  flex: 2.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .indicator-container .heading{
@@ -97,6 +100,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   flex: 1;
+  gap: 10px;
 }
 
 .indicator-container .heading{
@@ -109,18 +113,20 @@
   justify-content: flex-end;
   height: fit-content;
   flex: 1;
+  margin-top: 4rem;
 }
 
 mat-form-field{
   min-width: 300px;
   max-width: 350px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 ::ng-deep .mat-mdc-text-field-wrapper {
   background: white !important;
   border: 1px solid !important;
-  border-radius: 5px !important;
+  border-radius: 8px !important;
 }
 
 ::ng-deep .mat-mdc-select-panel {
@@ -137,4 +143,13 @@ mat-form-field{
   #india-map-container {
     margin-top: 20px;
   }
+}
+
+.legend-item-header{
+  font-size: 12px;
+  font-weight: 600;
+}
+
+::ng-deep .mat-mdc-form-field-infix{
+  padding-bottom: 10px !important;
 }

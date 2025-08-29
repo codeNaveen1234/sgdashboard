@@ -1,6 +1,6 @@
 .catalysing-networks-container {
   text-align: center;
-  padding: 2rem;
+  padding:0 8rem;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -60,15 +60,13 @@
 .legend {
     padding: 16px;
     width: fit-content;
+    min-width: 200px;
     border-radius: 8px;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    margin-bottom: 10%;
-    position:absolute;
-    bottom: -60%;
-    left: 5%;
+    position:relative;
 }
 
 .legend-item {

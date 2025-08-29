@@ -72,3 +72,16 @@ h2 {
 .scroller[data-animated="true"] .scroller__inner:hover { /* pause the scroll whenever your mouse is over the scrolling track. */
   animation-play-state: paused;
 }
+
+.scroller__inner img {
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+  image-rendering: -webkit-optimize-contrast; /* crisper scaling in Chrome */
+  image-rendering: crisp-edges;               /* fallback */
+}
+
+.partners-section{
+    padding: 0 8rem;
+}
