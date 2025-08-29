@@ -14,7 +14,7 @@
 
         <div class="content">
             <div class="program-model-container">
-                <div>
+                <div #galleryTrack>
                     <div class="program-section">
                         <h3>Program Overview</h3>
                         <p>{{ programData.about_the_program_objective }}</p>
@@ -49,11 +49,11 @@
                     </div>
                 </div>
             </div>
-            <h3 *ngIf="displayImages.length">Gallery</h3>
+            <h3 *ngIf="displayImages.length" class="heading">Gallery</h3>
             <section class="gallery-section" *ngIf="displayImages.length">
                 <button class="arrow left" (click)="prevSlide()">&#10094;</button>
                 <div class="gallery-container">
-                    <div class="gallery-track" #galleryTrack>
+                    <div class="gallery-track">
                         <div class="gallery-slide" *ngFor="let img of displayImages">
                             <img [src]="img" alt="Gallery Image" />
                         </div>
@@ -61,7 +61,7 @@
                 </div>
                 <button class="arrow right" (click)="nextSlide()">&#10095;</button>
             </section>
-            <h3 *ngIf="partnerDetails">Partners</h3>
+            <h3 *ngIf="partnerDetails" class="heading">Partners</h3>
             <div *ngIf="partnerDetails" class="partners">
                 <div class="partners-grid">
                     <div class="partner-card" *ngFor="let partner of partnerDetails">

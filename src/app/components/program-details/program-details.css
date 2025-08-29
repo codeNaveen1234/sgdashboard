@@ -1,5 +1,6 @@
 .breadcrumb {
     padding: 20px;
+    padding-bottom: 0;
     font-size: 18px;
     color: #6c757d;
     margin-left: 20px;
@@ -17,7 +18,7 @@
 
 .program-container {
     background-color: #eaf7ff;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .program-model-container {
@@ -40,7 +41,11 @@
     font-size: 18px;
     font-weight: 600;
 }
-
+.heading {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
 .program-section p,
 .info-section p,
 .partners p {
@@ -53,13 +58,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .impact {
     flex: 1;
     min-width: 250px;
-    margin-right: 20px;
 }
 
 .mi-card {
@@ -194,8 +198,6 @@ img {
     justify-content: center;
     position: relative;
     background: #eaf6ff;
-    /* light blue bg like screenshot */
-    padding: 10px;
     border-radius: 8px;
 }
 
@@ -234,6 +236,7 @@ img {
     justify-content: center;
     cursor: pointer;
     font-size: 20px;
+    background-color: transparent;
     /* size of the arrow symbol */
     color: #000;
     /* arrow color */
@@ -286,27 +289,28 @@ img {
 
 
 .content {
-    margin: 0 8%;
+    margin: 0 7.5%;
 }
 
 .title {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    padding:5% 0% 1% 5%;
+    gap: 1rem;
+    padding:2% 0% 0% 3%;
 }
 
 
 .label {
     font-size: 24px;
-    /* Adjust the size of the title */
+    font-weight: bold;
     margin: 0;
 }
 
 .back-icon {
-    font-size: 24px;
-    /* Size of the arrow icon */
+    margin-top: -15px;
+    font-size: 40px; 
+    font-weight: bold; 
+    cursor: pointer;
 }
 
 
@@ -314,7 +318,6 @@ img {
     text-align: center;
     padding: 2rem;
     background-color: #eaf7ff;
-    /* light blue background */
 }
 
 .partners h3 {
@@ -330,6 +333,12 @@ img {
 }
 
 .partner-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    gap: 0.75rem;
+    
     background: #fff;
     border-radius: 12px;
     padding: 1.5rem 1rem;
@@ -345,20 +354,17 @@ img {
 
 .partner-logo {
     max-width: 80px;
-    height: auto;
-    margin-bottom: 1rem;
+    height: 70px;
 }
 
 .partner-name {
     font-size: 1.1rem;
     font-weight: bold;
-    margin: 0.5rem 0;
+    margin: 0;
     color: #000;
 }
 
 .know-more-btn {
-    display: inline-block;
-    margin-top: 0.5rem;
     font-size: 0.85rem;
     color: #000;
     text-decoration: none;
@@ -401,7 +407,8 @@ p {
     }
 
     .back-button {
-        margin-bottom: 0;
+        font-size: 28px;  
+        line-height: 1;
     }
 
     .label {
