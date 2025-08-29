@@ -2,8 +2,6 @@
   background:none;
   padding: 2rem;
   display: flex;
-  text-align: center;
-  align-items: center;  
   transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
   opacity: 0;
   transform: translateY(30px) scale(0.95);
@@ -28,13 +26,14 @@
   padding-left: 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+
 }
 
 .indicator-value {
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
   color: var(--secondary-color-light);
 }
 
@@ -43,10 +42,8 @@
   font-size: 0.9rem;
   color: var(--text-color);
   opacity: 0.8;
-  /* min-height: 2.2em; */
-  display: flex; 
-  align-items: center;
-  justify-content: center;
+  text-align: left;
+
 }
 
 @keyframes slideInUpScale {
