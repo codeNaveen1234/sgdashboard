@@ -76,7 +76,7 @@
       </ng-container>
 
       <ng-container *ngIf="section.type === 'programs-list' && programsList.length > 0" class="program-list">
-        <app-programs-report-list [headerText]="pageConfig.type === 'communityDetails' ? 'Community led Initiatives' : 'State led Programs'" [CommunityButton]="false" [programs]="programsList"></app-programs-report-list>
+        <app-programs-report-list #programsSection [headerText]="pageConfig.type === 'communityDetails' ? 'Community led Initiatives' : 'State led Programs'" [CommunityButton]="false" [programs]="programsList"></app-programs-report-list>
       </ng-container>
 
       <!-- Partner Logos Section -->
@@ -98,7 +98,7 @@
       </ng-container>
 
       <ng-container *ngIf="section.type === 'state-metrics'">
-        <app-metrics-list [data]="section.data" [path]="section.path" [replaceCode] = "stateCode"></app-metrics-list>
+        <app-metrics-list [data]="section.data" [path]="section.path" [replaceCode] = "stateCode" (scrollToProgramsEvent)="scrollToPrograms()"></app-metrics-list>
       </ng-container>
     </div>
   </div>

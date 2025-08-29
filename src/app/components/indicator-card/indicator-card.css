@@ -1,23 +1,31 @@
 .indicator-card {
   background:none;
   padding: 2rem;
-  text-align: center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease; /* Smooth transitions */
-  opacity: 0;
-  transform: translateY(30px) scale(0.95); /* Initial state for animation */
-  animation: slideInUpScale 0.6s forwards; /* New animation */
-
-  /* Flexbox for consistent internal layout */
   display: flex;
+  text-align: center;
+  align-items: center;  
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  animation: slideInUpScale 0.6s forwards;
 }
 
-img {
-  width: 100px;
+.indicator-icon {
+  min-width: 22%;
+  max-width: 30%;
+  object-fit: contain;
+  padding:7px;
+}
+
+.divider {
+  width: 2px;              
+  height: 90px;           
+  background-color: #aaa;  
 }
 
 .indicator-container {
-  padding-left: 1rem;
-  border-left: 3px solid;
+  width: 80%;
+  padding-left: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,14 +39,14 @@ img {
 }
 
 .indicator-label {
-  font-size: .9rem;
+  width: 100%;
+  font-size: 0.9rem;
   color: var(--text-color);
   opacity: 0.8;
-  min-height: 2.2em; /* Ensure consistent height for labels */
-  display: flex; /* Use flex to center text vertically if needed */
+  /* min-height: 2.2em; */
+  display: flex; 
   align-items: center;
   justify-content: center;
-  margin-top: 0;
 }
 
 @keyframes slideInUpScale {
