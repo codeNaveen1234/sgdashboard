@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CountryView } from '../../pages/country-view/country-view';
 import { CarouselComponent } from '../carousel/carousel';
@@ -29,12 +29,19 @@ export class StateImprovementsComponent implements OnInit {
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
   pageConfig:any;
   programsList:any = [];
+  @ViewChild('programsSection', { read: ElementRef }) programsSection!: ElementRef;
 
   constructor(private route: ActivatedRoute) {
     route.data.subscribe((data:any)=>{
       this.pageConfig = data
       console.log(this.pageConfig)
     })
+  }
+
+  scrollToPrograms() {
+    if (this.programsSection) {
+      this.programsSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   ngOnInit(): void {
@@ -55,7 +62,6 @@ export class StateImprovementsComponent implements OnInit {
 
      d3.json(`${this.baseUrl}/${this.pageConfig.jsonPath}`).then((data: any) => {
       this.pageData = data;
-      console.log( this.pageData)
       this.prepareLogosForScrolling();
     }).catch((error: any) => {
       console.error('Error loading page data:', error);

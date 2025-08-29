@@ -87,14 +87,21 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .breadcrumb {
-  padding: 20px;
+  display: flex;
+  align-items: center; 
+  flex-wrap: wrap; 
   font-size: 18px;
   color: #6c757d;
-  margin-left: 20px;
   background: none !important;
 }
 
-.breadcrumb span {
+.breadcrumb a {
+  text-decoration: none;
   color: var(--primary-color);
+  margin-right: 0.25rem;
   font-weight: 700;
+}
+
+.breadcrumb span {
+  color: var(--text-color);
 }

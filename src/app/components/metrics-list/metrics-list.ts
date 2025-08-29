@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
 import { environment } from '../../../../environments/environment';
@@ -14,6 +14,7 @@ export class MetricsListComponent {
   @Input() data: any;
   @Input() path: any;
   @Input() replaceCode?: any
+  @Output() scrollToProgramsEvent = new EventEmitter<void>();
   dataFetchPath:any
   baseUrl:any = `${environment.storageURL}/${environment.bucketName}/${environment.folderName}`
   finalData:any = []
@@ -45,6 +46,10 @@ export class MetricsListComponent {
 
   navigateToLocation(item:any) {
     console.log(item);
+    if(item.label == 'State led program'){
+      this.scrollToProgramsEvent.emit();
+      return;
+    }
     window.scrollBy({
       top: 300,
       left: 0,
