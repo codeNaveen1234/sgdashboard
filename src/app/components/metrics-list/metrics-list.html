@@ -9,7 +9,10 @@
         </div>
       </div>
       <div class="description">{{ item.description }}</div>
-      <div class="link" [ngClass]="{'disabled': item.linkText.length == 0}" (click)="navigateToLocation(item)">{{ item.linkText }}</div>
+      <div class="link" 
+      [ngClass]="{'disabled-card': item.value === 0}" 
+      (click)="item.value !== 0 && navigateToLocation(item)"
+      >{{ item.linkText }}</div>
     </div>
   }
 </div>
