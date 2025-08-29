@@ -4,7 +4,10 @@
     <div [ngClass]="styles.container" (mouseenter)="stopAutoPlay()" (mouseleave)="startAutoPlay()">
       <div [ngClass]="styles.track" #carouselTrack>
         <div [ngClass]="styles.slide" *ngFor="let slide of displaySlides; let i = index">
-          <h3>{{ slide.header }}</h3>
+          <div class="header-icon-container">
+            <img [src]="slide.icon">
+            <h3>{{ slide.header }}</h3>
+          </div>
           <h4>{{ slide.subHeader }}</h4>
           <p>{{ slide.description }}</p>
         </div>
