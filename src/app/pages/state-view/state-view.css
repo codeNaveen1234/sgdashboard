@@ -13,7 +13,7 @@
     flex-direction: column;
     justify-content: flex-end;
     flex: 1;
-    min-width: 200px;
+    min-width: 250px;
   }
   
   .legend-item {
@@ -56,7 +56,7 @@
   #state-map-container {
     width: 100%;
     position: relative;
-    flex: 4;
+    flex: 3.8;
   }
   
   #state-map-container svg {
@@ -78,7 +78,10 @@
   }
   
   .indicator-container{
-    flex: 2;
+    flex: 2.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .indicator-container .heading{
@@ -91,6 +94,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     flex: 1;
+    align-items: center;
+    gap: 5px;
   }
   
   .indicator-container .heading{
@@ -103,6 +108,7 @@
     justify-content: flex-end;
     height: fit-content;
     flex: 1;
+    margin-top: 4rem;
   }
   
   @media (max-width: 1250px){
@@ -114,3 +120,8 @@
       margin-top: 20px;
     }
   }
+
+  .legend-item-header{
+    font-size: 12px;
+    font-weight: 600;
+}

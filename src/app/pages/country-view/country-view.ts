@@ -95,7 +95,7 @@ return d3.json(this.resourcePath.length > 0 ? this.resourcePath :`${this.baseUrl
 
     const container = this.mapContainer.nativeElement;
     const containerWidth = container.offsetWidth;
-    const height = containerWidth * 0.6;
+    const height = containerWidth * 0.7;
 
     const tooltip = d3.select("#map-tooltip");
 
