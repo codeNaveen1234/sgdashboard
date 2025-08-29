@@ -3,7 +3,7 @@
   <div class="breadcrumb">
     <a [routerLink]="['/dashboard']">Dashboard &nbsp;</a>
     @if(pageConfig.type == "communityDetails"){
-      <a [routerLink]="['/community-led-improvements']"> / Community Led Improvements &nbsp; </a>
+      <a [routerLink]="['/community-led-improvements']"> / Community Led Initiatives &nbsp; </a>
     }
     <span> / {{ stateName }}</span>
   </div>
@@ -54,7 +54,8 @@
       <!-- app-state-view -->
       <ng-container *ngIf="section.type === 'state-view'">
         <app-state-view [showVariations]="section.showVariations" [showDetails]="section.showDetails" [selections]="section.selections"
-        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode" [notes]="section.notes" [pageConfig]="pageConfig"></app-state-view>
+        [selectedState]="stateName" [legends]="section.legends" [path]="section.path" [replaceCode] = "stateCode" [notes]="section.notes" [pageConfig]="pageConfig"
+        [stateLedMission]="stateLedMission"></app-state-view>
       </ng-container>
 
       <!-- Data Indicators Section -->
@@ -98,7 +99,7 @@
       </ng-container>
 
       <ng-container *ngIf="section.type === 'state-metrics'">
-        <app-metrics-list [data]="section.data" [path]="section.path" [replaceCode] = "stateCode" (scrollToProgramsEvent)="scrollToPrograms()"></app-metrics-list>
+        <app-metrics-list [data]="section.data" [path]="section.path" [replaceCode] = "stateCode" (scrollToProgramsEvent)="scrollToPrograms()" (metricsEvent)="getMetricsData($event)"></app-metrics-list>
       </ng-container>
     </div>
   </div>

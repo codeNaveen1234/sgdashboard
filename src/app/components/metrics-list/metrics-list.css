@@ -44,7 +44,5 @@
 
 .disabled-card {
   pointer-events: none; 
-  background-color: #EEEEEE;
-  opacity: 0.6;
-  cursor: not-allowed;
+  color: darkgrey;
 }

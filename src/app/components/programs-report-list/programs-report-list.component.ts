@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import * as d3 from 'd3';
 import { LANDING_PAGE } from '../../../constants/urlConstants';
@@ -18,9 +18,14 @@ export class ProgramsReportListComponent implements OnInit {
   @Input() headerText:string = 'Programs List';
   @Input() CommunityButton:boolean = false;
   @Input() pageConfig:any;
+  paramsData:any
 
   partners:any = [];
-  constructor(private router:Router) {}
+  constructor(private router:Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((param:any) => {
+      this.paramsData = param.params
+    });
+  }
 
   @Input() programs:any = []
 
@@ -50,7 +55,8 @@ export class ProgramsReportListComponent implements OnInit {
   }
 
   openCommunityDetails() {
-    this.router.navigate(['/community-led-improvements']);
+    let pathData = this.paramsData
+    this.router.navigate(['/community-led-district-improvements', pathData.state, pathData["st-code"], pathData.district, pathData["dt-code"]]);
   }
 
 

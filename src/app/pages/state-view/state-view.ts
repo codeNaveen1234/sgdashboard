@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import { CommonModule, KeyValuePipe } from '@angular/common';
@@ -15,7 +15,7 @@ import { INDIA } from '../../../constants/urlConstants';
   templateUrl: './state-view.html',
   styleUrls: ['./state-view.css']
 })
-export class StateView implements OnInit, AfterViewInit {
+export class StateView implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('stateMapContainer') private mapContainer!: ElementRef;
   @Input() showDetails: boolean = true;
   @Input() showVariations: boolean = false;
@@ -26,6 +26,7 @@ export class StateView implements OnInit, AfterViewInit {
   @Input() replaceCode?: any
   @Input() notes?: any = []
   @Input() pageConfig:any = '';
+  @Input() stateLedMission?:any = 0
   selectedIndicator: string = 'Micro Improvements Initiated';
   hoveredDistrict: string = ""
   indicatorData: { value: number | string; label: string }[] = [];
@@ -83,6 +84,12 @@ export class StateView implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.drawMap();
+  }
+
+  ngOnChanges(changes: any){
+    if(changes?.slm?.currentValue){
+      this.stateLedMission = changes?.stateLedMission?.currentValue
+    }
   }
 
   private resizeTimeout: any;
@@ -168,7 +175,7 @@ export class StateView implements OnInit, AfterViewInit {
           if (districtInfo) {
             return this.legends[districtInfo.type]?.color || '#fff';
           } else {
-            return '#fff';
+            return this.stateLedMission > 0 ? this.legends["category_2"]?.color : '#fff';
           }
         })
         .attr('stroke', '#000')
