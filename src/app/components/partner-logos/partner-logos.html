@@ -11,11 +11,17 @@
       <ul class="scroller__inner">
         <li *ngFor="let logo of filteredLogos">
           <img [src]="logo.src" [alt]="logo.alt" [ngClass]="styles.logo">
+          <div class="partner-name">
           <p>{{logo.name}}</p>
+            <p class="partner-type">{{logo.category}}</p>
+          </div>
         </li>
         <li *ngFor="let logo of filteredLogos" aria-hidden="true">
           <img [src]="logo.src" [alt]="logo.alt" [ngClass]="styles.logo">
+          <div class="partner-name">
           <p>{{logo.name}}</p>
+            <p class="partner-type">{{logo.category}}</p>
+          </div>
         </li>
       </ul>
     </div>

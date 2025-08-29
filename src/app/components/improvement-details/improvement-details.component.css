@@ -255,6 +255,10 @@
 
   /* Responsive Adjustments */
   @media (max-width: 768px) {
+    .dashboard-main-section{
+    padding: 2rem;
+    }
+
     .dashboard-main-title {
       font-size: 2.8rem;
     }

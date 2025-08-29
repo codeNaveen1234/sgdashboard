@@ -1,6 +1,7 @@
 .filter-buttons {
   margin-bottom: 2rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -84,4 +85,24 @@ h2 {
 
 .partners-section{
     padding: 0 8rem;
+
+}
+
+.partners-section h2{
+  font-weight: bolder;
+}
+
+.partner-name {
+  text-align: center;
+  font-weight: 500;
+}
+
+.partner-type {
+  font-size: 12px;
+}
+
+@media (max-width: 768px){
+  .partners-section{
+    padding: 0 2rem;
+}
 }
