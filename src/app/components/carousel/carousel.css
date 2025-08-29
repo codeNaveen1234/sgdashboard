@@ -29,7 +29,9 @@
   font-size: 1.5rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  font-size: 32px;      /* a bit bigger, closer to figma */
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .carousel-slide h4 {
@@ -67,4 +69,11 @@
   .carousel-section{
     padding:  2rem;
   }
+}
+
+.header-icon-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
 }
