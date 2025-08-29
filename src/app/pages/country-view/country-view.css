@@ -1,19 +1,19 @@
 .country-view-container {
   padding: 3rem 8rem;
-  background: #e6f6fe!important;
+  background: #EEEEEE!important;
   display: flex;
   flex-direction: row;
 }
 
 .legend-container {
-  background-color: #e8f5ff; /* Light blue background */
+  background-color: #EEEEEE; /* Light gray background */
   padding: 16px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   flex: 1;
-  min-width: 250px;
+  min-width: 200px;
 }
 
 .legend-item {
@@ -56,7 +56,7 @@
 #india-map-container {
   width: 100%;
   position: relative;
-  flex: 3.8;
+  flex: 3;
 }
 
 #india-map-container svg {
@@ -84,7 +84,7 @@
 }
 
 .indicator-container{
-  flex: 2.2;
+  flex: 2.5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,10 +96,8 @@
 }
 
 .indicator-container .indicators{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* always 2 columns */
   gap: 10px;
 }
 
@@ -136,6 +134,12 @@ mat-form-field{
 }
 
 @media (max-width: 1250px){
+   .indicator-container .indicators {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
   .country-view-container {
     flex-direction: column-reverse;
   }
@@ -153,3 +157,10 @@ mat-form-field{
 ::ng-deep .mat-mdc-form-field-infix{
   padding-bottom: 10px !important;
 }
+
+@media (max-width: 768px){
+  .country-view-container {
+    padding: 2rem; /* tighter padding for small devices */
+  }
+}
+

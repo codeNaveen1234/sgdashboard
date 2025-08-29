@@ -1,10 +1,9 @@
 .carousel-section {
-  padding: 5rem 0;
+  padding: 5rem 0 0 8rem;
   text-align: center;
   background-color: var(--background-color);
   color: var(--text-color);
   overflow: hidden;
-  margin-left: 10%;
 }
 
 .carousel-container {
@@ -20,7 +19,6 @@
 
 .carousel-slide {
   flex: 0 0 100%; /* Each slide takes full width */
-  padding: 2rem;
   background-color: var(--hero-background-color);
   border-radius: 12px;
   text-align: left;
@@ -64,4 +62,9 @@
 
 .dot.active {
   background-color: var(--primary-color);
+}
+@media (max-width: 768px){
+  .carousel-section{
+    padding:  2rem;
+  }
 }
