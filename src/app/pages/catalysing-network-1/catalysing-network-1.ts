@@ -384,7 +384,7 @@ export class CatalysingNetwork1 implements OnInit {
 
         <!-- text cell -->
         <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
-          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+          <div style="display: flex;text-align: left; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
             ${p.name}
           </div>
           <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
@@ -514,7 +514,7 @@ export class CatalysingNetwork1 implements OnInit {
 
         <!-- text cell -->
         <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
-          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+          <div style="display: flex; text-align: left; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
             ${p.name}
           </div>
           <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
@@ -609,17 +609,17 @@ export class CatalysingNetwork1 implements OnInit {
     ">
       <div style="
         display: grid;
+        text-align: left; 
         grid-template-columns: 36px 1fr; /* fixed icon column + text column */
-        align-items: center;
+        align-items: flex-start;  /* ✅ align content from top, not center */
         padding: 8px 12px;
         ${index !== d.partners.length - 1 ? 'border-bottom: 1px solid #f0f0f0;' : ''}
       ">
         <!-- fixed icon cell -->
         <div style="
           width: 36px;
-          height: 36px;
           display: flex;
-          align-items: center;
+          align-items: flex-start;  /* ✅ icon aligns top */
           justify-content: center;
           flex-shrink: 0;
         ">
@@ -632,11 +632,18 @@ export class CatalysingNetwork1 implements OnInit {
         </div>
 
         <!-- text cell -->
-        <div style="display: flex; flex-direction: column; justify-content: center; margin: 0; padding-left: 5px;">
-          <div style="display: flex; font-weight: 600; font-size: 14px; color: #000; line-height: 1.2; margin: 0;">
+        <div style="
+          display: flex; 
+          flex-direction: column; 
+          justify-content: flex-start; /* ✅ text starts at top */
+          margin: 0; 
+          padding-left: 5px;
+          text-align: left;           /* ✅ ensure left alignment */
+        ">
+          <div style=" display: flex;  text-align: left; font-weight: 600; font-size: 14px; color: #000; line-height: 1.3; margin: 0; word-break: break-word;">
             ${p.name}
           </div>
-          <div style="display: flex; font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
+          <div style="font-size: 12px; color: #777; line-height: 1.2; margin: 0;">
             ${p.category} partner
           </div>
         </div>
@@ -644,6 +651,7 @@ export class CatalysingNetwork1 implements OnInit {
     </a>
   `).join('')}
 </div>
+
 `;
               tooltip.style('display', 'block')
                 .html(partnersHtml)
