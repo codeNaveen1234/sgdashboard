@@ -133,4 +133,11 @@
   .state-view-container {
     padding: 1rem; /* tighter padding for small devices */
   }
+  .indicator-container .indicators {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
 }

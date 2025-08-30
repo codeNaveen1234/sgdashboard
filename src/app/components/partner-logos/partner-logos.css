@@ -12,7 +12,7 @@ h2 {
 .filter-buttons button {
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
   background-color: #fef7ff;
-  border: 0px solid #ccc;
+  border: 0px;
   border-radius: 10px;
   padding: 0.7rem 1rem;
   cursor: pointer;
@@ -33,13 +33,19 @@ button:focus{
 
 .scroller {
   max-width: 100%;
+  overflow: hidden;
 }
 
 .scroller__inner {
   padding-block: 1rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 3rem;
+  width: max-content;
+
+  animation-name: scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .scroller__inner li {
@@ -53,16 +59,6 @@ button:focus{
   margin: 0;
 }
 
-.scroller[data-animated="true"] {
-  overflow: hidden;
-}
-
-.scroller[data-animated="true"] .scroller__inner {
-  width: max-content;
-  flex-wrap: nowrap;
-  animation: scroll 100s linear infinite;
-}
-
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -72,12 +68,7 @@ button:focus{
   }
 }
 
-.partner-logo {
-  height: 100px;
-  transition: filter 0.3s ease, opacity 0.3s ease; /* Smooth transition */
-}
-
-.scroller[data-animated="true"] .scroller__inner:hover { /* pause the scroll whenever your mouse is over the scrolling track. */
+.scroller__inner:hover {
   animation-play-state: paused;
 }
 
@@ -86,16 +77,15 @@ button:focus{
   height: 80px;
   object-fit: contain;
   display: block;
-  image-rendering: -webkit-optimize-contrast; /* crisper scaling in Chrome */
-  image-rendering: crisp-edges;               /* fallback */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-.partners-section{
-    padding: 0 8rem;
-
+.partners-section {
+  padding: 0 8rem;
 }
 
-.partners-section h2{
+.partners-section h2 {
   font-weight: bolder;
 }
 
@@ -112,4 +102,16 @@ button:focus{
   .partners-section{
     padding: 0 2rem;
 }
+}
+
+.filter-buttons button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  vertical-align: middle;
+  transition: filter 0.3s ease;
+}
+
+.filter-buttons button.active img {
+  filter: brightness(0) invert(1);
 }

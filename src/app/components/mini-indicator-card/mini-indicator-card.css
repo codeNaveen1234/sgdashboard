@@ -1,6 +1,6 @@
 .mini-indicator-card {
   background: white;
-  border: 1px solid;
+  border: 1px solid #aeb6ba;
   border-radius: 12px; /* Slightly more rounded corners */
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
