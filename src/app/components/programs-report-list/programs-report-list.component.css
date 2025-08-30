@@ -113,3 +113,8 @@ h3 {
   font-weight: 700;
   text-align: center;
 }
+.partners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

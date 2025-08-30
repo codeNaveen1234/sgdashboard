@@ -9,15 +9,16 @@
 }
 
 .indicator-icon {
-  min-width: 22%;
-  max-width: 30%;
+  min-width: 25%;
+  max-width: 35%;
   object-fit: contain;
-  padding:7px;
+  padding-right: 2%;
 }
 
 .divider {
-  width: 2px;              
-  height: 90px;           
+  width: 0.2%;
+  min-height: 30%;           
+  max-height: 60%;           
   background-color: #aaa;  
 }
 
