@@ -89,11 +89,17 @@ export class ProgramDetails {
   }
 
   onTransitionEnd(): void {
-    if (this.currentSlide === this.programData.logo_urls.length) {
-      this.currentSlide = 0;
-      this.updateSlidePosition(false);
-    }
+  const total = this.displayImages.length;
+  if (this.currentSlide === 0) { // went left past first
+    this.currentSlide = total;
+    this.updateSlidePosition(false);
   }
+  if (this.currentSlide === total + 1) { // went right past last
+    this.currentSlide = 1;
+    this.updateSlidePosition(false);
+  }
+}
+
 
   nextSlide(): void {
     if (this.currentSlide < this.programData.logo_urls.length - this.visibleSlides) {
@@ -114,13 +120,14 @@ export class ProgramDetails {
   }
 
   updateSlidePosition(animate = true): void {
-    if (this.galleryTrack) {
-      const track = this.galleryTrack.nativeElement;
-      track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
-      const slideWidth = 100 / this.visibleSlides;
-      track.style.transform = `translateX(-${this.currentSlide * slideWidth}%)`;
-    }
+  if (this.galleryTrack) {
+    const track = this.galleryTrack.nativeElement;
+    track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+    const slideWidth = 100 / this.visibleSlides;
+    track.style.transform = `translateX(-${this.currentSlide * slideWidth}%)`;
   }
+}
+
 
   goBack(): void {
     this.location.back(); // navigates to the previous page

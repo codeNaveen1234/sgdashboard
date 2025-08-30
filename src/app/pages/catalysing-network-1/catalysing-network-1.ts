@@ -29,6 +29,35 @@ export class CatalysingNetwork1 implements OnInit {
     collaborator: { hqIcon: "./assets/marker-icons/hq-triangle.svg", icon: "./assets/marker-icons/triangle.svg", color: "red" },
     anchor: { hqIcon: "./assets/marker-icons/hq-diamond.svg", icon: "./assets/marker-icons/diamond.svg", color: "pink" }
   }
+
+
+   displayLegends = [
+    // {
+    //   type: 'line',
+    //   label: 'Momentum Impact',
+    //   class: 'momentum-line'
+    // },
+    {
+      type: 'line',
+      label: 'Strategy Impact',
+      class: 'strategy-line'
+    },
+    {
+      type: 'icon',
+      label: 'Momentum Partners',
+      icon: './assets/marker-icons/momentum-partners.svg'
+    },
+    {
+      type: 'icon',
+      label: 'Strategic Partners',
+      icon: './assets/marker-icons/strategic-partners.svg'
+    },
+    {
+      type: 'note',
+      label: '*For illustration purposes only'
+    }
+  ];
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
