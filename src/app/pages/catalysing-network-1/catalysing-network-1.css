@@ -160,3 +160,31 @@
       flex-direction: column-reverse;
     }
 }
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.legend-line {
+  width: 24px;
+  height: 2px;
+  margin-right: 6px;
+}
+
+.momentum-line {
+  border-top: 2px dashed blue;
+}
+
+.strategy-line {
+  border-top: 2px dashed green;
+}
+
+.legend-circle {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+
