@@ -18,8 +18,9 @@
 .label-value-section{
   align-self: center;
   margin-left: 16px;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
+  color:#52585C;
 }
 
 .value{
@@ -28,15 +29,15 @@
 }
 
 .description{
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
   margin: 8px 0px;
   flex: 1;
 }
 
 .link{
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: #0051FF;
   cursor: pointer;
   width: fit-content;
