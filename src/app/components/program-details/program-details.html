@@ -51,15 +51,18 @@
             </div>
             <h3 *ngIf="displayImages.length" class="heading">Gallery</h3>
             <section class="gallery-section" *ngIf="displayImages.length">
-                <button class="arrow left" (click)="prevSlide()">&#10094;</button>
+                <button class="arrow left" *ngIf="currentSlide > 0"  (click)="prevSlide()">&#10094;</button>
                 <div class="gallery-container">
                     <div class="gallery-track" #galleryTrack>
-                        <div class="gallery-slide" *ngFor="let img of displayImages">
-                            <img [src]="img" alt="Gallery Image" />
-                        </div>
+                        <div class="gallery-slide"
+     *ngFor="let img of displayImages"
+     [ngStyle]="{'flex': '0 0 ' + (100 / visibleSlides) + '%'}">
+  <img [src]="img" alt="Gallery Image" />
+</div>
+
                     </div>
                 </div>
-                <button class="arrow right" (click)="nextSlide()">&#10095;</button>
+                <button *ngIf="currentSlide < displayImages.length - this.visibleSlides"  class="arrow right" (click)="nextSlide()">&#10095;</button>
             </section>
             <h3 *ngIf="partnerDetails" class="heading">Partners</h3>
             <div *ngIf="partnerDetails" class="partners">
