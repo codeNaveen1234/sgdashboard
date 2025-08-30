@@ -73,17 +73,18 @@ export class PieChartComponent {
       tooltip: { trigger: 'item', formatter: '{b}<br/>{c} ({d}%)' },
       legend: {
         orient: 'vertical',
-        right: 0,
+        right: 10,
         top: 'middle',
         align: 'left',
         textStyle: { fontSize: 13 },
+        itemGap: 8,
         data: this.pieData.map(d => d.name)
       },
       series: [
         {
           type: 'pie',
           radius: ['55%', '75%'],
-          center: ['35%', '50%'],   
+          center: ['50%', '50%'],
           avoidLabelOverlap: true,
           label: {
             show: true,
@@ -109,7 +110,8 @@ export class PieChartComponent {
             bottom: 0,
             left: 'center',
             top: null,
-            right: null
+            right: null,
+            itemGap: 12
           },
           series: [
             {
