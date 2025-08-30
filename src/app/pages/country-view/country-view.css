@@ -159,7 +159,14 @@ mat-form-field{
 
 @media (max-width: 768px){
   .country-view-container {
-    padding: 2rem; /* tighter padding for small devices */
+    padding: 1rem; /* tighter padding for small devices */
+  }
+  .indicator-container .indicators {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 }
 

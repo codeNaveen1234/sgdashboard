@@ -163,7 +163,16 @@
     }
   }
 }
-
+@media (max-width: 1560px) {
+  .carousel-container .carousel .carousel-slide {
+    flex: 0 0 45%;
+  }
+}
+@media (max-width: 1260px) {
+  .carousel-container .carousel .carousel-slide {
+    flex: 0 0 50%;
+  }
+}
 /* Media Queries for Responsiveness */
 
 /* Tablets and smaller desktops */
